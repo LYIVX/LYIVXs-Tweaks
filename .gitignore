@@ -1,0 +1,40 @@
+# Gradle
+.gradle/
+build/
+common/build/
+fabric/build/
+fabric/run/
+fabric/gradle/
+neoforge/build/
+neoforge/run/
+neoforge/gradle/
+out/
+bin/
+
+# Minecraft run dirs (Fabric/NeoForge dev runs)
+run/
+runClient/
+runServer/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.vscode/
+.run/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Logs, dumps
+logs/
+*.log
+*.hprof
+
+# Caches
+.loom/
