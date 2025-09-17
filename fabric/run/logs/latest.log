@@ -1,0 +1,18 @@
+[02:09:51] [main/INFO] (FabricLoader/GameProvider) Loading Minecraft 1.21.4 with Fabric Loader 0.17.2
+[02:09:52] [main/WARN] (FabricLoader/Resolution) Mod resolution failed
+[02:09:52] [main/INFO] (FabricLoader/Resolution) Immediate reason: [HARD_DEP_NO_CANDIDATE ls_core 1.1.4 {depends resourcefullib @ [*]}, ROOT_FORCELOAD_SINGLE ls_core 1.1.4]
+[02:09:52] [main/INFO] (FabricLoader/Resolution) Reason: [HARD_DEP ls_core 1.1.4 {depends resourcefullib @ [*]}]
+[02:09:52] [main/INFO] (FabricLoader/Resolution) Fix: add [add:resourcefullib 1 ([(-∞,∞)])], remove [], replace []
+[02:09:52] [main/ERROR] (FabricLoader) Incompatible mods found!
+net.fabricmc.loader.impl.FormattedException: Some of your mods are incompatible with the game or each other!
+A potential solution has been determined, this may resolve your problem:
+	 - Install resourcefullib, any version.
+More details:
+	 - Mod 'LYIVX's Core' (ls_core) 1.1.4 requires any version of resourcefullib, which is missing!
+	at net.fabricmc.loader.impl.FormattedException.ofLocalized(FormattedException.java:51) ~[fabric-loader-0.17.2.jar:?]
+	at net.fabricmc.loader.impl.FabricLoaderImpl.load(FabricLoaderImpl.java:202) ~[fabric-loader-0.17.2.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.Knot.init(Knot.java:142) ~[fabric-loader-0.17.2.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:66) [fabric-loader-0.17.2.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.17.2.jar:?]
+	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86) [dev-launch-injector-0.2.1+build.8.jar:?]
+	at dev.architectury.transformer.TransformerRuntime.main(TransformerRuntime.java:220) [architectury-transformer-5.2.87-runtime.jar:5.2.87]

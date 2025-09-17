@@ -1,0 +1,46 @@
+{
+  "_comment": "LYIVX's Tweaks — English (US)",
+
+  "mod.ls_tweaks": "LYIVX's Tweaks",
+  "title.ls_tweaks.config": "LYIVX's Tweaks — Settings",
+  "modmenu.descriptionTranslation.ls_tweaks": "Quality-of-life tweaks for inventory management, sorting, and auto-refill.",
+
+  "category.ls_tweaks": "LYIVX's Tweaks",
+  "key.ls_tweaks.sort_inventory": "Sort Inventory / Container",
+
+  "config.ls_tweaks.refill_enabled": "Enable Auto-Refill",
+  "config.ls_tweaks.refill_enabled.tooltip": "Automatically refill hotbar stacks from your inventory.",
+  "config.ls_tweaks.refill_strictNbt": "Strict NBT Matching",
+  "config.ls_tweaks.refill_strictNbt.tooltip": "Only refill with items that match NBT/components (enchants, names, data).",
+  "config.ls_tweaks.refill_includeFood": "Include Food",
+  "config.ls_tweaks.refill_includeFood.tooltip": "Also refill edible items when consumed.",
+  "config.ls_tweaks.refill_includeProjectiles": "Include Projectiles",
+  "config.ls_tweaks.refill_includeProjectiles.tooltip": "Also refill arrows, snowballs, pearls, and similar throwables.",
+  "config.ls_tweaks.refill_workOnContainerScreens": "Allow in Containers",
+  "config.ls_tweaks.refill_workOnContainerScreens.tooltip": "Allow auto-refill while a container screen is open.",
+
+  "config.ls_tweaks.sorting_enabled": "Enable Sorting",
+  "config.ls_tweaks.sorting_enabled.tooltip": "Enable inventory and container sorting features.",
+  "config.ls_tweaks.sorting_mergeBeforeSort": "Merge Before Sort",
+  "config.ls_tweaks.sorting_mergeBeforeSort.tooltip": "Combine identical stacks before ordering.",
+  "config.ls_tweaks.sorting_unstackablesLast": "Unstackables Last",
+  "config.ls_tweaks.sorting_unstackablesLast.tooltip": "Place unstackable items at the end in Category mode.",
+  "config.ls_tweaks.sorting_allowContainerSorting": "Allow Container Sorting",
+  "config.ls_tweaks.sorting_allowContainerSorting.tooltip": "Enable sorting for containers that are whitelisted by datapacks.",
+
+  "tooltip.ls_tweaks.sort.inventory.category": "Sort your inventory (Category)",
+  "tooltip.ls_tweaks.sort.inventory.alpha_asc": "Sort your inventory (A→Z)",
+  "tooltip.ls_tweaks.sort.inventory.alpha_desc": "Sort your inventory (Z→A)",
+  "tooltip.ls_tweaks.sort.container.category": "Sort this container (Category)",
+  "tooltip.ls_tweaks.sort.container.alpha_asc": "Sort this container (A→Z)",
+  "tooltip.ls_tweaks.sort.container.alpha_desc": "Sort this container (Z→A)",
+
+  "message.ls_tweaks.sorting.container_disabled": "Sorting disabled for this container.",
+  "message.ls_tweaks.sorting.inventory_only": "Open your inventory (R) or use Shift+R in a container.",
+  "message.ls_tweaks.sorting.inventory_sorted_category": "Sorting: Inventory (Category)",
+  "message.ls_tweaks.sorting.inventory_sorted_alpha_asc": "Sorting: Inventory (A→Z)",
+  "message.ls_tweaks.sorting.inventory_sorted_alpha_desc": "Sorting: Inventory (Z→A)",
+  "message.ls_tweaks.sorting.container_sorted_category": "Sorting: Container (Category)",
+  "message.ls_tweaks.sorting.container_sorted_alpha_asc": "Sorting: Container (A→Z)",
+  "message.ls_tweaks.sorting.container_sorted_alpha_desc": "Sorting: Container (Z→A)"
+}
