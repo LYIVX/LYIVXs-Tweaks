@@ -1,0 +1,24 @@
+{
+  "vertical": {
+    "menu_ids": [
+      "minecraft:smithing",
+      "minecraft:cartography_table",
+      "minecraft:enchanting_table",
+      "minecraft:loom",
+      "minecraft:beacon"
+    ],
+    "screen_classes": []
+  },
+  "horizontal": {
+    "menu_ids": [
+      "minecraft:furnace",
+      "minecraft:brewing_stand",
+      "minecraft:anvil",
+      "minecraft:stonecutter",
+      "minecraft:grindstone",
+      "minecraft:blast_furnace",
+      "minecraft:smoker"
+    ],
+    "screen_classes": []
+  }
+}
