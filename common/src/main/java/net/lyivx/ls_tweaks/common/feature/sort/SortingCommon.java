@@ -3,7 +3,7 @@ package net.lyivx.ls_tweaks.common.feature.sort;
 import net.lyivx.ls_tweaks.common.config.ConfigProvider;
 import net.lyivx.ls_tweaks.common.debug.QolDebug;
 import net.lyivx.ls_tweaks.common.network.QolNet;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.lyivx.ls_tweaks.common.util.QuickOpContext;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -28,13 +28,31 @@ public final class SortingCommon {
     private static void sortPlayerMainOnly(ServerPlayer sp, QolNet.SortC2SPayload.Mode mode, boolean merge, boolean unstackablesLast) {
         var inv = sp.getInventory();
 
+        boolean respectLocks = ConfigProvider.slotLockStopQuickMoves();
+        List<Integer> writable = new ArrayList<>(27);
         List<ItemStack> area = new ArrayList<>(27);
-        for (int i = 9; i <= 35; i++) area.add(inv.getItem(i).copy());
+        for (int i = 9; i <= 35; i++) {
+            if (respectLocks && net.lyivx.ls_tweaks.common.feature.slotlock.SlotLockCommon.isLocked(sp, i) && !inv.getItem(i).isEmpty()) {
+                // when respecting locks, keep locked slot’s current stack as-is; exclude from sorting area
+                continue;
+            }
+            writable.add(i);
+            area.add(inv.getItem(i).copy());
+        }
 
         QolDebug.log("Server: sorting PLAYER MAIN (9..35) mode=" + mode + " merge=" + merge + " unstackablesLast=" + unstackablesLast);
         List<ItemStack> sorted = InventorySorter.sort(area, mode, merge, unstackablesLast);
 
-        for (int i = 0; i < sorted.size(); i++) inv.setItem(9 + i, sorted.get(i));
+        for (int j = 0; j < sorted.size(); j++) {
+            int idx = writable.get(j);
+            if (respectLocks && net.lyivx.ls_tweaks.common.feature.slotlock.SlotLockCommon.isLocked(sp, idx)) {
+                // allow placing only if item matches remembered signature
+                ItemStack st = sorted.get(j);
+                if (st.isEmpty()) continue;
+                if (!net.lyivx.ls_tweaks.common.feature.slotlock.SlotLockCommon.allowsItem(sp, idx, st)) continue;
+            }
+            try { QuickOpContext.enter(); inv.setItem(idx, sorted.get(j)); } finally { QuickOpContext.exit(); }
+        }
         inv.setChanged();
         sp.containerMenu.broadcastChanges();
     }
@@ -51,7 +69,6 @@ public final class SortingCommon {
         }
 
         // Blocklisted containers: ignore
-        var id = BuiltInRegistries.MENU.getKey(menu.getType());
         if (!SortingWhitelist.isAllowed(menu, null)) {
             return;
         }

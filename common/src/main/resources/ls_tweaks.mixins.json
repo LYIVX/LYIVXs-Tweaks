@@ -4,8 +4,12 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
+    "ScreenMixin",
+    "KeyboardHandlerMixin"
   ],
   "mixins": [
+    "Slot_mayPlaceMixin",
+    "Inventory_addMixin"
   ],
   "injectors": {
     "defaultRequire": 1

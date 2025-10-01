@@ -15,7 +15,9 @@ public final class LYIVXs_tweaks {
 
     public static void init() {
         QolNet.register();             // register packets (common side)
+
         RefillCommon.register();       // server logic hooks
+        net.lyivx.ls_tweaks.common.feature.slotlock.SlotLockCommon.register();
 
         SortingWhitelistData.register();
         InventoryButtonLayoutData.register();

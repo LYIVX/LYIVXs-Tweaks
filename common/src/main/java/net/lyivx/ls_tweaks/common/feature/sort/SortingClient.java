@@ -3,11 +3,9 @@ package net.lyivx.ls_tweaks.common.feature.sort;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.networking.NetworkManager;
-import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import net.lyivx.ls_tweaks.common.config.ConfigProvider;
 import net.lyivx.ls_tweaks.common.debug.QolDebug;
 import net.lyivx.ls_tweaks.common.network.QolNet;
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -17,18 +15,15 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.InventoryMenu;
 import org.lwjgl.glfw.GLFW;
 
+import static net.lyivx.ls_tweaks.common.keybinds.SortKeybind.SORT_KEY;
 
 public final class SortingClient {
-    private static KeyMapping SORT_KEY;
     private static boolean guiWasDown = false; // edge-detect while a GUI is open
 
     /** Call from client init. */
     public static void register() {
-        SORT_KEY = new KeyMapping("key.ls_tweaks.sort_inventory", GLFW.GLFW_KEY_R, "category.ls_tweaks");
-        KeyMappingRegistry.register(SORT_KEY);
 
         ClientTickEvent.CLIENT_POST.register(client -> {
             if (client == null) return;
@@ -45,7 +40,7 @@ public final class SortingClient {
                 return; // chat/pause/others
             }
 
-            // Poll raw key while GUI is up (KeyMapping.consumeClick() won’t fire here)
+            // Poll current bound key while GUI is up (KeyMapping.consumeClick() won’t fire here)
             int keyCode = SORT_KEY.getDefaultKey().getValue();
             if (keyCode == InputConstants.UNKNOWN.getValue()) { guiWasDown = false; return; }
             long window = Minecraft.getInstance().getWindow().getWindow();
@@ -79,7 +74,7 @@ public final class SortingClient {
                     debug("Action: sort PLAYER inventory (R)");
                     NetworkManager.sendToServer(new QolNet.SortC2SPayload(
                             QolNet.SortC2SPayload.Target.PLAYER,
-                            QolNet.SortC2SPayload.Mode.DEFAULT,
+                            resolveDefaultSortMode(),
                             merge, unstackLast
                     ));
                     toast(client, "Sorting: Inventory");
@@ -122,7 +117,7 @@ public final class SortingClient {
                 debug("Action: sort CONTAINER (Shift+R)");
                 NetworkManager.sendToServer(new QolNet.SortC2SPayload(
                         QolNet.SortC2SPayload.Target.CONTAINER,
-                        QolNet.SortC2SPayload.Mode.DEFAULT,
+                        resolveDefaultSortMode(),
                         merge, unstackLast
                 ));
                 toast(client, "Sorting: Container");
@@ -134,6 +129,16 @@ public final class SortingClient {
                 debug("==== Sort key handling done ====");
             }
         });
+    }
+
+    private static QolNet.SortC2SPayload.Mode resolveDefaultSortMode() {
+        var cfg = ConfigProvider.defaultSortMode();
+        // Map config sort choice to network mode
+        return switch (cfg) {
+            case CATEGORY -> QolNet.SortC2SPayload.Mode.DEFAULT;
+            case A_TO_Z -> QolNet.SortC2SPayload.Mode.ALPHA_ASC;
+            case Z_TO_A -> QolNet.SortC2SPayload.Mode.ALPHA_DESC;
+        };
     }
 
     private static void toast(Minecraft mc, String msg) {

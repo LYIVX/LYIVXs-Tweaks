@@ -6,8 +6,6 @@
     "minecraft:generic_9x4",
     "minecraft:generic_9x5",
     "minecraft:generic_9x6",
-    "minecraft:generic_3x3",
-    "minecraft:hopper",
     "minecraft:shulker_box"
   ],
   "screen_classes": []

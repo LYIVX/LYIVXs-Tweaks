@@ -5,7 +5,6 @@ import net.lyivx.ls_tweaks.common.config.ConfigProvider;
 import net.lyivx.ls_tweaks.common.debug.QolDebug;
 import net.lyivx.ls_tweaks.common.feature.sort.InventoryButtonLayoutData;
 import net.lyivx.ls_tweaks.common.feature.sort.SortingWhitelist;
-import net.lyivx.ls_tweaks.common.feature.sort.SortingWhitelistData;
 import net.lyivx.ls_tweaks.common.network.QolNet;
 import net.lyivx.ls_tweaks.common.ui.IconButton;
 import net.minecraft.client.Minecraft;
@@ -37,12 +36,23 @@ public final class SortingButtons {
     /** Build all buttons appropriate for the current screen. */
     public static List<IconButton> createSortButtons(Screen screen) {
         List<IconButton> out = new ArrayList<>();
-        if (!ConfigProvider.sortingEnabled()) return out;
+        if (!ConfigProvider.sortingEnabled() || !ConfigProvider.uiShowSortingButtons()) {
+            return java.util.Collections.emptyList();
+        }
         if (!(screen instanceof AbstractContainerScreen<?> cs)) return out;
 
         boolean isPlayerInvUI = isPlayerInventoryScreen(screen);
         boolean isContainerUI = !isPlayerInvUI;
         boolean containerAllowed = isContainerUI && SortingWhitelist.isAllowed(cs.getMenu(), cs);
+
+        // Config-driven behavior
+        boolean minimized = ConfigProvider.sortingMinimizedDisplay();
+        // Map default sort mode → payload mode
+        QolNet.SortC2SPayload.Mode defaultMode = switch (ConfigProvider.defaultSortMode()) {
+            case CATEGORY -> QolNet.SortC2SPayload.Mode.DEFAULT;
+            case A_TO_Z -> QolNet.SortC2SPayload.Mode.ALPHA_ASC;
+            case Z_TO_A -> QolNet.SortC2SPayload.Mode.ALPHA_DESC;
+        };
 
         // sizes/placement
         final int bw = 12, bh = 10;
@@ -59,6 +69,20 @@ public final class SortingButtons {
             if (anchor == null) return;
             int xCat = anchor.x();
             int y    = anchor.y();
+            if (minimized) {
+                String texName;
+                String suffix;
+                switch (defaultMode) {
+                    case DEFAULT -> { texName = "sorting_category_button"; suffix = " (Category)"; }
+                    case ALPHA_ASC -> { texName = "sorting_a_button"; suffix = " (A→Z)"; }
+                    case ALPHA_DESC -> { texName = "sorting_z_button"; suffix = " (Z→A)"; }
+                    default -> { texName = "sorting_category_button"; suffix = " (Category)"; }
+                }
+                out.add(new IconButton(xCat, y, bw, bh, tex(texName, false), tex(texName, true),
+                        Component.literal(labelFor(target) + suffix),
+                        btn -> send(target, defaultMode)));
+                return;
+            }
             int xZ = xCat - gapX - bw;
             int xA = xZ   - gapX - bw;
             out.add(new IconButton(xA, y, bw, bh, tex("sorting_a_button", false), tex("sorting_a_button", true),
@@ -77,6 +101,22 @@ public final class SortingButtons {
             if (anchor == null) return;
             int x = anchor.x();
             int y = anchor.y();
+
+            if (minimized) {
+                String texName;
+                String suffix;
+                switch (defaultMode) {
+                    case DEFAULT -> { texName = "sorting_category_button"; suffix = " (Category)"; }
+                    case ALPHA_ASC -> { texName = "sorting_a_button"; suffix = " (A→Z)"; }
+                    case ALPHA_DESC -> { texName = "sorting_z_button"; suffix = " (Z→A)"; }
+                    default -> { texName = "sorting_category_button"; suffix = " (Category)"; }
+                }
+                out.add(new IconButton(x, y, bw, bh,
+                        tex(texName, false), tex(texName, true),
+                        Component.literal(labelFor(target) + suffix),
+                        btn -> send(target, defaultMode)));
+                return;
+            }
 
             // Category (top)
             out.add(new IconButton(x, y, bw, bh,
@@ -282,5 +322,36 @@ public final class SortingButtons {
                 Component.literal("Sorting " + (target == QolNet.SortC2SPayload.Target.PLAYER ? "Inventory" : "Container")
                         + " [" + (mode == QolNet.SortC2SPayload.Mode.DEFAULT ? "Category" :
                         mode == QolNet.SortC2SPayload.Mode.ALPHA_ASC ? "A→Z" : "Z→A") + "]"), true);
+    }
+
+    public static boolean isInventoryColumnVertical(Screen screen) {
+        if (!(screen instanceof AbstractContainerScreen<?> cs)) return false;
+
+        // 1) By screen class (always safe)
+        String scr = screen.getClass().getName();
+        boolean byScreen = InventoryButtonLayoutData.inventoryButtonsVerticalFor(scr);
+
+        // 2) By menu type (can throw for Inventory/Creative)
+        boolean byMenu = false;
+        try {
+            var type = cs.getMenu().getType(); // may throw UnsupportedOperationException
+            var id   = net.minecraft.core.registries.BuiltInRegistries.MENU.getKey(type);
+            if (id != null) {
+                byMenu = InventoryButtonLayoutData.inventoryButtonsVerticalFor(id.toString());
+            }
+        } catch (UnsupportedOperationException ignored) {
+            // Happens for player inventory / creative inventory. Fall back to screen rule.
+        } catch (Throwable ignored) {
+            // Be defensive against any other client-only menu quirks.
+        }
+
+        return byMenu || byScreen;
+    }
+
+    /** How many buttons Sorting actually showed in the INVENTORY column on this screen. */
+    public static int visibleInventoryColumnCount(Screen screen) {
+        if (!ConfigProvider.sortingEnabled() || !ConfigProvider.uiShowSortingButtons()) return 0;
+        // In minimized mode, only the default button is shown; otherwise we show 3 (Category, A→Z, Z→A)
+        return ConfigProvider.sortingMinimizedDisplay() ? 1 : 3;
     }
 }

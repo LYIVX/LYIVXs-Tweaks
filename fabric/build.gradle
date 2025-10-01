@@ -33,7 +33,9 @@ dependencies {
 
     include modApi("com.teamresourceful.resourcefullib:resourcefullib-fabric-$rootProject.resourcefullib_version")
 
-    modImplementation "curse.maven:lyivxs-core-1200581:6771823"
+    modImplementation "curse.maven:lyivxs-core-1200581:7018763"
+
+    modRuntimeOnly("curse.maven:furnection-914878:6928764")
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')

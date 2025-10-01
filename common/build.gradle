@@ -10,5 +10,5 @@ dependencies {
 
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
 
-    modImplementation "curse.maven:lyivxs-core-1200581:6771824"
+    modImplementation "curse.maven:lyivxs-core-1200581:7018764"
 }

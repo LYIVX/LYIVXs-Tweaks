@@ -19,9 +19,8 @@ public final class RefillClient {
         var mc = Minecraft.getInstance();
         if (mc == null || mc.player == null) return;
         if (!ConfigProvider.refillEnabled()) return;
-        if (!ConfigProvider.refillWorkOnContainerScreens() && mc.screen != null) {
-            return;
-        }
+        // Never run while any GUI screen is open
+        if (mc.screen != null) return;
         int slot = mc.player.getInventory().selected;
         ItemStack current = mc.player.getInventory().getSelected();
 

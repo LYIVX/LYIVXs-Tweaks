@@ -75,7 +75,7 @@
 [Architectury Transformer DEBUG]  - C:\Users\tommy\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.115.Final\a80b32f98ceb4e27958c0ceaf22ddad9ea6c0d4e\netty-transport-native-epoll-4.1.115.Final-linux-aarch_64.jar
 [Architectury Transformer DEBUG]  - E:\WorkSpaces\LYIVXs Tweaks\.gradle\loom-cache\remapped_mods\remapped\net\fabricmc\fabric-api\fabric-api-5dca5009\0.119.4+1.21.4\fabric-api-5dca5009-0.119.4+1.21.4.jar
 [Architectury Transformer DEBUG]  - E:\WorkSpaces\LYIVXs Tweaks\.gradle\loom-cache\remapped_mods\remapped\dev\architectury\architectury-fabric-5dca5009\15.0.3\architectury-fabric-5dca5009-15.0.3.jar
-[Architectury Transformer DEBUG]  - E:\WorkSpaces\LYIVXs Tweaks\.gradle\loom-cache\remapped_mods\remapped\curse\maven\lyivxs-core-1200581-5dca5009\6771823\lyivxs-core-1200581-5dca5009-6771823.jar
+[Architectury Transformer DEBUG]  - E:\WorkSpaces\LYIVXs Tweaks\.gradle\loom-cache\remapped_mods\remapped\curse\maven\lyivxs-core-1200581-5dca5009\7018763\lyivxs-core-1200581-5dca5009-7018763.jar
 [Architectury Transformer DEBUG]  - E:\WorkSpaces\LYIVXs Tweaks\.gradle\loom-cache\remapped_mods\remapped\net\fabricmc\fabric-api\fabric-transfer-api-v1-5dca5009\5.4.9+efa825c904\fabric-transfer-api-v1-5dca5009-5.4.9+efa825c904.jar
 [Architectury Transformer DEBUG]  - E:\WorkSpaces\LYIVXs Tweaks\.gradle\loom-cache\remapped_mods\remapped\net\fabricmc\fabric-api\fabric-api-lookup-api-v1-5dca5009\1.6.86+b1caf1e904\fabric-api-lookup-api-v1-5dca5009-1.6.86+b1caf1e904.jar
 [Architectury Transformer DEBUG]  - E:\WorkSpaces\LYIVXs Tweaks\.gradle\loom-cache\remapped_mods\remapped\net\fabricmc\fabric-api\fabric-blockrenderlayer-v1-5dca5009\2.0.8+7feeb73304\fabric-blockrenderlayer-v1-5dca5009-2.0.8+7feeb73304.jar
@@ -126,25 +126,71 @@
 [Architectury Transformer DEBUG]  - E:\WorkSpaces\LYIVXs Tweaks\.gradle\loom-cache\remapped_mods\remapped\net\fabricmc\fabric-api\fabric-sound-api-v1-5dca5009\1.0.32+7feeb73304\fabric-sound-api-v1-5dca5009-1.0.32+7feeb73304.jar
 [Architectury Transformer DEBUG]  - E:\WorkSpaces\LYIVXs Tweaks\.gradle\loom-cache\remapped_mods\remapped\net\fabricmc\fabric-api\fabric-transitive-access-wideners-v1-5dca5009\6.3.2+56e78b9b04\fabric-transitive-access-wideners-v1-5dca5009-6.3.2+56e78b9b04.jar
 [Architectury Transformer DEBUG]  - E:\WorkSpaces\LYIVXs Tweaks\.gradle\loom-cache\remapped_mods\remapped\com\teamresourceful\resourcefullib\resourcefullib-fabric-1.21.4-5dca5009\3.4.5\resourcefullib-fabric-1.21.4-5dca5009-3.4.5.jar
-[Architectury Transformer] Read classpath in 1.504 s
+[Architectury Transformer] Read classpath in 1.770 s
 [Architectury Transformer DEBUG] Closed File Systems for E:\WorkSpaces\LYIVXs Tweaks\common\build\devlibs\LYIVXs_Tweaks-common-1.0-SNAPSHOT-dev.jar
-[Architectury Transformer DEBUG] Transforming 5 transformer(s) from E:\WorkSpaces\LYIVXs Tweaks\common\build\devlibs\LYIVXs_Tweaks-common-1.0-SNAPSHOT-dev.jar to C:\Users\tommy\AppData\Local\Temp\8372340656338276121.jar: 
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RuntimeMixinRefmapDetector@1207a196
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.GenerateFakeFabricMod@f766aea
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@8538bb8
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@1fad3858
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@3089312a
-[Architectury Transformer DEBUG] Transforming from E:\WorkSpaces\LYIVXs Tweaks\common\build\devlibs\LYIVXs_Tweaks-common-1.0-SNAPSHOT-dev.jar to C:\Users\tommy\AppData\Local\Temp\8372340656338276121.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
+[Architectury Transformer DEBUG] Transforming 5 transformer(s) from E:\WorkSpaces\LYIVXs Tweaks\common\build\devlibs\LYIVXs_Tweaks-common-1.0-SNAPSHOT-dev.jar to C:\Users\tommy\AppData\Local\Temp\8701180894036765563.jar: 
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RuntimeMixinRefmapDetector@38ec12ef
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.GenerateFakeFabricMod@29f2fd5b
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@2d624e92
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@1c2a359
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@59e1b2e4
+[Architectury Transformer DEBUG] Transforming from E:\WorkSpaces\LYIVXs Tweaks\common\build\devlibs\LYIVXs_Tweaks-common-1.0-SNAPSHOT-dev.jar to C:\Users\tommy\AppData\Local\Temp\8701180894036765563.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/annotation/LYIVXsTweakPlugin with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/CategoryRegistry with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/HoverTooltipWidget with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/RecipeBrowserPlugin with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/RecipeCategory with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/RecipeDisplay with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/RecipeDisplayBuilder$SimpleRecipeDisplay with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/RecipeDisplayBuilder with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/SlotRole with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/SlotWidget with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/TextureWidget$Direction with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/TextureWidget$Type with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/TextureWidget with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/TextWidget with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddArrow$Down with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddArrow$Left with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddArrow$Right with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddArrow$Up with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddArrow with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddFlame with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddHover with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddSlot$SlotBuilder with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddSlot with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddText$TextBuilder with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddText with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddTexture with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/LYIVXs_tweaksClient with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/overlay/ItemPanelOverlay with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/overlay/OverlayHooks with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/screen/RecipeBrowserMenu with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/screen/RecipeBrowserScreen with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/ClientConfigHelper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/ConfigProvider$SortMode with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/ConfigProvider with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/ConfigRegistry with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/KeybindButton$KeyOption with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/KeybindButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/debug/QolDebug with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickmove/QuickMoveCommon with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickmove/QuickMoveDragClient with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickstack/client/QuickStackButtons$Anchor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickstack/client/QuickStackButtons with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon$Direction with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon$Mode with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/refill/RefillClient with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/refill/RefillCommon with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/slotlock/client/SlotLockButtons with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockClient with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockCommon$ItemSignature with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockCommon with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/CategoryResolver with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$IdGroup with maxs=true frames=true
@@ -153,14 +199,21 @@
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventorySorter$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventorySorter$StackKey with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventorySorter with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingClient$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingClient with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingCommon$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingCommon with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData$Model with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/keybinds/ConfigKeybind with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/keybinds/SortKeybind with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$InvLayoutSyncS2CPayload with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$QuickMoveC2SPayload with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$QuickStackC2SPayload with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$RefillC2SPayload with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SlotLockSyncS2CPayload with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SlotLockToggleC2SPayload with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Mode with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Target with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload with maxs=true frames=true
@@ -168,227 +221,343 @@
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/ui/IconButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/util/InvUtils with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/util/QuickOpContext with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/ExpectPlatformClient with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/LYIVXs_tweaks with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/mixin/Inventory_addMixin with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/mixin/KeyboardHandlerMixin with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/mixin/ScreenMixin with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/mixin/Slot_mayPlaceMixin with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/categories/CookingCategoryBase with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/categories/CraftingAnyCategory with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/categories/CraftingShapedCategory with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/categories/CraftingShapelessCategory with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/index/ItemIndex with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/index/JsonRecipeIndex$JsonRecipe with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/index/JsonRecipeIndex$SimpleDisplay with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/index/JsonRecipeIndex with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/index/RecipeIndex with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/RecipeBootstrap$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/RecipeBootstrap$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/RecipeBootstrap$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/RecipeBootstrap with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/RecipeBrowser with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/util/RecipeUtil with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/wrappers/CookingRecipeHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/wrappers/CraftingRecipeHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/wrappers/IngredientHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipeview/config/RecipeViewerClientConfigHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider$FillMode with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider$LayoutPos with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider with maxs=true frames=true
+[Architectury Transformer DEBUG] Checking whether /LYIVXs_Tweaks-common-common-refmap.json is a mixin config.
 [Architectury Transformer DEBUG] Checking whether /ls_tweaks.mixins.json is a mixin config.
-[Architectury Transformer DEBUG] Closed File Systems for C:\Users\tommy\AppData\Local\Temp\8372340656338276121.jar
+[Architectury Transformer DEBUG] Closed File Systems for C:\Users\tommy\AppData\Local\Temp\8701180894036765563.jar
 [Architectury Transformer] Listening at E:\WorkSpaces\LYIVXs Tweaks\common\build\devlibs\LYIVXs_Tweaks-common-1.0-SNAPSHOT-dev.jar
-[Architectury Transformer DEBUG] Temporary jar [C:\Users\tommy\AppData\Local\Temp\8372340656338276121.jar] contains packages: net.lyivx.ls_tweaks.common.util, net.lyivx.ls_tweaks.common.ui, net.lyivx.ls_tweaks.common.feature.refill, net.lyivx.ls_tweaks.common.feature.sort.client, net.lyivx.ls_tweaks.common.config, net.lyivx.ls_tweaks.common.feature.sort, net.lyivx.ls_tweaks.client, net.lyivx.ls_tweaks.common.network, net.lyivx.ls_tweaks.common.debug, net.lyivx.ls_tweaks
+[Architectury Transformer DEBUG] Temporary jar [C:\Users\tommy\AppData\Local\Temp\8701180894036765563.jar] contains packages: net.lyivx.ls_tweaks.common.feature.quickmove, net.lyivx.ls_tweaks.recipes, net.lyivx.ls_tweaks.recipes.index, net.lyivx.ls_tweaks.common.ui, net.lyivx.ls_tweaks.client, net.lyivx.ls_tweaks.api.recipes, net.lyivx.ls_tweaks.mixin, net.lyivx.ls_tweaks.common.feature.slotlock.client, net.lyivx.ls_tweaks.recipeview.config, net.lyivx.ls_tweaks.common.util, net.lyivx.ls_tweaks.recipes.wrappers, net.lyivx.ls_tweaks.recipes.categories, net.lyivx.ls_tweaks.common.debug, net.lyivx.ls_tweaks.recipes.util, net.lyivx.ls_tweaks.api.recipes.annotation, net.lyivx.ls_tweaks.common.feature.refill, net.lyivx.ls_tweaks.common.feature.sort.client, net.lyivx.ls_tweaks.common.config, net.lyivx.ls_tweaks.common.keybinds, net.lyivx.ls_tweaks.common.feature.sort, net.lyivx.ls_tweaks.common.network, net.lyivx.ls_tweaks.common.feature.quickstack, net.lyivx.ls_tweaks.common.feature.slotlock, net.lyivx.ls_tweaks.common.feature.quickstack.client, net.lyivx.ls_tweaks.client.screen, net.lyivx.ls_tweaks, net.lyivx.ls_tweaks.client.overlay
 [Architectury Transformer DEBUG] Closed File Systems for E:\WorkSpaces\LYIVXs Tweaks\common\build\devlibs\LYIVXs_Tweaks-common-1.0-SNAPSHOT-dev.jar
 [Architectury Transformer DEBUG] Classpath entry [E:\WorkSpaces\LYIVXs Tweaks\fabric\build\resources\main] contains packages: 
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/LYIVXs_tweaks.class to net/lyivx/ls_tweaks/LYIVXs_tweaks.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/LYIVXs_tweaks with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/LYIVXs_tweaks in 1.989 ms
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/LYIVXs_tweaks in 1.709 ms
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet.class to net/lyivx/ls_tweaks/common/network/QolNet.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet in 1.464 ms
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet in 1.344 ms
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$RefillC2SPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$RefillC2SPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$RefillC2SPayload with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$RefillC2SPayload in 975.1 μs
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$RefillC2SPayload in 982.3 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload in 1.735 ms
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload in 1.132 ms
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Target.class to net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Target.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Target with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Target in 733.6 μs
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Target in 748.6 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Mode.class to net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Mode.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Mode with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Mode in 431.3 μs
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Mode in 471.8 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$WhitelistSyncS2CPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$WhitelistSyncS2CPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$WhitelistSyncS2CPayload with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$WhitelistSyncS2CPayload in 1.046 ms
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$WhitelistSyncS2CPayload in 894.3 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$InvLayoutSyncS2CPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$InvLayoutSyncS2CPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$InvLayoutSyncS2CPayload with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$InvLayoutSyncS2CPayload in 1.442 ms
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$InvLayoutSyncS2CPayload in 1.175 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$QuickStackC2SPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$QuickStackC2SPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$QuickStackC2SPayload with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$QuickStackC2SPayload in 936.8 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon$Direction.class to net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon$Direction.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon$Direction with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon$Direction in 772.4 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon$Mode.class to net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon$Mode.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon$Mode with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/quickstack/QuickStackCommon$Mode in 378.0 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$QuickMoveC2SPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$QuickMoveC2SPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$QuickMoveC2SPayload with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$QuickMoveC2SPayload in 504.6 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$SlotLockToggleC2SPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$SlotLockToggleC2SPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SlotLockToggleC2SPayload with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$SlotLockToggleC2SPayload in 522.1 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$SlotLockSyncS2CPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$SlotLockSyncS2CPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SlotLockSyncS2CPayload with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$SlotLockSyncS2CPayload in 677.2 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/refill/RefillCommon.class to net/lyivx/ls_tweaks/common/feature/refill/RefillCommon.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/refill/RefillCommon with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/refill/RefillCommon in 889.8 μs
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/refill/RefillCommon in 418.1 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockCommon.class to net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockCommon.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockCommon with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockCommon in 992.2 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData.class to net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData in 1.710 ms
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData in 916.9 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData$Model.class to net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData$Model.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData$Model with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData$Model in 655.9 μs
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData$Model in 512.0 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData.class to net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData in 1.080 ms
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData in 875.0 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$Model.class to net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$Model.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$Model with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$Model in 1.076 ms
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$Model in 882.2 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$IdGroup.class to net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$IdGroup.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$IdGroup with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$IdGroup in 644.2 μs
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$IdGroup in 396.4 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/config/ConfigRegistry.class to net/lyivx/ls_tweaks/common/config/ConfigRegistry.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/ConfigRegistry with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/config/ConfigRegistry in 528.7 μs
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/config/ConfigRegistry in 398.2 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/client/LYIVXs_tweaksClient.class to net/lyivx/ls_tweaks/client/LYIVXs_tweaksClient.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/LYIVXs_tweaksClient with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/client/LYIVXs_tweaksClient in 518.6 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/refill/RefillClient.class to net/lyivx/ls_tweaks/common/feature/refill/RefillClient.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/client/LYIVXs_tweaksClient in 939.6 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/keybinds/SortKeybind.class to net/lyivx/ls_tweaks/common/keybinds/SortKeybind.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/refill/RefillClient with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/refill/RefillClient in 835.3 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingClient.class to net/lyivx/ls_tweaks/common/feature/sort/SortingClient.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingClient with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingClient in 1.412 ms
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/keybinds/SortKeybind with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/keybinds/SortKeybind in 513.2 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/config/ConfigProvider.class to net/lyivx/ls_tweaks/common/config/ConfigProvider.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/ConfigProvider with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/config/ConfigProvider in 1.118 ms
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/config/ConfigProvider in 1.176 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/config/KeybindButton$KeyOption.class to net/lyivx/ls_tweaks/common/config/KeybindButton$KeyOption.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/KeybindButton$KeyOption with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/config/KeybindButton$KeyOption in 1.478 ms
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/config/ConfigProvider$SortMode.class to net/lyivx/ls_tweaks/common/config/ConfigProvider$SortMode.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/ConfigProvider$SortMode with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/config/ConfigProvider$SortMode in 500.8 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons.class to net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/config/ConfigProvider$SortMode in 558.1 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/keybinds/ConfigKeybind.class to net/lyivx/ls_tweaks/common/keybinds/ConfigKeybind.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons in 2.537 ms
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist.class to net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist in 578.3 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor.class to net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor in 363.7 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/ui/IconButton.class to net/lyivx/ls_tweaks/common/ui/IconButton.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/ui/IconButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/ui/IconButton in 702.2 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$InvLayoutSyncS2CPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$InvLayoutSyncS2CPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$InvLayoutSyncS2CPayload with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$InvLayoutSyncS2CPayload in 1.284 ms
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData.class to net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData in 885.6 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/refill/RefillCommon.class to net/lyivx/ls_tweaks/common/feature/refill/RefillCommon.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/refill/RefillCommon with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/refill/RefillCommon in 349.4 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons.class to net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons in 1.717 ms
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist.class to net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist in 244.9 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData.class to net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData in 649.4 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor.class to net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor in 331.0 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Target.class to net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Target.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Target with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload$Target in 339.7 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$Model.class to net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$Model.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$Model with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$Model in 428.1 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/LYIVXs_tweaks.class to net/lyivx/ls_tweaks/LYIVXs_tweaks.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/LYIVXs_tweaks with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/LYIVXs_tweaks in 300.7 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/ui/IconButton.class to net/lyivx/ls_tweaks/common/ui/IconButton.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/ui/IconButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/ui/IconButton in 351.2 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData$Model.class to net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData$Model.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData$Model with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelistData$Model in 270.2 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet.class to net/lyivx/ls_tweaks/common/network/QolNet.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet in 446.1 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/config/ConfigProvider.class to net/lyivx/ls_tweaks/common/config/ConfigProvider.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/ConfigProvider with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/config/ConfigProvider in 633.7 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$SortC2SPayload in 462.0 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/client/LYIVXs_tweaksClient.class to net/lyivx/ls_tweaks/client/LYIVXs_tweaksClient.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/LYIVXs_tweaksClient with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/client/LYIVXs_tweaksClient in 142.7 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/config/ConfigRegistry.class to net/lyivx/ls_tweaks/common/config/ConfigRegistry.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/ConfigRegistry with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/config/ConfigRegistry in 157.6 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/config/ConfigProvider$SortMode.class to net/lyivx/ls_tweaks/common/config/ConfigProvider$SortMode.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/config/ConfigProvider$SortMode with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/config/ConfigProvider$SortMode in 253.8 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$RefillC2SPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$RefillC2SPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$RefillC2SPayload with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$RefillC2SPayload in 558.2 μs
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/keybinds/ConfigKeybind with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/keybinds/ConfigKeybind in 425.7 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/refill/RefillClient.class to net/lyivx/ls_tweaks/common/feature/refill/RefillClient.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/refill/RefillClient with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/refill/RefillClient in 339.3 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/network/QolNet$WhitelistSyncS2CPayload.class to net/lyivx/ls_tweaks/common/network/QolNet$WhitelistSyncS2CPayload.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/network/QolNet$WhitelistSyncS2CPayload with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/network/QolNet$WhitelistSyncS2CPayload in 484.0 μs
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/refill/RefillClient in 697.7 μs
 [Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingClient.class to net/lyivx/ls_tweaks/common/feature/sort/SortingClient.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingClient with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingClient in 707.1 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$IdGroup.class to net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$IdGroup.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingClient in 1.504 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/quickmove/QuickMoveDragClient.class to net/lyivx/ls_tweaks/common/feature/quickmove/QuickMoveDragClient.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$IdGroup with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventoryButtonLayoutData$IdGroup in 411.2 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/debug/QolDebug.class to net/lyivx/ls_tweaks/common/debug/QolDebug.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickmove/QuickMoveDragClient with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/quickmove/QuickMoveDragClient in 889.0 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockClient.class to net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockClient.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/debug/QolDebug with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/debug/QolDebug in 724.3 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingCommon.class to net/lyivx/ls_tweaks/common/feature/sort/SortingCommon.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockClient with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/slotlock/SlotLockClient in 1.098 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/RecipeBrowser.class to net/lyivx/ls_tweaks/recipes/RecipeBrowser.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingCommon with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingCommon in 847.6 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingCommon$1.class to net/lyivx/ls_tweaks/common/feature/sort/SortingCommon$1.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/RecipeBrowser with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/RecipeBrowser in 521.0 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/CategoryRegistry.class to net/lyivx/ls_tweaks/api/recipes/CategoryRegistry.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingCommon$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingCommon$1 in 343.3 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/InventorySorter.class to net/lyivx/ls_tweaks/common/feature/sort/InventorySorter.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/CategoryRegistry with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/CategoryRegistry in 340.5 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/RecipeBootstrap.class to net/lyivx/ls_tweaks/recipes/RecipeBootstrap.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventorySorter with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventorySorter in 1.007 ms
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/InventorySorter$StackKey.class to net/lyivx/ls_tweaks/common/feature/sort/InventorySorter$StackKey.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/RecipeBootstrap with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/RecipeBootstrap in 358.9 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/RecipeCategory.class to net/lyivx/ls_tweaks/api/recipes/RecipeCategory.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventorySorter$StackKey with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventorySorter$StackKey in 666.2 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/InventorySorter$1.class to net/lyivx/ls_tweaks/common/feature/sort/InventorySorter$1.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/RecipeCategory with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/RecipeCategory in 252.6 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/categories/CraftingAnyCategory.class to net/lyivx/ls_tweaks/recipes/categories/CraftingAnyCategory.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/InventorySorter$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/InventorySorter$1 in 622.3 μs
-[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/CategoryResolver.class to net/lyivx/ls_tweaks/common/feature/sort/CategoryResolver.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/categories/CraftingAnyCategory with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/categories/CraftingAnyCategory in 563.1 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/SlotWidget.class to net/lyivx/ls_tweaks/api/recipes/SlotWidget.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/CategoryResolver with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/CategoryResolver in 436.7 μs
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/SlotWidget with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/SlotWidget in 927.6 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/Widgets$AddSlot$SlotBuilder.class to net/lyivx/ls_tweaks/api/recipes/Widgets$AddSlot$SlotBuilder.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddSlot$SlotBuilder with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/Widgets$AddSlot$SlotBuilder in 502.3 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/RecipeBootstrap$1.class to net/lyivx/ls_tweaks/recipes/RecipeBootstrap$1.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/RecipeBootstrap$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/RecipeBootstrap$1 in 322.7 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/categories/CookingCategoryBase.class to net/lyivx/ls_tweaks/recipes/categories/CookingCategoryBase.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/categories/CookingCategoryBase with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/categories/CookingCategoryBase in 556.5 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/TextWidget.class to net/lyivx/ls_tweaks/api/recipes/TextWidget.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/TextWidget with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/TextWidget in 545.0 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/Widgets$AddText$TextBuilder.class to net/lyivx/ls_tweaks/api/recipes/Widgets$AddText$TextBuilder.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddText$TextBuilder with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/Widgets$AddText$TextBuilder in 416.7 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/RecipeBootstrap$2.class to net/lyivx/ls_tweaks/recipes/RecipeBootstrap$2.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/RecipeBootstrap$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/RecipeBootstrap$2 in 348.4 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/RecipeBootstrap$3.class to net/lyivx/ls_tweaks/recipes/RecipeBootstrap$3.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/RecipeBootstrap$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/RecipeBootstrap$3 in 298.5 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/RecipeBrowserPlugin.class to net/lyivx/ls_tweaks/api/recipes/RecipeBrowserPlugin.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/RecipeBrowserPlugin with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/RecipeBrowserPlugin in 215.6 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/client/overlay/ItemPanelOverlay.class to net/lyivx/ls_tweaks/client/overlay/ItemPanelOverlay.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/overlay/ItemPanelOverlay with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/client/overlay/ItemPanelOverlay in 2.897 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/index/ItemIndex.class to net/lyivx/ls_tweaks/recipes/index/ItemIndex.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/index/ItemIndex with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/index/ItemIndex in 906.0 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/index/RecipeIndex.class to net/lyivx/ls_tweaks/recipes/index/RecipeIndex.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/index/RecipeIndex with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/index/RecipeIndex in 911.1 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/util/RecipeUtil.class to net/lyivx/ls_tweaks/recipes/util/RecipeUtil.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/util/RecipeUtil with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/util/RecipeUtil in 5.415 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider.class to net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider in 625.0 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider$FillMode.class to net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider$FillMode.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider$FillMode with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider$FillMode in 367.3 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider$LayoutPos.class to net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider$LayoutPos.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider$LayoutPos with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipeview/config/RecipeViewerConfigProvider$LayoutPos in 345.2 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/quickstack/client/QuickStackButtons.class to net/lyivx/ls_tweaks/common/feature/quickstack/client/QuickStackButtons.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickstack/client/QuickStackButtons with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/quickstack/client/QuickStackButtons in 3.035 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons.class to net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons in 2.156 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/ui/IconButton.class to net/lyivx/ls_tweaks/common/ui/IconButton.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/ui/IconButton with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/ui/IconButton in 599.7 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$1.class to net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$1.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$1 in 535.7 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor.class to net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/client/SortingButtons$Anchor in 632.9 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/slotlock/client/SlotLockButtons.class to net/lyivx/ls_tweaks/common/feature/slotlock/client/SlotLockButtons.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/slotlock/client/SlotLockButtons with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/slotlock/client/SlotLockButtons in 806.3 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/quickstack/client/QuickStackButtons$Anchor.class to net/lyivx/ls_tweaks/common/feature/quickstack/client/QuickStackButtons$Anchor.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/quickstack/client/QuickStackButtons$Anchor with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/quickstack/client/QuickStackButtons$Anchor in 668.6 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/client/overlay/OverlayHooks.class to net/lyivx/ls_tweaks/client/overlay/OverlayHooks.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/overlay/OverlayHooks with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/client/overlay/OverlayHooks in 521.5 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/client/screen/RecipeBrowserScreen.class to net/lyivx/ls_tweaks/client/screen/RecipeBrowserScreen.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/screen/RecipeBrowserScreen with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/client/screen/RecipeBrowserScreen in 1.907 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/client/screen/RecipeBrowserMenu.class to net/lyivx/ls_tweaks/client/screen/RecipeBrowserMenu.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/client/screen/RecipeBrowserMenu with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/client/screen/RecipeBrowserMenu in 453.3 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/wrappers/CraftingRecipeHelper.class to net/lyivx/ls_tweaks/recipes/wrappers/CraftingRecipeHelper.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/wrappers/CraftingRecipeHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/wrappers/CraftingRecipeHelper in 1.104 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/recipes/wrappers/IngredientHelper.class to net/lyivx/ls_tweaks/recipes/wrappers/IngredientHelper.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/recipes/wrappers/IngredientHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/recipes/wrappers/IngredientHelper in 530.3 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/RecipeDisplayBuilder.class to net/lyivx/ls_tweaks/api/recipes/RecipeDisplayBuilder.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/RecipeDisplayBuilder with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/RecipeDisplayBuilder in 339.6 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/RecipeDisplay.class to net/lyivx/ls_tweaks/api/recipes/RecipeDisplay.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/RecipeDisplay with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/RecipeDisplay in 165.0 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/Widgets$AddSlot.class to net/lyivx/ls_tweaks/api/recipes/Widgets$AddSlot.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddSlot with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/Widgets$AddSlot in 222.4 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/SlotRole.class to net/lyivx/ls_tweaks/api/recipes/SlotRole.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/SlotRole with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/SlotRole in 324.7 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/Widgets$AddArrow$Right.class to net/lyivx/ls_tweaks/api/recipes/Widgets$AddArrow$Right.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$AddArrow$Right with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/Widgets$AddArrow$Right in 346.0 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/TextureWidget.class to net/lyivx/ls_tweaks/api/recipes/TextureWidget.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/TextureWidget with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/TextureWidget in 1.286 ms
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/TextureWidget$Type.class to net/lyivx/ls_tweaks/api/recipes/TextureWidget$Type.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/TextureWidget$Type with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/TextureWidget$Type in 404.5 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/TextureWidget$Direction.class to net/lyivx/ls_tweaks/api/recipes/TextureWidget$Direction.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/TextureWidget$Direction with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/TextureWidget$Direction in 267.3 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/RecipeDisplayBuilder$SimpleRecipeDisplay.class to net/lyivx/ls_tweaks/api/recipes/RecipeDisplayBuilder$SimpleRecipeDisplay.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/RecipeDisplayBuilder$SimpleRecipeDisplay with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/RecipeDisplayBuilder$SimpleRecipeDisplay in 337.8 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist.class to net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/common/feature/sort/SortingWhitelist in 343.0 μs
+[Architectury Transformer DEBUG] Transforming from net/lyivx/ls_tweaks/api/recipes/Widgets$1.class to net/lyivx/ls_tweaks/api/recipes/Widgets$1.class with 5 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/lyivx/ls_tweaks/api/recipes/Widgets$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Transformed net/lyivx/ls_tweaks/api/recipes/Widgets$1 in 407.7 μs

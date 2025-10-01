@@ -1,1 +1,2 @@
 net.lyivx.ls_tweaks.common.config.ConfigProvider
+net.lyivx.ls_tweaks.recipeview.config.RecipeViewerConfigProvider
