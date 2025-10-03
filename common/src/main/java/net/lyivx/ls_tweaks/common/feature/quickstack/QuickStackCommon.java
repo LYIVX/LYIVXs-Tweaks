@@ -1,14 +1,14 @@
 package net.lyivx.ls_tweaks.common.feature.quickstack;
 
 import net.lyivx.ls_tweaks.common.config.ConfigProvider;
-import net.lyivx.ls_tweaks.common.feature.sort.SortingWhitelist;
-import net.minecraft.server.level.ServerPlayer;
 import net.lyivx.ls_tweaks.common.feature.slotlock.SlotLockCommon;
+import net.lyivx.ls_tweaks.common.feature.sort.SortingWhitelist;
+import net.lyivx.ls_tweaks.common.util.QuickOpContext;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.lyivx.ls_tweaks.common.util.QuickOpContext;
 
 
 public final class QuickStackCommon {

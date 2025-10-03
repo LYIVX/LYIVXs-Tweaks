@@ -1,21 +1,19 @@
 package net.lyivx.ls_tweaks.recipes.categories;
 
-import java.util.ArrayList;
-import java.util.List;
-import net.lyivx.ls_tweaks.api.recipes.RecipeCategory;
+import net.lyivx.ls_tweaks.api.recipes.RecipeBackedCategory;
 import net.lyivx.ls_tweaks.api.recipes.RecipeDisplay;
 import net.lyivx.ls_tweaks.api.recipes.RecipeDisplayBuilder;
 import net.lyivx.ls_tweaks.api.recipes.Widgets;
-import net.lyivx.ls_tweaks.recipes.util.RecipeUtil;
-import net.lyivx.ls_tweaks.recipes.wrappers.CraftingRecipeHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 
 /** Simple crafting category for 1.21.4 */
-public final class CraftingAnyCategory implements RecipeCategory<Recipe<?>> {
+public final class CraftingAnyCategory implements RecipeBackedCategory<CraftingRecipe> {
     private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath("minecraft", "crafting");
     private static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/item/crafting_table.png");
     private static final ResourceLocation SHAPELESS = ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/shapeless.png");
@@ -26,85 +24,85 @@ public final class CraftingAnyCategory implements RecipeCategory<Recipe<?>> {
     @Override public ItemStack iconItem() { return new ItemStack(Items.CRAFTING_TABLE); }
     @Override public int sortOrder() { return 0; }
 
-    @Override
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public RecipeDisplay buildDisplay(Recipe<?> recipe) {
-        List<ItemStack> inputs = new ArrayList<>();
-        boolean isShapeless = false;
-        
-        if (recipe instanceof CraftingRecipe craftingRecipe) {
-            // Check if it's a shapeless recipe
-            try {
-                String className = craftingRecipe.getClass().getSimpleName().toLowerCase();
-                isShapeless = className.contains("shapeless");
-            } catch (Exception e) {
-                // Fallback: assume shaped if we can't determine
-            }
-            
-            // Get ingredients and respect the pattern for shaped recipes
-            var ingredients = CraftingRecipeHelper.getIngredients(craftingRecipe);
-            
-            if (isShapeless) {
-                // For shapeless recipes, just fill the first slots with ingredients
-                for (int i = 0; i < 9; i++) {
-                    if (i < ingredients.size()) {
-                        ItemStack item = CraftingRecipeHelper.getFirstIngredientItem(craftingRecipe, i);
-                        inputs.add(item);
-                    } else {
-                        inputs.add(ItemStack.EMPTY);
-                    }
-                }
-            } else {
-                // For shaped recipes, respect the actual pattern
-                ItemStack[][] pattern = CraftingRecipeHelper.getShapedPatternItems(craftingRecipe);
-                for (int r = 0; r < 3; r++) {
-                    for (int c = 0; c < 3; c++) {
-                        inputs.add(pattern[r][c]);
-                    }
-                }
-            }
-        }
+    @Override public Class<CraftingRecipe> recipeClass() { return CraftingRecipe.class; }
+    @Override public RecipeType<CraftingRecipe> recipeType() { return RecipeType.CRAFTING; }
 
-        ItemStack out = RecipeUtil.resultOf(recipe);
+    @Override
+    public RecipeDisplay buildDisplay(CraftingRecipe recipe) {
+        boolean isShapeless = !(recipe instanceof ShapedRecipe);
+
+        ItemStack out = assembleResult(recipe);
         RecipeDisplayBuilder builder = new RecipeDisplayBuilder();
-        
-        // Set title
+
+        // Title
         String title = out.isEmpty() ? "Crafting" : out.getHoverName().getString();
-        if (isShapeless) {
-            title += " (Shapeless)";
-        }
+        if (isShapeless) title += " (Shapeless)";
         builder.title(title);
-        
-        // Add 3x3 crafting grid
-        for (int r = 0; r < 3; r++) {
-            for (int c = 0; c < 3; c++) {
-                int index = r * 3 + c;
-                int x = c * 18;
-                int y = r * 18;
-                ItemStack stack = index < inputs.size() ? inputs.get(index) : ItemStack.EMPTY;
-                builder.addSlot(Widgets.AddSlot.input(x, y, stack, index));
+
+        // Build flattened 3x3 list and render via GridSlotWidget
+        java.util.List<ItemStack> cells = new java.util.ArrayList<>(9);
+        for (int i = 0; i < 9; i++) cells.add(ItemStack.EMPTY);
+        if (recipe instanceof ShapedRecipe shaped) {
+            int w = shaped.getWidth();
+            int h = shaped.getHeight();
+            var list = shaped.getIngredients(); // List<Optional<Ingredient>>
+            int p = 0;
+            for (int ry = 0; ry < h; ry++) {
+                for (int rx = 0; rx < w; rx++) {
+                    int gx = rx + (3 - w) / 2;
+                    int gy = ry + (3 - h) / 2;
+                    Ingredient ing = null;
+                    if (list != null && p < list.size()) {
+                        var opt = list.get(p);
+                        if (opt != null && opt.isPresent()) ing = opt.get();
+                    }
+                    if (ing != null) {
+                        ItemStack cell = ing.items().findFirst().map(hd -> new ItemStack(hd.value())).orElse(ItemStack.EMPTY);
+                        int ci = gy * 3 + gx;
+                        if (ci >= 0 && ci < 9) cells.set(ci, cell);
+                    }
+                    p++;
+                }
+            }
+        } else {
+            java.util.List<Ingredient> ingredients = java.util.List.of();
+            try {
+                var info = recipe.placementInfo();
+                if (info != null && info.ingredients() != null) ingredients = info.ingredients();
+            } catch (Throwable ignored) {}
+            for (int i = 0; i < Math.min(9, ingredients.size()); i++) {
+                Ingredient ing = ingredients.get(i);
+                if (ing != null) cells.set(i, ing.items().findFirst().map(hd -> new ItemStack(hd.value())).orElse(ItemStack.EMPTY));
             }
         }
-        
-        // Add output slot without recipe name
-        builder.addSlot(Widgets.AddSlot.output(88, 18, out, 0));
-        
-        // Progress-based right arrow
-        builder.addTexture(Widgets.AddArrow.Right.progress(57, 18));
-        
-        // Add shapeless indicator if it's a shapeless recipe
+        var grid = Widgets.AddGrid.items(0, 0, 3, 3, Widgets.AddSlot.input(0, 0, cells, 0)).positionMiddleLeft();
+        builder.addSlot(grid);
+
+        // Output + arrow
+        builder.addSlot(Widgets.AddSlot.output(0, 0, out, 0).positionMiddleRight());
+        builder.addTexture(Widgets.AddArrow.Right.progress(57, 20));
+
+        // Shapeless marker
         if (isShapeless) {
             builder.addTexture(Widgets.AddTexture.staticTexture(55, 35, SHAPELESS, 0, 0, 18, 18, 18, 18));
-            // Add hover tooltip region over the icon
             builder.addHover(Widgets.AddHover.literal(55, 35, 18, 18, "Shapeless"));
         }
 
-        // Set content size
-        builder.contentSize(108, (3 * 18) - 2);
-
+        builder.contentSize(108, (3 * 18));
         return builder.build();
     }
 
-    @Override public int contentWidth() { return 110 + 18; }
+    private static ItemStack assembleResult(CraftingRecipe recipe) {
+        try {
+            var mc = net.minecraft.client.Minecraft.getInstance();
+            var ra = (mc != null && mc.level != null) ? mc.level.registryAccess() : null;
+            if (ra == null) return ItemStack.EMPTY;
+            net.minecraft.world.item.crafting.CraftingInput input = net.minecraft.world.item.crafting.CraftingInput.of(1, 1, java.util.List.of(ItemStack.EMPTY));
+            return recipe.assemble(input, ra);
+        } catch (Throwable ignored) {}
+        return ItemStack.EMPTY;
+    }
+
+    @Override public int contentWidth() { return 128; }
     @Override public int contentHeight() { return 3 * 18; }
 }

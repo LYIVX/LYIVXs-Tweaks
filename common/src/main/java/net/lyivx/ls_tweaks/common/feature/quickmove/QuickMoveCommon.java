@@ -1,8 +1,8 @@
 package net.lyivx.ls_tweaks.common.feature.quickmove;
 
 import net.lyivx.ls_tweaks.common.feature.slotlock.SlotLockCommon;
-import net.lyivx.ls_tweaks.common.util.QuickOpContext;
 import net.lyivx.ls_tweaks.common.network.QolNet;
+import net.lyivx.ls_tweaks.common.util.QuickOpContext;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;

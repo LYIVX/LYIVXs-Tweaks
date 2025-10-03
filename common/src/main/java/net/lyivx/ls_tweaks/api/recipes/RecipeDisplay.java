@@ -1,7 +1,8 @@
 package net.lyivx.ls_tweaks.api.recipes;
 
-import java.util.List;
 import net.minecraft.resources.ResourceLocation;
+
+import java.util.List;
 
 /** A renderable recipe instance containing positioned slots and textures. */
 public interface RecipeDisplay {

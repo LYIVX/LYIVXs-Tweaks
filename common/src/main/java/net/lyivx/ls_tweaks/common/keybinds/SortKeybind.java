@@ -1,8 +1,8 @@
 package net.lyivx.ls_tweaks.common.keybinds;
 
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
-import net.minecraft.client.KeyMapping;
 import net.lyivx.ls_tweaks.common.config.ConfigProvider;
+import net.minecraft.client.KeyMapping;
 
 public class SortKeybind {
     public static KeyMapping SORT_KEY;

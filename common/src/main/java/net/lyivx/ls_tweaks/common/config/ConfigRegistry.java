@@ -1,6 +1,5 @@
 package net.lyivx.ls_tweaks.common.config;
 
-import net.lyivx.ls_core.common.config.CustomConfigSpec;
 import net.lyivx.ls_tweaks.LYIVXs_tweaks;
 
 /**

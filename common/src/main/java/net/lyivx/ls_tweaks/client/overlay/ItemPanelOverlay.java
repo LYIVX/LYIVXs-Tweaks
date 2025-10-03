@@ -1,7 +1,5 @@
 package net.lyivx.ls_tweaks.client.overlay;
 
-import java.util.ArrayList;
-import java.util.List;
 import net.lyivx.ls_tweaks.recipes.index.ItemIndex;
 import net.lyivx.ls_tweaks.recipes.index.RecipeIndex;
 import net.minecraft.client.Minecraft;
@@ -9,6 +7,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** Right-side item browser overlay, rendered on container screens. */
 public final class ItemPanelOverlay {

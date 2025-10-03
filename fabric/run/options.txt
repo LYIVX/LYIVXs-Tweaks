@@ -51,8 +51,8 @@ damageTiltStrength:1.0
 highContrast:false
 highContrastBlockOutline:false
 narratorHotkey:true
-resourcePacks:["fabric"]
-incompatibleResourcePacks:[]
+resourcePacks:["vanilla","fabric","file/LYIVX\u0027s Tweaks"]
+incompatibleResourcePacks:["file/LYIVX\u0027s Tweaks"]
 lastServer:
 lang:en_us
 chatVisibility:0

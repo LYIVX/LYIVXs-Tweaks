@@ -2,10 +2,10 @@ package net.lyivx.ls_tweaks;
 
 import dev.architectury.event.events.common.LifecycleEvent;
 import net.lyivx.ls_tweaks.common.config.ConfigRegistry;
+import net.lyivx.ls_tweaks.common.feature.refill.RefillCommon;
 import net.lyivx.ls_tweaks.common.feature.sort.InventoryButtonLayoutData;
 import net.lyivx.ls_tweaks.common.feature.sort.SortingWhitelistData;
 import net.lyivx.ls_tweaks.common.network.QolNet;
-import net.lyivx.ls_tweaks.common.feature.refill.RefillCommon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,18 +1,18 @@
 package net.lyivx.ls_tweaks.recipes.categories;
 
-import net.lyivx.ls_tweaks.api.recipes.RecipeCategory;
+import net.lyivx.ls_tweaks.api.recipes.RecipeBackedCategory;
 import net.lyivx.ls_tweaks.api.recipes.RecipeDisplay;
 import net.lyivx.ls_tweaks.api.recipes.RecipeDisplayBuilder;
 import net.lyivx.ls_tweaks.api.recipes.Widgets;
-import net.lyivx.ls_tweaks.recipes.util.RecipeUtil;
 import net.lyivx.ls_tweaks.recipes.wrappers.CookingRecipeHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
+import net.lyivx.ls_tweaks.recipes.util.DisplayUtil;
 
 /** Simple cooking category base */
-public abstract class CookingCategoryBase implements RecipeCategory<Recipe<?>> {
+public abstract class CookingCategoryBase implements RecipeBackedCategory<AbstractCookingRecipe> {
     private final ResourceLocation id;
     private final ResourceLocation icon;
 
@@ -37,11 +37,10 @@ public abstract class CookingCategoryBase implements RecipeCategory<Recipe<?>> {
     }
 
     @Override
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public RecipeDisplay buildDisplay(Recipe<?> recipe) {
+    public RecipeDisplay buildDisplay(AbstractCookingRecipe recipe) {
         try {
             java.lang.reflect.Constructor<?> c = net.minecraft.world.item.crafting.RecipeHolder.class.getConstructors()[0];
-            Object rh = c.newInstance(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("unknown", "recipe"), recipe);
+            Object rh = c.newInstance(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("unknown", "recipe"), (Recipe<?>) recipe);
             if (rh instanceof net.minecraft.world.item.crafting.RecipeHolder holder) {
                 return buildDisplayWithHolder((net.minecraft.world.item.crafting.RecipeHolder<Recipe<?>>) holder);
             }
@@ -50,50 +49,45 @@ public abstract class CookingCategoryBase implements RecipeCategory<Recipe<?>> {
         return buildDisplaySimple(recipe);
     }
     
-    private RecipeDisplay buildDisplaySimple(Recipe<?> recipe) {
+    private RecipeDisplay buildDisplaySimple(AbstractCookingRecipe recipe) {
         ItemStack in = ItemStack.EMPTY;
         int cookingTime = 0;
         float experience = 0.0f;
         
-        if (recipe instanceof AbstractCookingRecipe cookingRecipe) {
-            // Use helper to get input items reliably
-            in = CookingRecipeHelper.getFirstInputItem(cookingRecipe);
-            cookingTime = CookingRecipeHelper.getCookingTime(cookingRecipe);
-            experience = CookingRecipeHelper.getExperience(cookingRecipe);
-        }
+        // Use helper to get input items reliably
+        in = CookingRecipeHelper.getFirstInputItem(recipe);
+        cookingTime = CookingRecipeHelper.getCookingTime(recipe);
+        experience = CookingRecipeHelper.getExperience(recipe);
 
-        ItemStack out = RecipeUtil.resultOf(recipe);
+        ItemStack out = (recipe instanceof AbstractCookingRecipe cooking) ? assembleCookingOutput(cooking) : ItemStack.EMPTY;
         RecipeDisplayBuilder builder = new RecipeDisplayBuilder();
         
         // Set title
         String title = out.isEmpty() ? id.toString() : out.getHoverName().getString();
         builder.title(title);
         
-        // Add input, fuel, and output slots using fluent API
-        builder.addSlot(Widgets.AddSlot.input(0, 4, in, 0));
-        builder.addSlot(Widgets.AddSlot.fuel(40, 4, 0));
-        builder.addSlot(Widgets.AddSlot.output(92, 4, out, 0));
-
-        // Add flame and arrow as progress (default behavior)
-        builder.addTexture(Widgets.AddFlame.progress(21, 5));
-
-        builder.addTexture(Widgets.AddArrow.Right.progress(61, 4));
-        // Only show primary right arrow
-
-        // Add labels for cooking time and experience using bounded text widgets
+        // Add Input
+        builder.addSlot(Widgets.AddSlot.input(0, 4, in, 0).positionTopLeft());
+        // Add Flame
+        builder.addTexture(Widgets.AddFlame.progress(21, 6).positionTopLeft());
+        // Add Fuel
+        builder.addSlot(Widgets.AddSlot.fuel(-10, 4, 0).positionTopCenter());
+        // Add Arrow
+        builder.addTexture(Widgets.AddArrow.Right.progress(-30, 5).positionTopRight());
         if (cookingTime > 0) {
-            builder.addText(Widgets.AddText.literal(61, 22, cookingTime + "tk/s").centered().bounds(22, 6));
+            builder.addText(Widgets.AddText.literal(-30, 0, cookingTime + "tk/s").centered().bounds(22, 6).positionBottomRight());
         }
+        builder.addHover(Widgets.AddHover.literal(-30, 0, 22, 6, "Cooking Time").positionBottomRight());
+
+        // Add Output
+        builder.addSlot(Widgets.AddSlot.output(0, 0, out, 0).positionTopRight());
         if (experience > 0.0f) {
-            builder.addText(Widgets.AddText.literal(88, 26, String.format("%.1f XP", experience)).centered().bounds(26, 6).color("lime"));
+            builder.addText(Widgets.AddText.literal(0, 0, String.format("%.1f XP", experience)).centered().bounds(26, 6).positionBottomRight().color("lime"));
         }
-
-        builder.addHover(Widgets.AddHover.literal(61, 22, 22, 6, "Cooking Time"));
-
-        builder.addHover(Widgets.AddHover.literal(88, 26, 26, 6, "Given Experience"));
+        builder.addHover(Widgets.AddHover.literal(0, 0, 26, 6, "Given Experience").positionBottomRight());
 
         // Set content size
-        builder.contentSize(112, 29);
+        builder.contentSize(111, 34);
 
         return builder.build();
     }
@@ -111,7 +105,7 @@ public abstract class CookingCategoryBase implements RecipeCategory<Recipe<?>> {
             experience = CookingRecipeHelper.getExperience(cookingRecipe);
         }
 
-        ItemStack out = RecipeUtil.resultOf(recipe);
+        ItemStack out = (recipe instanceof AbstractCookingRecipe cooking) ? assembleCookingOutput(cooking) : DisplayUtil.firstOutput(holder);
         RecipeDisplayBuilder builder = new RecipeDisplayBuilder();
         
         // Set title
@@ -144,4 +138,16 @@ public abstract class CookingCategoryBase implements RecipeCategory<Recipe<?>> {
 
     @Override public int contentWidth() { return 150; }
     @Override public int contentHeight() { return 66; }
+
+    private static ItemStack assembleCookingOutput(AbstractCookingRecipe recipe) {
+        try {
+            var mc = net.minecraft.client.Minecraft.getInstance();
+            var ra = (mc != null && mc.level != null) ? mc.level.registryAccess() : null;
+            if (ra == null || recipe == null) return ItemStack.EMPTY;
+            ItemStack first = recipe.input().items().findFirst().map(h -> new ItemStack(h.value())).orElse(ItemStack.EMPTY);
+            var single = new net.minecraft.world.item.crafting.SingleRecipeInput(first);
+            return recipe.assemble(single, ra);
+        } catch (Throwable ignored) {}
+        return ItemStack.EMPTY;
+    }
 }

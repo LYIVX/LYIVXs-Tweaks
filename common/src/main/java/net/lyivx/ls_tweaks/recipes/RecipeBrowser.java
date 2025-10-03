@@ -1,32 +1,43 @@
 package net.lyivx.ls_tweaks.recipes;
 
+import net.lyivx.ls_tweaks.api.recipes.CategoryRegistry;
+import net.lyivx.ls_tweaks.api.recipes.RecipeBrowserPlugin;
+import net.lyivx.ls_tweaks.api.recipes.RecipeCategory;
+
 import java.util.ArrayList;
 import java.util.List;
-import net.lyivx.ls_tweaks.api.recipes.CategoryRegistry;
-import net.lyivx.ls_tweaks.api.recipes.RecipeCategory;
-import net.lyivx.ls_tweaks.api.recipes.RecipeBrowserPlugin;
 
 /** Global singleton for the recipe browser runtime. */
-public final class RecipeBrowser {
+public class RecipeBrowser {
     public static final CategoryRegistry CATEGORIES = new CategoryRegistry();
+
+	private static final java.util.Set<String> SEEN_PLUGIN_CLASSES = new java.util.HashSet<>();
+
 
     /** Discover and register categories from plugins. */
     public static void bootstrap() {
         // Built-ins
         RecipeBootstrap.registerBuiltins();
-        // ServiceLoader discovery for external plugins
+		// Annotation-based discovery via platform class (Fabric/NeoForge provide this)
+		try {
+			Class<?> disc = Class.forName("net.lyivx.ls_tweaks.platform.AnnotationDiscovery");
+			disc.getMethod("discoverAnnotatedPlugins").invoke(null);
+		} catch (Throwable ignored) {}
+		// ServiceLoader discovery for external plugins (fallback)
         try {
             for (RecipeBrowserPlugin p : java.util.ServiceLoader.load(RecipeBrowserPlugin.class)) {
-                try { registerPlugin(p); } catch (Throwable ignored) {}
+				try { registerPlugin(p); } catch (Throwable ignored) {}
             }
         } catch (Throwable ignored) {}
     }
 
     private static final List<RecipeBrowserPlugin> plugins = new ArrayList<>();
 
-    public static void registerPlugin(RecipeBrowserPlugin plugin) {
+	public static void registerPlugin(RecipeBrowserPlugin plugin) {
         if (plugin == null) return;
-        plugins.add(plugin);
+		String cls = plugin.getClass().getName();
+		if (!SEEN_PLUGIN_CLASSES.add(cls)) return; // avoid duplicate registration
+		plugins.add(plugin);
         plugin.registerCategories(CATEGORIES);
         // Sanity log
         try {
@@ -44,5 +55,3 @@ public final class RecipeBrowser {
 
     private RecipeBrowser() {}
 }
-
-

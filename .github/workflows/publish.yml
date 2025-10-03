@@ -1,0 +1,76 @@
+name: Publish to GitHub Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to set (overrides mod_version)'
+        required: false
+        default: ''
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Configure Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Derive version from tag
+        id: derive
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            TAG="${GITHUB_REF_NAME}"
+            # strip leading v if present
+            VER="${TAG#v}"
+            echo "version=$VER" >> $GITHUB_OUTPUT
+          elif [[ -n "${{ github.event.inputs.version }}" ]]; then
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build
+        run: |
+          if [ -n "${{ steps.derive.outputs.version }}" ]; then
+            ./gradlew -Pmod_version="${{ steps.derive.outputs.version }}" build --stacktrace
+          else
+            ./gradlew build --stacktrace
+          fi
+
+      - name: Publish to GitHub Packages
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPR_USER: ${{ github.actor }}
+          GPR_KEY: ${{ secrets.GITHUB_TOKEN }}
+          GPR_OWNER: ${{ github.repository_owner }}
+          GPR_REPO: ${{ github.event.repository.name }}
+        run: |
+          # Map env vars to Gradle properties expected by build.gradle
+          EXTRA_PROPS="-Pgpr.user=$GPR_USER -Pgpr.key=$GPR_KEY -PgprOwner=$GPR_OWNER -PgprRepo=$GPR_REPO"
+          if [ -n "${{ steps.derive.outputs.version }}" ]; then
+            ./gradlew $EXTRA_PROPS -Pmod_version="${{ steps.derive.outputs.version }}" publish --stacktrace
+          else
+            ./gradlew $EXTRA_PROPS publish --stacktrace
+          fi
+
+

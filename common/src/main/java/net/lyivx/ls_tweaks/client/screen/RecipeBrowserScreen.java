@@ -1,9 +1,5 @@
 package net.lyivx.ls_tweaks.client.screen;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.lyivx.ls_tweaks.api.recipes.RecipeCategory;
 import net.lyivx.ls_tweaks.api.recipes.RecipeDisplay;
 import net.lyivx.ls_tweaks.recipes.RecipeBrowser;
@@ -11,11 +7,17 @@ import net.lyivx.ls_tweaks.recipes.index.RecipeIndex;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /** Enhanced recipe browser screen with categories, pagination, and multiple recipes */
 public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractContainerMenu> {
@@ -27,13 +29,13 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
     
     // Padding constants
     private static final int MAIN_PADDING = 5; // Padding around the main background
-    private static final int RECIPE_PADDING = 6; // Padding inside each recipe background
-    private static final int RECIPE_GAP = 5; // Gap between recipes
+    private static final int RECIPE_PADDING = 5; // Padding inside each recipe background
+    private static final int RECIPE_GAP = 2; // Gap between recipes
     
     private static final ResourceLocation BG = ResourceLocation.withDefaultNamespace("recipe_book/overlay_recipe");
     private static final ResourceLocation TAB_TOP_SEL = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/container/creative_inventory/tab_top_selected_2.png");
     private static final ResourceLocation TAB_TOP_UNSEL = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/container/creative_inventory/tab_top_unselected_2.png");
-    private static final ResourceLocation TAB_LEFT_SEL = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/recipe_book/tab_selected.png");
+    // private static final ResourceLocation TAB_LEFT_SEL = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/recipe_book/tab_selected.png");
 
     private RecipeBrowserScreen(Map<String, List<RecipeDisplay>> recipesByCategory, List<String> categoryOrder) {
         super(new RecipeBrowserMenu(0, Minecraft.getInstance().player.getInventory()), 
@@ -44,15 +46,20 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
     }
 
     public static void openForResult(ItemStack result) {
-        RecipeIndex.ensureBuilt();
+        // Use RecipeManager-based enumeration (no index rebuild)
         System.out.println("[LS Tweaks][RV] openForResult " + result.getHoverName().getString());
         
         Map<String, List<RecipeDisplay>> recipesByCategory = new HashMap<>();
         List<String> categoryOrder = new ArrayList<>();
         
-        for (RecipeHolder<?> rh : RecipeIndex.recipesFor(result)) {
-            var typeId = net.lyivx.ls_tweaks.recipes.util.RecipeUtil.typeIdOf(rh.value());
+        java.util.List<RecipeHolder<?>> resultHolders = net.lyivx.ls_tweaks.recipes.util.RecipeEnumerationResults.byResult(result);
+        System.out.println("[LS Tweaks][RV] openForResult holders=" + resultHolders.size() + " for " + result.getHoverName().getString());
+        for (RecipeHolder<?> rh : resultHolders) {
+            var typeId = net.minecraft.core.registries.BuiltInRegistries.RECIPE_TYPE.getKey(rh.value().getType());
             RecipeCategory<?> cat = typeId == null ? null : RecipeBrowser.CATEGORIES.get(typeId);
+            if (cat == null) {
+                System.out.println("[LS Tweaks][RV] No category for recipe type=" + (typeId == null ? "null" : typeId));
+            }
             if (cat != null) {
                 RecipeDisplay d = buildDisplay(cat, rh);
                 if (d != null) {
@@ -61,6 +68,8 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
                     if (!categoryOrder.contains(categoryKey)) {
                         categoryOrder.add(categoryKey);
                     }
+                } else {
+                    System.out.println("[LS Tweaks][RV] buildDisplay returned null for type=" + typeId + " recipe=" + rh.id());
                 }
             }
         }
@@ -87,17 +96,17 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
     }
 
     public static void openForUsage(ItemStack ingredient) {
-        RecipeIndex.ensureBuilt();
+        // Use RecipeManager-based enumeration (no index rebuild)
         System.out.println("[LS Tweaks][RV] openForUsage " + ingredient.getHoverName().getString());
         
         Map<String, List<RecipeDisplay>> recipesByCategory = new HashMap<>();
         List<String> categoryOrder = new ArrayList<>();
         
-        List<RecipeHolder<?>> usages = RecipeIndex.usagesFor(ingredient);
+        List<RecipeHolder<?>> usages = net.lyivx.ls_tweaks.recipes.util.RecipeEnumerationResults.byIngredient(ingredient);
         System.out.println("[LS Tweaks][RV] Found " + usages.size() + " usage recipes for " + ingredient.getHoverName().getString());
         
         for (RecipeHolder<?> rh : usages) {
-            var typeId = net.lyivx.ls_tweaks.recipes.util.RecipeUtil.typeIdOf(rh.value());
+            var typeId = net.minecraft.core.registries.BuiltInRegistries.RECIPE_TYPE.getKey(rh.value().getType());
             RecipeCategory<?> cat = typeId == null ? null : RecipeBrowser.CATEGORIES.get(typeId);
             if (cat != null) {
                 RecipeDisplay d = buildDisplay(cat, rh);
@@ -110,6 +119,27 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
                 }
             }
         }
+
+        // Append Tags category: create one display per tag so they paginate like recipes
+        try {
+            net.lyivx.ls_tweaks.recipes.categories.TagsCategory tagsCat = null;
+            for (var cat : net.lyivx.ls_tweaks.recipes.RecipeBrowser.getAllCategories()) {
+                if (cat instanceof net.lyivx.ls_tweaks.recipes.categories.TagsCategory tc) {
+                    tagsCat = tc; break;
+                }
+            }
+            if (tagsCat != null) {
+                var tagIds = net.lyivx.ls_tweaks.recipes.util.TagsUtil.itemTagIds(ingredient);
+                String catId = tagsCat.id().toString();
+                for (var rl : tagIds) {
+                    RecipeDisplay d = tagsCat.buildDisplayForTag(rl);
+                    if (d != null) {
+                        recipesByCategory.computeIfAbsent(catId, k -> new ArrayList<>()).add(d);
+                    }
+                }
+                if (recipesByCategory.containsKey(catId) && !categoryOrder.contains(catId)) categoryOrder.add(catId);
+            }
+        } catch (Throwable ignored) {}
         
         if (recipesByCategory.isEmpty()) {
             // Removed JsonRecipeIndex fallback - using working recipe system only
@@ -149,7 +179,10 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
     private static RecipeDisplay buildDisplay(RecipeCategory cat, RecipeHolder<?> rh) {
         try {
             return (RecipeDisplay)cat.buildDisplay(rh);
-        } catch (Throwable ignored) {
+        } catch (Throwable t) {
+            try {
+                System.out.println("[LS Tweaks][RV] buildDisplay exception for type=" + (cat == null ? "null" : cat.id()) + " recipe=" + rh.id() + ": " + t);
+            } catch (Throwable ignored) {}
             return null;
         }
     }
@@ -280,18 +313,28 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
         // Handle pagination clicks (same style as item panel) - only handle if multiple pages
         String currentCategory = categoryOrder.get(currentCategoryIndex);
         List<RecipeDisplay> currentRecipes = recipesByCategory.get(currentCategory);
-        int totalPages = Math.max(1, (currentRecipes.size() + recipesPerPage - 1) / recipesPerPage);
+        int bw = Math.min(this.width - 40, 180);
+        int bh = Math.min(this.height - 40, 256);
+        int bx = (this.width - bw) / 2;
+        int by = (this.height - bh) / 2;
+        int btnW = 18, btnH = 18;
+        int barY = by + bh - 23; // Move up by 3px
+        int prevX = bx + 5;
+        int nextX = bx + bw - btnW - 5;
+        // Build dynamic pages exactly like in render()
+        int startY = by + MAIN_PADDING + 20;
+        int bottomUsableY = by + bh - 23;
+        java.util.List<Integer> pageStarts = new java.util.ArrayList<>();
+        int cursorY = startY;
+        pageStarts.add(0);
+        for (int i = 0; i < currentRecipes.size(); i++) {
+            int h = currentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+            if (i > 0 && cursorY + h > bottomUsableY) { pageStarts.add(i); cursorY = startY; }
+            cursorY += h + RECIPE_GAP;
+        }
+        int totalPages = Math.max(1, pageStarts.size());
         
         if (totalPages > 1) {
-            int bw = Math.min(this.width - 40, 180);
-            int bh = Math.min(this.height - 40, 256);
-            int bx = (this.width - bw) / 2;
-            int by = (this.height - bh) / 2;
-                int btnW = 18, btnH = 18;
-            int barY = by + bh - 23; // Move up by 3px
-            int prevX = bx + 5;
-            int nextX = bx + bw - btnW - 5;
-            
             if (mouseX >= prevX && mouseX < prevX + btnW && 
                 mouseY >= barY && mouseY < barY + btnH) {
                 // Wrap-around: if on first page, go to last page
@@ -315,7 +358,204 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
             }
         }
         
+        // Forward click to any visible ScrollWidget (start dragging on scrollbar)
+        if (!categoryOrder.isEmpty()) {
+            String fwdCurrentCategory = categoryOrder.get(currentCategoryIndex);
+            List<RecipeDisplay> fwdCurrentRecipes = recipesByCategory.get(fwdCurrentCategory);
+            if (fwdCurrentRecipes != null && !fwdCurrentRecipes.isEmpty()) {
+
+                int availableWidth = bw - (MAIN_PADDING * 2);
+
+                pageStarts.add(0);
+                for (int i = 0; i < fwdCurrentRecipes.size(); i++) {
+                    int h = fwdCurrentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+                    if (i > 0 && cursorY + h > bottomUsableY) { pageStarts.add(i); cursorY = startY; }
+                    cursorY += h + RECIPE_GAP;
+                }
+                int fwdTotalPages = Math.max(1, pageStarts.size());
+                int pageStart = pageStarts.get(Math.max(0, Math.min(currentPage, fwdTotalPages - 1)));
+                int pageEnd = fwdCurrentRecipes.size();
+                cursorY = startY;
+                for (int i = pageStart; i < fwdCurrentRecipes.size(); i++) {
+                    int h = fwdCurrentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+                    if (cursorY + h > bottomUsableY) { pageEnd = i; break; }
+                    cursorY += h + RECIPE_GAP;
+                }
+
+                int currentY = startY;
+                for (int i = pageStart; i < pageEnd; i++) {
+                    RecipeDisplay recipe = fwdCurrentRecipes.get(i);
+                    int recipeWidth = recipe.contentWidth() + (RECIPE_PADDING * 2);
+                    int recipeHeight = recipe.contentHeight() + (RECIPE_PADDING * 2);
+                    int recipeX = bx + MAIN_PADDING + (availableWidth - recipeWidth) / 2;
+                    int recipeY = currentY;
+
+                    for (var slot : recipe.slots()) {
+                        if (slot instanceof net.lyivx.ls_tweaks.api.recipes.ScrollWidget sw) {
+                            if (sw.mouseClicked(recipeX + RECIPE_PADDING + 1, recipeY + RECIPE_PADDING + 1, (int)mouseX, (int)mouseY, button)) return true;
+                        }
+                    }
+                    currentY += recipeHeight + RECIPE_GAP;
+                }
+            }
+        }
+
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseScrolled(double d, double e, double f, double g) {
+        // Forward scroll to any visible ScrollWidget in current page
+        if (!categoryOrder.isEmpty()) {
+            String currentCategory = categoryOrder.get(currentCategoryIndex);
+            List<RecipeDisplay> currentRecipes = recipesByCategory.get(currentCategory);
+            if (currentRecipes != null && !currentRecipes.isEmpty()) {
+                int bw = Math.min(this.width - 40, 180);
+                int bh = Math.min(this.height - 40, 256);
+                int bx = (this.width - bw) / 2;
+                int by = (this.height - bh) / 2;
+                int availableWidth = bw - (MAIN_PADDING * 2);
+                int startY = by + MAIN_PADDING + 20;
+
+                // Determine page ranges like in render
+                int bottomUsableY = by + bh - 23;
+                java.util.List<Integer> pageStarts = new java.util.ArrayList<>();
+                int cursorY = startY;
+                pageStarts.add(0);
+                for (int i = 0; i < currentRecipes.size(); i++) {
+                    int h = currentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+                    if (i > 0 && cursorY + h > bottomUsableY) { pageStarts.add(i); cursorY = startY; }
+                    cursorY += h + RECIPE_GAP;
+                }
+                int totalPages = Math.max(1, pageStarts.size());
+                int pageStart = pageStarts.get(Math.max(0, Math.min(currentPage, totalPages - 1)));
+                int pageEnd = currentRecipes.size();
+                cursorY = startY;
+                for (int i = pageStart; i < currentRecipes.size(); i++) {
+                    int h = currentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+                    if (cursorY + h > bottomUsableY) { pageEnd = i; break; }
+                    cursorY += h + RECIPE_GAP;
+                }
+
+                int currentY = startY;
+                for (int i = pageStart; i < pageEnd; i++) {
+                    RecipeDisplay recipe = currentRecipes.get(i);
+                    int recipeWidth = recipe.contentWidth() + (RECIPE_PADDING * 2);
+                    int recipeHeight = recipe.contentHeight() + (RECIPE_PADDING * 2);
+                    int recipeX = bx + MAIN_PADDING + (availableWidth - recipeWidth) / 2;
+                    int recipeY = currentY;
+
+                    // forward to slots that are ScrollWidgets
+                    for (var slot : recipe.slots()) {
+                        if (slot instanceof net.lyivx.ls_tweaks.api.recipes.ScrollWidget sw) {
+                            if (sw.mouseScrolled(recipeX + RECIPE_PADDING + 1, recipeY + RECIPE_PADDING + 1, (int)d, (int)e, g)) return true;
+                        }
+                    }
+                    currentY += recipeHeight + RECIPE_GAP;
+                }
+            }
+        }
+        return super.mouseScrolled(d, e, f, g);
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (!categoryOrder.isEmpty()) {
+            String currentCategory = categoryOrder.get(currentCategoryIndex);
+            List<RecipeDisplay> currentRecipes = recipesByCategory.get(currentCategory);
+            if (currentRecipes != null && !currentRecipes.isEmpty()) {
+                int bw = Math.min(this.width - 40, 180);
+                int bh = Math.min(this.height - 40, 256);
+                int bx = (this.width - bw) / 2;
+                int by = (this.height - bh) / 2;
+                int availableWidth = bw - (MAIN_PADDING * 2);
+                int startY = by + MAIN_PADDING + 20;
+                int bottomUsableY = by + bh - 23;
+                java.util.List<Integer> pageStarts = new java.util.ArrayList<>();
+                int cursorY = startY;
+                pageStarts.add(0);
+                for (int i = 0; i < currentRecipes.size(); i++) {
+                    int h = currentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+                    if (i > 0 && cursorY + h > bottomUsableY) { pageStarts.add(i); cursorY = startY; }
+                    cursorY += h + RECIPE_GAP;
+                }
+                int totalPages = Math.max(1, pageStarts.size());
+                int pageStart = pageStarts.get(Math.max(0, Math.min(currentPage, totalPages - 1)));
+                int pageEnd = currentRecipes.size();
+                cursorY = startY;
+                for (int i = pageStart; i < currentRecipes.size(); i++) {
+                    int h = currentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+                    if (cursorY + h > bottomUsableY) { pageEnd = i; break; }
+                    cursorY += h + RECIPE_GAP;
+                }
+
+                int currentY = startY;
+                for (int i = pageStart; i < pageEnd; i++) {
+                    RecipeDisplay recipe = currentRecipes.get(i);
+                    int recipeWidth = recipe.contentWidth() + (RECIPE_PADDING * 2);
+                    int recipeHeight = recipe.contentHeight() + (RECIPE_PADDING * 2);
+                    int recipeX = bx + MAIN_PADDING + (availableWidth - recipeWidth) / 2;
+                    int recipeY = currentY;
+                    for (var slot : recipe.slots()) {
+                        if (slot instanceof net.lyivx.ls_tweaks.api.recipes.ScrollWidget sw) {
+                            if (sw.mouseDragged(recipeX + RECIPE_PADDING + 1, recipeY + RECIPE_PADDING + 1, (int)mouseX, (int)mouseY, button, dragX, dragY)) return true;
+                        }
+                    }
+                    currentY += recipeHeight + RECIPE_GAP;
+                }
+            }
+        }
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        if (!categoryOrder.isEmpty()) {
+            String currentCategory = categoryOrder.get(currentCategoryIndex);
+            List<RecipeDisplay> currentRecipes = recipesByCategory.get(currentCategory);
+            if (currentRecipes != null && !currentRecipes.isEmpty()) {
+                int bw = Math.min(this.width - 40, 180);
+                int bh = Math.min(this.height - 40, 256);
+                int bx = (this.width - bw) / 2;
+                int by = (this.height - bh) / 2;
+                int availableWidth = bw - (MAIN_PADDING * 2);
+                int startY = by + MAIN_PADDING + 20;
+                int bottomUsableY = by + bh - 23;
+                java.util.List<Integer> pageStarts = new java.util.ArrayList<>();
+                int cursorY = startY;
+                pageStarts.add(0);
+                for (int i = 0; i < currentRecipes.size(); i++) {
+                    int h = currentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+                    if (i > 0 && cursorY + h > bottomUsableY) { pageStarts.add(i); cursorY = startY; }
+                    cursorY += h + RECIPE_GAP;
+                }
+                int totalPages = Math.max(1, pageStarts.size());
+                int pageStart = pageStarts.get(Math.max(0, Math.min(currentPage, totalPages - 1)));
+                int pageEnd = currentRecipes.size();
+                cursorY = startY;
+                for (int i = pageStart; i < currentRecipes.size(); i++) {
+                    int h = currentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+                    if (cursorY + h > bottomUsableY) { pageEnd = i; break; }
+                    cursorY += h + RECIPE_GAP;
+                }
+
+                int currentY = startY;
+                for (int i = pageStart; i < pageEnd; i++) {
+                    RecipeDisplay recipe = currentRecipes.get(i);
+                    int recipeWidth = recipe.contentWidth() + (RECIPE_PADDING * 2);
+                    int recipeHeight = recipe.contentHeight() + (RECIPE_PADDING * 2);
+                    int recipeX = bx + MAIN_PADDING + (availableWidth - recipeWidth) / 2;
+                    int recipeY = currentY;
+                    for (var slot : recipe.slots()) {
+                        if (slot instanceof net.lyivx.ls_tweaks.api.recipes.ScrollWidget sw) {
+                            sw.mouseReleased();
+                        }
+                    }
+                    currentY += recipeHeight + RECIPE_GAP;
+                }
+            }
+        }
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 
     private double lastClickX, lastClickY; private int lastClickBtn;
@@ -344,15 +584,16 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
         // Get the category object to find recipes
         RecipeCategory<?> categoryObj = getCategoryForId(categoryId);
         if (categoryObj != null) {
-            // Find all recipes of this type
-            for (RecipeHolder<?> rh : RecipeIndex.getAllRecipes()) {
-                var typeId = net.lyivx.ls_tweaks.recipes.util.RecipeUtil.typeIdOf(rh.value());
-                if (typeId != null && typeId.toString().equals(categoryId)) {
-                    RecipeDisplay display = buildDisplay(categoryObj, rh);
-                    if (display != null) {
-                        allCategoryRecipes.add(display);
-                    }
+            if (categoryObj instanceof net.lyivx.ls_tweaks.recipes.categories.TagsCategory tagsCat) {
+                // Build one display per item tag id (each as separate card)
+                for (var rl : net.lyivx.ls_tweaks.recipes.util.TagsUtil.allItemTagIds()) {
+                    RecipeDisplay d = tagsCat.buildDisplayForTag(rl);
+                    if (d != null) allCategoryRecipes.add(d);
                 }
+            } else {
+                // Use category-bound enumeration (no reflection util)
+                var displays = net.lyivx.ls_tweaks.recipes.util.RecipeEnumeration.buildDisplaysForCategory(categoryObj);
+                if (displays != null && !displays.isEmpty()) allCategoryRecipes.addAll(displays);
             }
         }
         
@@ -508,46 +749,71 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
             // Calculate available space for recipes
             int availableWidth = bw - (MAIN_PADDING * 2);
             int availableHeight = bh - (MAIN_PADDING * 2) - 40; // Leave space for tabs
-            
-            // Get the first recipe to determine dimensions
-            RecipeDisplay firstRecipe = currentRecipes.get(0);
-            int recipeWidth = firstRecipe.contentWidth() + (RECIPE_PADDING * 2);
-            int recipeHeight = firstRecipe.contentHeight() + (RECIPE_PADDING * 2);
-            
-            // Calculate how many recipes fit vertically
-            recipesPerPage = Math.max(1, (availableHeight + RECIPE_GAP) / (recipeHeight + RECIPE_GAP));
-            
-            int startIndex = currentPage * recipesPerPage;
-            int endIndex = Math.min(startIndex + recipesPerPage, currentRecipes.size());
-            
+
             // Start recipes from the top of the background
-            int startY = by + MAIN_PADDING + 20; // Leave space for category title
+            int startY = by + MAIN_PADDING + 20;
+            // Reserve vertical space for pagination buttons at the bottom (bar starts at bh-23)
+            int bottomUsableY = by + bh - 23;
             
+            // Build page starts dynamically using actual heights
+            java.util.List<Integer> pageStarts = new java.util.ArrayList<>();
+            int cursorY = startY;
+            pageStarts.add(0);
+            for (int i = 0; i < currentRecipes.size(); i++) {
+                int h = currentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+                if (i > 0 && cursorY + h > bottomUsableY) {
+                    pageStarts.add(i);
+                    cursorY = startY;
+                }
+                cursorY += h + RECIPE_GAP;
+            }
+            int totalPages = Math.max(1, pageStarts.size());
+            if (currentPage >= totalPages) currentPage = totalPages - 1;
+            if (currentPage < 0) currentPage = 0;
+
+            int startIndex = pageStarts.get(currentPage);
+            int endIndex = currentRecipes.size();
+            // determine end index for this page
+            cursorY = startY;
+            for (int i = startIndex; i < currentRecipes.size(); i++) {
+                int h = currentRecipes.get(i).contentHeight() + (RECIPE_PADDING * 2);
+                if (cursorY + h > bottomUsableY) { endIndex = i; break; }
+                cursorY += h + RECIPE_GAP;
+            }
+            if (endIndex < startIndex) endIndex = Math.min(startIndex + 1, currentRecipes.size());
+
+            int currentY = startY;
             for (int i = startIndex; i < endIndex; i++) {
                 RecipeDisplay recipe = currentRecipes.get(i);
-                int recipeIndex = i - startIndex;
-                
+
+                // Calculate dimensions for this specific recipe
+                int recipeWidth = recipe.contentWidth() + (RECIPE_PADDING * 2);
+                int recipeHeight = recipe.contentHeight() + (RECIPE_PADDING * 2);
+
                 // Center recipe horizontally and position vertically
                 int recipeX = bx + MAIN_PADDING + (availableWidth - recipeWidth) / 2;
-                int recipeY = startY + recipeIndex * (recipeHeight + RECIPE_GAP);
-                
+                int recipeY = currentY;
+
                 // Draw recipe background using the same texture as the main background
-                g.blitSprite(net.minecraft.client.renderer.RenderType::guiTextured, BG, recipeX, recipeY, recipeWidth, recipeHeight);
-                
+                g.blitSprite(RenderType::guiTextured, BG, recipeX, recipeY, recipeWidth, recipeHeight);
+
+                // Move to next recipe position
+                currentY += recipeHeight + RECIPE_GAP;
+
                 // Calculate content area with padding
                 int contentX = recipeX + RECIPE_PADDING;
                 int contentY = recipeY + RECIPE_PADDING;
-                
-                // Render slots using widget rendering
+
+                // Render slots using widget rendering (shift by +1,+1 to align slot texture)
                 for (var slot : recipe.slots()) {
-                    slot.render(g, this.font, contentX, contentY, mouseX, mouseY);
+                    slot.render(g, this.font, contentX + 1, contentY + 1, mouseX, mouseY);
                 }
-                
+
                 // Render textures using widget rendering
                 for (var texture : recipe.textures()) {
                     texture.render(g, contentX, contentY);
                 }
-                
+
                 // Render text widgets using widget rendering
                 for (var textWidget : recipe.textWidgets()) {
                     textWidget.render(g, this.font, contentX, contentY);
@@ -559,38 +825,37 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
                     }
                 }
             }
-            
+
             // Draw pagination (same style as item panel) - only show if multiple pages
-            int totalPages = Math.max(1, (currentRecipes.size() + recipesPerPage - 1) / recipesPerPage);
             if (totalPages > 1) {
                 int btnW = 18, btnH = 18;
                 int barY = by + bh - 23; // Move up by 3px
                 int prevX = bx + 5;
                 int nextX = bx + bw - btnW - 5;
-                
+
                 // Box between page buttons
                 int boxL2 = prevX + btnW - 2;
                 int boxR2 = nextX + 2;
                 if (boxR2 > boxL2) {
                     g.fill(boxL2, barY, boxR2, barY + btnH, 0xFF8B8B8B);
                 }
-                
+
                 // Check for hover
                 boolean prevHover = mouseX >= prevX && mouseX < prevX + btnW && mouseY >= barY && mouseY < barY + btnH;
                 boolean nextHover = mouseX >= nextX && mouseX < nextX + btnW && mouseY >= barY && mouseY < barY + btnH;
-                
+
                 // Previous page button
-                ResourceLocation prevTex = prevHover ? 
-                    ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/left_button_highlighted.png") :
-                    ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/left_button.png");
+                ResourceLocation prevTex = prevHover ?
+                        ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/left_button_highlighted.png") :
+                        ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/left_button.png");
                 g.blit(net.minecraft.client.renderer.RenderType::guiTextured, prevTex, prevX, barY, 0, 0, btnW, btnH, btnW, btnH);
-                
+
                 // Next page button
-                ResourceLocation nextTex = nextHover ? 
-                    ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/right_button_highlighted.png") :
-                    ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/right_button.png");
+                ResourceLocation nextTex = nextHover ?
+                        ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/right_button_highlighted.png") :
+                        ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/right_button.png");
                 g.blit(net.minecraft.client.renderer.RenderType::guiTextured, nextTex, nextX, barY, 0, 0, btnW, btnH, btnW, btnH);
-                
+
                 // Page indicator with shadow
                 String pg = (currentPage + 1) + "/" + totalPages;
                 int textX = bx + (bw - this.font.width(pg)) / 2;
@@ -610,38 +875,5 @@ public final class RecipeBrowserScreen extends AbstractContainerScreen<AbstractC
             return;
         }
         mc.setScreen(null);
-    }
-
-    private long lsTweaks_lastCycleSecond = -1L;
-    private boolean lsTweaks_isRebuilding = false;
-
-    @Override
-    protected void containerTick() {
-        super.containerTick();
-
-        // Ensure we’re in a world
-        var mc = this.minecraft;
-        if (mc == null || mc.level == null) return;
-
-        // Avoid re-entrant rebuilds
-        if (lsTweaks_isRebuilding) return;
-
-        // Advance once per second (20 ticks)
-        long sec = mc.level.getGameTime() / 20L;
-        if (sec != lsTweaks_lastCycleSecond) {
-            lsTweaks_lastCycleSecond = sec;
-
-            // Re-run init to rebuild the current page with fresh stacks
-            lsTweaks_isRebuilding = true;
-            try {
-                // IMPORTANT: keep the same size; this only re-lays out your existing widgets
-                this.init(mc, this.width, this.height);
-                this.rebuildWidgets();
-                System.out.println(lsTweaks_isRebuilding);
-                System.out.println(lsTweaks_lastCycleSecond);
-            } finally {
-                lsTweaks_isRebuilding = false;
-            }
-        }
     }
 }

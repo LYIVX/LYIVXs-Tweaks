@@ -9,6 +9,10 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+    modImplementation "com.teamresourceful.resourcefullib:resourcefullib-common-1.21.4:3.4.5"
 
     modImplementation "curse.maven:lyivxs-core-1200581:7018764"
+
+    modImplementation("curse.maven:furnection-914878:6928764")
+
 }

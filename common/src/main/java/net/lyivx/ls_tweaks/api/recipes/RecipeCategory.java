@@ -3,6 +3,7 @@ package net.lyivx.ls_tweaks.api.recipes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 /** Describes a recipe category (e.g., crafting, smelting). */
 public interface RecipeCategory<T> {
@@ -29,7 +30,7 @@ public interface RecipeCategory<T> {
     
     /** Builds a display from a recipe holder (includes recipe ID). */
     @SuppressWarnings("unchecked")
-    default RecipeDisplay buildDisplay(net.minecraft.world.item.crafting.RecipeHolder<? extends Recipe<?>> holder) {
+    default RecipeDisplay buildDisplay(RecipeHolder<? extends Recipe<?>> holder) {
         return buildDisplay((T) holder.value());
     }
 

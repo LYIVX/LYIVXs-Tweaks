@@ -1,9 +1,8 @@
 package net.lyivx.ls_tweaks.common.feature.quickstack.client;
 
 import net.lyivx.ls_tweaks.common.config.ConfigProvider;
-import net.lyivx.ls_tweaks.common.feature.sort.InventoryButtonLayoutData;
-import net.lyivx.ls_tweaks.common.feature.sort.SortingWhitelist;
 import net.lyivx.ls_tweaks.common.feature.quickstack.QuickStackCommon;
+import net.lyivx.ls_tweaks.common.feature.sort.SortingWhitelist;
 import net.lyivx.ls_tweaks.common.feature.sort.client.SortingButtons;
 import net.lyivx.ls_tweaks.common.network.QolNet;
 import net.lyivx.ls_tweaks.common.ui.IconButton;
@@ -12,7 +11,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;

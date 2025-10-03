@@ -1,6 +1,6 @@
 C:\Users\tommy\.gradle\caches\fabric-loom\1.21.4\neoforge\21.4.154\client-extra.jar
 C:\Users\tommy\.gradle\caches\modules-2\files-2.1\net.neoforged.fancymodloader\earlydisplay\6.0.18\63203c5fc5a552fc9cdd3aac7c6ada46d73fb3b1\earlydisplay-6.0.18.jar
-C:\Users\tommy\.gradle\caches\fabric-loom\forge\transformed-dependencies-v1\net\neoforged\fancymodloader\b91c70f54190d65a3f9e47c42a060944e9ba381a55b707bf9b2dc8db4321b94c\loader\6.0.18\loader-6.0.18.jar
+C:\Users\tommy\.gradle\caches\fabric-loom\forge\transformed-dependencies-v1\net\neoforged\fancymodloader\a2d6ab59b037cfdd0e71bcf7dd763af3a938e408394b6d7040aafca4959b3199\loader\6.0.18\loader-6.0.18.jar
 C:\Users\tommy\.gradle\caches\modules-2\files-2.1\net.neoforged.accesstransformers\at-modlauncher\11.0.2\88dea58a6e1969cfce4029bf0cc5d231f9d95107\at-modlauncher-11.0.2.jar
 C:\Users\tommy\.gradle\caches\modules-2\files-2.1\net.neoforged\accesstransformers\11.0.2\25dcb69c78b16669935f0ab91dff830ce192379d\accesstransformers-11.0.2.jar
 C:\Users\tommy\.gradle\caches\modules-2\files-2.1\net.neoforged\bus\8.0.5\5b2d33285ab5d1554e9798ad98c40d6ea3868bd5\bus-8.0.5.jar

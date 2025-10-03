@@ -1,10 +1,11 @@
 package net.lyivx.ls_tweaks.api.recipes;
 
+import net.minecraft.resources.ResourceLocation;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import net.minecraft.resources.ResourceLocation;
 
 /** Registry for categories; plugins receive this to register their categories. */
 public final class CategoryRegistry {

@@ -222,7 +222,7 @@ public class TextureWidget {
         return null;
     }
     
-    private int getWidthForType() {
+    int getWidthForType() {
         if (type == Type.ANIMATED_ARROW) {
             switch (direction) {
                 case UP:
@@ -236,7 +236,7 @@ public class TextureWidget {
         return 16;
     }
     
-    private int getHeightForType() {
+    int getHeightForType() {
         if (type == Type.ANIMATED_ARROW) {
             switch (direction) {
                 case UP:

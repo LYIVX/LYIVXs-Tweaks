@@ -1,14 +1,8 @@
 package net.lyivx.ls_tweaks.common.util;
 
-import net.lyivx.ls_tweaks.common.debug.QolDebug;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
-import static net.minecraft.core.registries.BuiltInRegistries.ITEM;
 
 public final class InvUtils {
 

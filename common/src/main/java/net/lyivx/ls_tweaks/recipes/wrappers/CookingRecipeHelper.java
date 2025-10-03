@@ -14,7 +14,10 @@ public class CookingRecipeHelper {
         }
         
         try {
-            return IngredientHelper.getItems(recipe.input());
+            var holders = recipe.input().items().toList();
+            ItemStack[] items = new ItemStack[holders.size()];
+            for (int i = 0; i < holders.size(); i++) items[i] = new ItemStack(holders.get(i).value());
+            return items;
         } catch (Exception e) {
             System.out.println("[LS Tweaks][RV] ERROR extracting cooking input: " + e.getMessage());
             return new ItemStack[0];

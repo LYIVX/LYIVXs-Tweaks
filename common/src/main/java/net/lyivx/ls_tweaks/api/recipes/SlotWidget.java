@@ -16,6 +16,10 @@ import java.util.function.Supplier;
  * Slot widget that combines all slot functionality
  */
 public class SlotWidget {
+    public static ResourceLocation inputBg = ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png");
+    public static ResourceLocation outputBg = ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot_output.png");
+
+
     public final SlotRole role;
     public final int x;
     public final int y;
@@ -28,6 +32,7 @@ public class SlotWidget {
     public final boolean noBackground;     // stable per-slot
     // Dynamic rendering sources (optional)
     private final Supplier<ItemStack> stackSupplier;
+    private final List<ItemStack> stackList;
     private final Ingredient cyclingIngredient;
     private final int cyclingSalt;
 
@@ -45,6 +50,7 @@ public class SlotWidget {
         this.useCustomBackground = useCustomBackground;
         this.noBackground = noBackground;
         this.stackSupplier = null;
+        this.stackList = null;
         this.cyclingIngredient = null;
         this.cyclingSalt = 0;
     }
@@ -53,6 +59,7 @@ public class SlotWidget {
                       ItemStack stack, int recipeJsonIndex,
                       @Nullable ResourceLocation customBackground, boolean useCustomBackground, boolean noBackground,
                       @Nullable Supplier<ItemStack> stackSupplier,
+                      @Nullable List<ItemStack> stackList,
                       @Nullable Ingredient cyclingIngredient,
                       int cyclingSalt) {
         this.role = role;
@@ -66,13 +73,13 @@ public class SlotWidget {
         this.useCustomBackground = useCustomBackground;
         this.noBackground = noBackground;
         this.stackSupplier = stackSupplier;
+        this.stackList = stackList;
         this.cyclingIngredient = cyclingIngredient;
         this.cyclingSalt = cyclingSalt;
     }
 
     // Factory methods for common use cases
     public static SlotWidget input(int x, int y, ItemStack stack, int index) {
-        ResourceLocation inputBg = ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png");
         return new SlotWidget(SlotRole.INPUT, x, y, true, false, stack, index, inputBg, true, false);
     }
     
@@ -81,7 +88,6 @@ public class SlotWidget {
     }
     
     public static SlotWidget output(int x, int y, ItemStack stack, int index) {
-        ResourceLocation outputBg = ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot_output.png");
         return new SlotWidget(SlotRole.OUTPUT, x, y, true, true, stack, index, outputBg, true, false);
     }
     
@@ -95,8 +101,7 @@ public class SlotWidget {
     
     // Ghost slots (for display purposes)
     public static SlotWidget ghost(int x, int y, ItemStack stack, int index) {
-        ResourceLocation ghostBg = ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png");
-        return new SlotWidget(SlotRole.GHOST, x, y, true, false, stack, index, ghostBg, true, false);
+        return new SlotWidget(SlotRole.GHOST, x, y, true, false, stack, index, inputBg, true, false);
     }
     
     public static SlotWidget ghostNoBackground(int x, int y, ItemStack stack, int index) {
@@ -105,8 +110,7 @@ public class SlotWidget {
     
     // Catalyst slots (for catalysts, fuel, etc.)
     public static SlotWidget catalyst(int x, int y, ItemStack stack, int index) {
-        ResourceLocation catalystBg = ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png");
-        return new SlotWidget(SlotRole.CATALYST, x, y, true, false, stack, index, catalystBg, true, false);
+        return new SlotWidget(SlotRole.CATALYST, x, y, true, false, stack, index, inputBg, true, false);
     }
     
     public static SlotWidget catalystNoBackground(int x, int y, ItemStack stack, int index) {
@@ -115,8 +119,7 @@ public class SlotWidget {
     
     // Fuel slots (specialized for fuel items with automatic fuel selection)
     public static SlotWidget fuel(int x, int y, int index) {
-        ResourceLocation fuelBg = ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png");
-        return new SlotWidget(SlotRole.CATALYST, x, y, true, false, getDefaultFuelItem(null), index, fuelBg, true, false);
+        return new SlotWidget(SlotRole.CATALYST, x, y, true, false, getDefaultFuelItem(null), index, inputBg, true, false);
     }
     
     public static SlotWidget fuelNoBackground(int x, int y, int index) {
@@ -140,6 +143,11 @@ public class SlotWidget {
         }
     }
 
+    // Expose size of list-backed source for grid widgets
+    public int getStackListSize() {
+        return this.stackList == null ? 0 : this.stackList.size();
+    }
+
     /**
      * Renders this slot widget at the given position
      */
@@ -154,8 +162,11 @@ public class SlotWidget {
             } catch (Throwable t) {
                 toRender = ItemStack.EMPTY;
             }
+        } else if (this.stackList != null) {
+            int idx = Math.max(0, this.recipeJsonIndex);
+            toRender = (idx < this.stackList.size() && this.stackList.get(idx) != null) ? this.stackList.get(idx) : ItemStack.EMPTY;
         } else if (this.cyclingIngredient != null) {
-            toRender = net.lyivx.ls_tweaks.recipes.wrappers.IngredientHelper.getCyclingItem(this.cyclingIngredient, this.cyclingSalt);
+            toRender = getCyclingItem(this.cyclingIngredient, this.cyclingSalt);
         } else {
             toRender = this.stack;
         }
@@ -175,8 +186,9 @@ public class SlotWidget {
             }
         }
 
-        // Draw item
+        // Draw item (model-aware to preserve tints/dyes)
         g.renderItem(toRender, slotX, slotY);
+        g.renderItemDecorations(font, toRender, slotX, slotY);
         
         // Add tooltips
         if (mouseX >= slotX && mouseX < slotX + 16 && 
@@ -192,5 +204,38 @@ public class SlotWidget {
             
             g.renderComponentTooltip(font, tooltip, mouseX, mouseY);
         }
+    }
+
+    // Creates a copy of this slot configured for a specific grid cell position and index,
+    // preserving role, backgrounds, suppliers, and cycling settings.
+    public SlotWidget copyForGridCell(int cellX, int cellY, int index) {
+        return new SlotWidget(
+                this.role,
+                cellX,
+                cellY,
+                this.drawBackground,
+                this.isOutputStyle,
+                this.stack,
+                index,
+                this.customBackground,
+                this.useCustomBackground,
+                this.noBackground,
+                this.stackSupplier,
+                this.stackList,
+                this.cyclingIngredient,
+                this.cyclingSalt
+        );
+    }
+
+    private static ItemStack getCyclingItem(Ingredient ingredient, int salt) {
+        try {
+            var mc = net.minecraft.client.Minecraft.getInstance();
+            long t = (mc != null && mc.level != null) ? mc.level.getGameTime() : 0L; // 20 ticks/sec
+            var holders = ingredient.items().toList();
+            if (holders.isEmpty()) return ItemStack.EMPTY;
+            int idx = (int)(((t / 20L) + Math.max(0, salt)) % holders.size());
+            return new ItemStack(holders.get(idx).value());
+        } catch (Throwable ignored) {}
+        return ItemStack.EMPTY;
     }
 }

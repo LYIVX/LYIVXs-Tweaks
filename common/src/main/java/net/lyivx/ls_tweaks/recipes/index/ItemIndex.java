@@ -1,11 +1,12 @@
 package net.lyivx.ls_tweaks.recipes.index;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /** Lists all items/blocks for the right-side item panel, with simple pagination/filter. */
 public final class ItemIndex {

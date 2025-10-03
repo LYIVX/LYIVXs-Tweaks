@@ -3,15 +3,13 @@ package net.lyivx.ls_tweaks.common.feature.quickmove;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.architectury.event.events.client.ClientTickEvent;
 import net.lyivx.ls_tweaks.common.config.ConfigProvider;
-import net.minecraft.client.Minecraft;
+import net.lyivx.ls_tweaks.common.feature.slotlock.SlotLockClient;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.entity.player.Inventory;
-import org.lwjgl.glfw.GLFW;
-import net.lyivx.ls_tweaks.common.feature.slotlock.SlotLockClient;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.HashSet;
 import java.util.Set;
