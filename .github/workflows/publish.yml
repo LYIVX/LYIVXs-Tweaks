@@ -52,14 +52,14 @@ jobs:
         if: ${{ steps.derive.outputs.version != '' }}
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 8.8
+          gradle-version: 8.9
           arguments: -Pmod_version=${{ steps.derive.outputs.version }} build --stacktrace
 
       - name: Build (default version)
         if: ${{ steps.derive.outputs.version == '' }}
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 8.8
+          gradle-version: 8.9
           arguments: build --stacktrace
 
       - name: Publish to GitHub Packages (tagged version)
@@ -69,7 +69,7 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          gradle-version: 8.8
+          gradle-version: 8.9
           arguments: -Pgpr.user=${{ github.actor }} -Pgpr.key=${{ secrets.GITHUB_TOKEN }} -PgprOwner=${{ github.repository_owner }} -PgprRepo=${{ github.event.repository.name }} -Pmod_version=${{ steps.derive.outputs.version }} publish --stacktrace
 
       - name: Publish to GitHub Packages (default version)
@@ -79,7 +79,7 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          gradle-version: 8.8
+          gradle-version: 8.9
           arguments: -Pgpr.user=${{ github.actor }} -Pgpr.key=${{ secrets.GITHUB_TOKEN }} -PgprOwner=${{ github.repository_owner }} -PgprRepo=${{ github.event.repository.name }} publish --stacktrace
 
 
