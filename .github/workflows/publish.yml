@@ -48,29 +48,38 @@ jobs:
             echo "version=" >> $GITHUB_OUTPUT
           fi
 
-      - name: Build
-        run: |
-          if [ -n "${{ steps.derive.outputs.version }}" ]; then
-            ./gradlew -Pmod_version="${{ steps.derive.outputs.version }}" build --stacktrace
-          else
-            ./gradlew build --stacktrace
-          fi
+      - name: Build (tagged version)
+        if: ${{ steps.derive.outputs.version != '' }}
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.5
+          arguments: -Pmod_version=${{ steps.derive.outputs.version }} build --stacktrace
 
-      - name: Publish to GitHub Packages
+      - name: Build (default version)
+        if: ${{ steps.derive.outputs.version == '' }}
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.5
+          arguments: build --stacktrace
+
+      - name: Publish to GitHub Packages (tagged version)
+        if: ${{ steps.derive.outputs.version != '' }}
+        uses: gradle/gradle-build-action@v2
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GPR_USER: ${{ github.actor }}
-          GPR_KEY: ${{ secrets.GITHUB_TOKEN }}
-          GPR_OWNER: ${{ github.repository_owner }}
-          GPR_REPO: ${{ github.event.repository.name }}
-        run: |
-          # Map env vars to Gradle properties expected by build.gradle
-          EXTRA_PROPS="-Pgpr.user=$GPR_USER -Pgpr.key=$GPR_KEY -PgprOwner=$GPR_OWNER -PgprRepo=$GPR_REPO"
-          if [ -n "${{ steps.derive.outputs.version }}" ]; then
-            ./gradlew $EXTRA_PROPS -Pmod_version="${{ steps.derive.outputs.version }}" publish --stacktrace
-          else
-            ./gradlew $EXTRA_PROPS publish --stacktrace
-          fi
+        with:
+          gradle-version: 8.5
+          arguments: -Pgpr.user=${{ github.actor }} -Pgpr.key=${{ secrets.GITHUB_TOKEN }} -PgprOwner=${{ github.repository_owner }} -PgprRepo=${{ github.event.repository.name }} -Pmod_version=${{ steps.derive.outputs.version }} publish --stacktrace
+
+      - name: Publish to GitHub Packages (default version)
+        if: ${{ steps.derive.outputs.version == '' }}
+        uses: gradle/gradle-build-action@v2
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          gradle-version: 8.5
+          arguments: -Pgpr.user=${{ github.actor }} -Pgpr.key=${{ secrets.GITHUB_TOKEN }} -PgprOwner=${{ github.repository_owner }} -PgprRepo=${{ github.event.repository.name }} publish --stacktrace
 
 
