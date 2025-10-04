@@ -28,10 +28,10 @@
           "name": "lyivxs-tweaks-1.21.4-common-1.0.0.jar",
           "url": "lyivxs-tweaks-1.21.4-common-1.0.0.jar",
           "size": 331663,
-          "sha512": "b65b05a59632389ce8bdc39cb795ea271d94c1684e70d0234ad4b28a6d59c16f25b70814ae35cfdb1c6fb8af2cce87f71bd32edb6d05795a569d9e25beebbae7",
-          "sha256": "4162f94235724c23aa2e1da713b5d6ffe1d9b5923d177348e7b4f0e2c60f2b7f",
-          "sha1": "2f5cdbf7b6fd2b3bfcbc2d2b590a04a218040f4a",
-          "md5": "dc29aa5a174dc18616cba39998e7475d"
+          "sha512": "60a14bebcbe29bb4e7789c20210043d673590430d59ce29068a2d063c5a5f5d9e6e2b838107ec4da4b34f7413c94621a8057833f3ea8fdb7975c70d43eb5cd74",
+          "sha256": "cdfe2a3003eaf33f2396906b7cb3ecd1cb2fd251aea3db6b3420e30099fcf2c1",
+          "sha1": "e221294f2903268dbc6d5dee8d191c64f657780f",
+          "md5": "28939b7cae128902a472c2d30dd2e80a"
         }
       ]
     },
@@ -86,10 +86,10 @@
           "name": "lyivxs-tweaks-1.21.4-common-1.0.0.jar",
           "url": "lyivxs-tweaks-1.21.4-common-1.0.0.jar",
           "size": 331663,
-          "sha512": "b65b05a59632389ce8bdc39cb795ea271d94c1684e70d0234ad4b28a6d59c16f25b70814ae35cfdb1c6fb8af2cce87f71bd32edb6d05795a569d9e25beebbae7",
-          "sha256": "4162f94235724c23aa2e1da713b5d6ffe1d9b5923d177348e7b4f0e2c60f2b7f",
-          "sha1": "2f5cdbf7b6fd2b3bfcbc2d2b590a04a218040f4a",
-          "md5": "dc29aa5a174dc18616cba39998e7475d"
+          "sha512": "60a14bebcbe29bb4e7789c20210043d673590430d59ce29068a2d063c5a5f5d9e6e2b838107ec4da4b34f7413c94621a8057833f3ea8fdb7975c70d43eb5cd74",
+          "sha256": "cdfe2a3003eaf33f2396906b7cb3ecd1cb2fd251aea3db6b3420e30099fcf2c1",
+          "sha1": "e221294f2903268dbc6d5dee8d191c64f657780f",
+          "md5": "28939b7cae128902a472c2d30dd2e80a"
         }
       ]
     },
@@ -106,10 +106,10 @@
           "name": "lyivxs-tweaks-1.21.4-common-1.0.0-sources.jar",
           "url": "lyivxs-tweaks-1.21.4-common-1.0.0-sources.jar",
           "size": 160195,
-          "sha512": "5e8898d28bcf66d8780e7eab3e5af8d1afcceb1c12d008c9ed525928b795fa4515b549720563897354b95cbde31e24c19401279999c0cd4e42d1d68842bdf1f4",
-          "sha256": "40a36adba1dbba611f1560c2d1a814c77cb54de741e866b1a411196db54b5b81",
-          "sha1": "bbfefb4cc39cbe3dfbf57378365bb893a7317f1f",
-          "md5": "86ecdfd3569223dc45e4794c32fcd28d"
+          "sha512": "5400ac01ab2b2a8b6e7b264288e9c9807f8d3b05a702b2767b63c0b603cd96fcdce356a020c3fab1ad75f9143be50edee69fdb6e60be3badabf466e346d70600",
+          "sha256": "e06ec4fc47530749fd9c0e237f8e05a2dd25f3f425f0badbb7643a97d649eca1",
+          "sha1": "1d71660b85bb49bf4a28e63d87e664aab51cdb72",
+          "md5": "8c6db3db5d3bb0e9b268b61eb3e276dc"
         }
       ]
     }

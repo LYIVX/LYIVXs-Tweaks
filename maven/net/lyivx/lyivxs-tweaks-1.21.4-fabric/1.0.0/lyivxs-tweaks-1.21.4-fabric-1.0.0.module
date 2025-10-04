@@ -36,11 +36,11 @@
         {
           "name": "lyivxs-tweaks-1.21.4-fabric-1.0.0.jar",
           "url": "lyivxs-tweaks-1.21.4-fabric-1.0.0.jar",
-          "size": 775260,
-          "sha512": "9e9d70fbb022cd8dbc872b4ccec7a61bd7e238a7cef44feb50a15134913d4c0b8a0d64875c8a069b9a2f804d00bf7553bfbd8a17682f97f4e6f461492445dc29",
-          "sha256": "6d0583211ec40d67c21f6ee720e670c721a7b222335ca6762dd93dda599a1f62",
-          "sha1": "f17f51da6a02fbd2ecb38a7023d87c7f460241ed",
-          "md5": "ddf0430a923ae2f07e83deec8cf6d412"
+          "size": 775258,
+          "sha512": "73a5c71e6b742ef88b53bd4ade6ace7567ef838ced8ecc869082b77a5a0ac2832864102f7f454da479d97f02f57d0ea75d61486e2425208b05cc5625c8960b92",
+          "sha256": "e5de4cf08452a9395b7416a992f237788309d4fb2f0e0cb3f9de886e6e2176b6",
+          "sha1": "c43cbe6aef0b0ae07a348a4855f4ddd8204b7741",
+          "md5": "d6b25f71f8509f43e7c74f7ed5be197c"
         }
       ]
     },
@@ -101,11 +101,11 @@
         {
           "name": "lyivxs-tweaks-1.21.4-fabric-1.0.0.jar",
           "url": "lyivxs-tweaks-1.21.4-fabric-1.0.0.jar",
-          "size": 775260,
-          "sha512": "9e9d70fbb022cd8dbc872b4ccec7a61bd7e238a7cef44feb50a15134913d4c0b8a0d64875c8a069b9a2f804d00bf7553bfbd8a17682f97f4e6f461492445dc29",
-          "sha256": "6d0583211ec40d67c21f6ee720e670c721a7b222335ca6762dd93dda599a1f62",
-          "sha1": "f17f51da6a02fbd2ecb38a7023d87c7f460241ed",
-          "md5": "ddf0430a923ae2f07e83deec8cf6d412"
+          "size": 775258,
+          "sha512": "73a5c71e6b742ef88b53bd4ade6ace7567ef838ced8ecc869082b77a5a0ac2832864102f7f454da479d97f02f57d0ea75d61486e2425208b05cc5625c8960b92",
+          "sha256": "e5de4cf08452a9395b7416a992f237788309d4fb2f0e0cb3f9de886e6e2176b6",
+          "sha1": "c43cbe6aef0b0ae07a348a4855f4ddd8204b7741",
+          "md5": "d6b25f71f8509f43e7c74f7ed5be197c"
         }
       ]
     },
@@ -122,10 +122,10 @@
           "name": "lyivxs-tweaks-1.21.4-fabric-1.0.0-sources.jar",
           "url": "lyivxs-tweaks-1.21.4-fabric-1.0.0-sources.jar",
           "size": 5061,
-          "sha512": "7c57fcbad657421ff582c1dc3d8a27357672a2bcbef12ce392d462940ac83dc0867a725e5aaf4025b7b1b8022c82206b39d1d7f34fd7ed8fd747bf153550e9dd",
-          "sha256": "b0b31051da9498b560b4a26ba2805fdf81622e0952082e6d5d5e8a74c6a66ca9",
-          "sha1": "f82f86d475c4cbc039ec2a27654b48c18241d02c",
-          "md5": "c4a8e2fe768a2832b1f3774a80a46fb6"
+          "sha512": "6bd93357b057292dd265cbb111940d51c0a61502af1de7b841345fb6193c92adba35b7eb0a6fbf51d02dd5f4ddfbe35cf46f93f1538c44105151f28f9309834e",
+          "sha256": "1081ba9c8f08e6161005370aa814a7e13d3c871770b444f7b559dac672ebc667",
+          "sha1": "2dcd37e0f0f4c256a337f84b74758096f69ab014",
+          "md5": "7c5deb5622ace5db6beb760a654eced7"
         }
       ]
     },
@@ -141,11 +141,11 @@
         {
           "name": "lyivxs-tweaks-1.21.4-fabric-1.0.0-dev-shadow.jar",
           "url": "lyivxs-tweaks-1.21.4-fabric-1.0.0-dev-shadow.jar",
-          "size": 335637,
-          "sha512": "1270c1300ef245fb5f519bc61d011d171092aaaa7e149cc14d0a6913e408c58ff2b7113b9ebc0bd0451d2b0ca343de12a590cfee61a034bf60f09bed0c032c43",
-          "sha256": "9b886bcd6d19bfc9c122feab808cb3ba70407df7145209998e620b8460cc485e",
-          "sha1": "223d1b589638e339ad2720d73176f8b0a3e30f7e",
-          "md5": "1faa6805b870f046a28fbe1608ea9920"
+          "size": 335635,
+          "sha512": "c0f465b91e427b12566063a7e8105f0857b48e4bb17d198e459983ba5b73400275ed03e9796cbc396fd5ff51c512324921383a71d01d41c464b35560625b2ecd",
+          "sha256": "03bb1e409b536c3ffb581140767ef713937dd879b26f9a07a1fb9a916d0fa1c9",
+          "sha1": "49352def3fc06f3ebf1be3e1e3e505f7f6f02bc9",
+          "md5": "10b4c86bded4813bbd20c11445ec436b"
         }
       ]
     }

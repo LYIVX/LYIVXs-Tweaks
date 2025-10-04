@@ -36,11 +36,11 @@
         {
           "name": "lyivxs-tweaks-1.21.4-neoforge-1.0.0.jar",
           "url": "lyivxs-tweaks-1.21.4-neoforge-1.0.0.jar",
-          "size": 779788,
-          "sha512": "d2591735a1184f2a3a853b169c931528e458297097ff8252040ee77d50749917208a06746afb8399781b126399a91d842b9d1509bb449315df73ebee59e7d38f",
-          "sha256": "51197c1aacf9b5eee4bfdf06407414d27158395b52b6dc2c185b928b8bf89510",
-          "sha1": "f8788118af30caa693eb043ce9e537fcba0a7427",
-          "md5": "c0135ccd6c8efec6e2acbf05653307fa"
+          "size": 779786,
+          "sha512": "cc79434bc03208860e81f898f6cf41379bcc5c869c723a4889b15b933ae49536a5fd15f562257aaf47376e3d9f4a5f3133d8eafef08e9e76ece7c4be1f48c655",
+          "sha256": "a7e55a00b09e9ebec39ab7e61d509b6ab83dd22c283d71d1690c7eac258105ab",
+          "sha1": "ea8d7ad91cab2aa9882903d07a9cadb3731c7925",
+          "md5": "3f6410bf8db35718089991143e20abc4"
         }
       ]
     },
@@ -87,11 +87,11 @@
         {
           "name": "lyivxs-tweaks-1.21.4-neoforge-1.0.0.jar",
           "url": "lyivxs-tweaks-1.21.4-neoforge-1.0.0.jar",
-          "size": 779788,
-          "sha512": "d2591735a1184f2a3a853b169c931528e458297097ff8252040ee77d50749917208a06746afb8399781b126399a91d842b9d1509bb449315df73ebee59e7d38f",
-          "sha256": "51197c1aacf9b5eee4bfdf06407414d27158395b52b6dc2c185b928b8bf89510",
-          "sha1": "f8788118af30caa693eb043ce9e537fcba0a7427",
-          "md5": "c0135ccd6c8efec6e2acbf05653307fa"
+          "size": 779786,
+          "sha512": "cc79434bc03208860e81f898f6cf41379bcc5c869c723a4889b15b933ae49536a5fd15f562257aaf47376e3d9f4a5f3133d8eafef08e9e76ece7c4be1f48c655",
+          "sha256": "a7e55a00b09e9ebec39ab7e61d509b6ab83dd22c283d71d1690c7eac258105ab",
+          "sha1": "ea8d7ad91cab2aa9882903d07a9cadb3731c7925",
+          "md5": "3f6410bf8db35718089991143e20abc4"
         }
       ]
     },
@@ -108,10 +108,10 @@
           "name": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-sources.jar",
           "url": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-sources.jar",
           "size": 4509,
-          "sha512": "cacc7c7a201510d99b966d87ecae5c3960536499a504a9bd1052719ffcac48f0031fe307d4056a8feb94e3a744d368112be33aea24f3558a9749d10bf011475f",
-          "sha256": "d8194b99d2308f18edd0da4244fc91aa6a62f54ad261c1ff11ad9989f8517fc4",
-          "sha1": "ddf82057064b57009f64379ee7baba248b0f3481",
-          "md5": "212db2bf15ec9926e7a038e4e8bdd28e"
+          "sha512": "77dd0d2695e7a609468bcb79c941aa98663cd816afe780f2de129cdcecb748945849c81a25739ac48163e3946419a2509bec7e63ca8a90a684106d4336db31dd",
+          "sha256": "8dd36eaeda53046379920041a59d2e9c9055ebef71222603317fe9f05de3c3f8",
+          "sha1": "53d1d58795258833f1a56b5f24495cf868e169e4",
+          "md5": "000d0dd4f664b76ac572696f0107c94d"
         }
       ]
     },
@@ -127,11 +127,11 @@
         {
           "name": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-dev-shadow.jar",
           "url": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-dev-shadow.jar",
-          "size": 333905,
-          "sha512": "7fcb6ccce442b7be9409fcc87415930d9723a97ec3fdb62338e73ccb002bab87db9aa68b966609f5bfd3f52a3e9f5ee1b5af885638a08d0a9ef733f761d2f0ea",
-          "sha256": "474f393b5cb47e130c58daa53984ab5f7f77e539d0e9d1614c49885d58fede3d",
-          "sha1": "ed324096ae1142463d7ad8288ce8cedace981ae2",
-          "md5": "115241740906358f9463a5bc3c5875df"
+          "size": 333903,
+          "sha512": "69f55deef56c5e3abb1114246a7ecb16cafcae9bf338e5433ab74045f0d68f1ce558f4da8e4be74a4707a0855140946e2a16da393d98d8facf6875b7cfc75986",
+          "sha256": "e30286081ca1c7af5e58399a028ce1cdbad1076e374c59d3651c96163b71c81b",
+          "sha1": "d4fa13debb5fb8d9a0f1627638d30bc5c0265b7c",
+          "md5": "72962479b949131ae5331aebda045fe9"
         }
       ]
     }
