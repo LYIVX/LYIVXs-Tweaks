@@ -140,6 +140,24 @@ jobs:
           gradle-version: 8.9
           arguments: -Pmc_version=${{ steps.derive.outputs.mc_version }} publishAllPublicationsToPagesRepository --stacktrace
 
+      - name: Verify generated Maven repository contents
+        shell: bash
+        run: |
+          echo "::group::List build/pages-maven"
+          ls -R build/pages-maven || true
+          echo "::endgroup::"
+          ART="lyivxs-tweaks-${{ steps.derive.outputs.mc_version }}-common"
+          VER="${{ steps.derive.outputs.version }}"
+          if [[ -z "$VER" ]]; then
+            # fallback to gradle.properties version when no tag version (manual run)
+            VER=$(grep '^mod_version=' gradle.properties | cut -d'=' -f2)
+          fi
+          POM="build/pages-maven/net/lyivx/$ART/$VER/$ART-$VER.pom"
+          if [[ ! -f "$POM" ]]; then
+            echo "::error::Expected POM not found: $POM"
+            exit 1
+          fi
+
       - name: Deploy Maven repo to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

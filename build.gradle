@@ -89,7 +89,7 @@ subprojects {
             maven {
                 name = "Pages"
                 // Publish all modules to the root project's build/pages-maven so the workflow can deploy a single dir
-                url = rootProject.layout.buildDirectory.dir("pages-maven")
+                url = uri("${rootProject.buildDir}/pages-maven")
             }
         }
     }
