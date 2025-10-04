@@ -11,6 +11,10 @@ on:
         description: 'Minecraft version (e.g., 1.21.4)'
         required: false
         default: ''
+      publish_gpr:
+        description: 'Also publish to GitHub Packages (true/false)'
+        required: false
+        default: 'false'
   push:
     tags:
       - 'v*'
@@ -45,19 +49,42 @@ jobs:
             TAG="${GITHUB_REF_NAME}"
             # strip leading v if present
             VER="${TAG#v}"
-            echo "version=$VER" >> $GITHUB_OUTPUT
-            # try to extract mc version from tag patterns like v1.0.0-mc1.21.4 or v1.0.0+mc1.21.4
-            if [[ "$TAG" =~ mc([0-9]+\.[0-9]+(\.[0-9]+)?) ]]; then
-              echo "mc_version=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+            # Parse base version and optional mc version (accepts separators -mc or +mc)
+            if [[ "$VER" =~ ^([0-9]+\.[0-9]+\.[0-9]+)(?:[\-+]?mc([0-9]+\.[0-9]+(?:\.[0-9]+)?))?$ ]]; then
+              echo "version=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+              if [[ -n "${BASH_REMATCH[2]}" ]]; then
+                echo "mc_version=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
+              else
+                echo "mc_version=" >> $GITHUB_OUTPUT
+              fi
             else
-              echo "mc_version=" >> $GITHUB_OUTPUT
+              # Fallback: keep VER as version; try legacy mc extraction
+              echo "version=$VER" >> $GITHUB_OUTPUT
+              if [[ "$TAG" =~ mc([0-9]+\.[0-9]+(\.[0-9]+)?) ]]; then
+                echo "mc_version=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+              else
+                echo "mc_version=" >> $GITHUB_OUTPUT
+              fi
             fi
           elif [[ -n "${{ github.event.inputs.version }}" ]]; then
-            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
-            if [[ -n "${{ github.event.inputs.mc_version }}" ]]; then
-              echo "mc_version=${{ github.event.inputs.mc_version }}" >> $GITHUB_OUTPUT
+            # If a full version like 1.0.1-mc1.21.4 is provided, split it; otherwise use as-is
+            MANUAL_VER='${{ github.event.inputs.version }}'
+            if [[ "$MANUAL_VER" =~ ^([0-9]+\.[0-9]+\.[0-9]+)(?:[\-+]?mc([0-9]+\.[0-9]+(?:\.[0-9]+)?))?$ ]]; then
+              echo "version=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+              if [[ -n "${BASH_REMATCH[2]}" ]]; then
+                echo "mc_version=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
+              elif [[ -n "${{ github.event.inputs.mc_version }}" ]]; then
+                echo "mc_version=${{ github.event.inputs.mc_version }}" >> $GITHUB_OUTPUT
+              else
+                echo "mc_version=" >> $GITHUB_OUTPUT
+              fi
             else
-              echo "mc_version=" >> $GITHUB_OUTPUT
+              echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+              if [[ -n "${{ github.event.inputs.mc_version }}" ]]; then
+                echo "mc_version=${{ github.event.inputs.mc_version }}" >> $GITHUB_OUTPUT
+              else
+                echo "mc_version=" >> $GITHUB_OUTPUT
+              fi
             fi
           else
             echo "version=" >> $GITHUB_OUTPUT
@@ -88,7 +115,7 @@ jobs:
           arguments: -Pmc_version=${{ steps.derive.outputs.mc_version }} build --stacktrace
 
       - name: Publish to GitHub Packages (tagged version)
-        if: ${{ steps.derive.outputs.version != '' }}
+        if: ${{ steps.derive.outputs.version != '' && github.event.inputs.publish_gpr == 'true' }}
         uses: gradle/gradle-build-action@v2
         env:
           GITHUB_ACTOR: ${{ github.actor }}
@@ -98,7 +125,7 @@ jobs:
           arguments: -Pgpr.user=${{ github.actor }} -Pgpr.key=${{ secrets.GITHUB_TOKEN }} -PgprOwner=${{ github.repository_owner }} -PgprRepo=${{ github.event.repository.name }} -Pmod_version=${{ steps.derive.outputs.version }} -Pmc_version=${{ steps.derive.outputs.mc_version }} publish --stacktrace
 
       - name: Publish to GitHub Packages (default version)
-        if: ${{ steps.derive.outputs.version == '' }}
+        if: ${{ steps.derive.outputs.version == '' && github.event.inputs.publish_gpr == 'true' }}
         uses: gradle/gradle-build-action@v2
         env:
           GITHUB_ACTOR: ${{ github.actor }}
