@@ -19,9 +19,13 @@ subprojects {
     apply plugin: 'maven-publish'
 
     base {
-        // Normalize artifactId for GitHub Packages: lowercase and hyphenated
-        def rawName = "$rootProject.archives_name-$project.name"
-        archivesName = rawName.toLowerCase().replace('_','-')
+        // Normalize artifactId for GitHub Packages and include MC version in the artifact id
+        // Desired format: lyivxs-tweaks-<mcVersion>-<module>
+        def mc = (project.findProperty('mc_version') ?: rootProject.minecraft_version) as String
+        def rawBase = "$rootProject.archives_name".toLowerCase().replace('_','-')
+        def module = "$project.name".toLowerCase().replace('_','-')
+        def rawName = "$rawBase-$mc-$module"
+        archivesName = rawName
     }
 
     repositories {
@@ -80,6 +84,11 @@ subprojects {
                         password = System.getenv("GITHUB_TOKEN") ?: (project.findProperty('gpr.key') ?: "")
                     }
                 }
+            }
+            // Local directory for GitHub Pages static Maven repo
+            maven {
+                name = "Pages"
+                url = layout.buildDirectory.dir("pages-maven")
             }
         }
     }

@@ -30,9 +30,6 @@ public abstract class WorkstationCategory implements RecipeBackedCategory<Workst
     @Override public String titleTranslationKey() { return "ls_furniture.category." + id.getPath(); }
     @Override public ResourceLocation iconTexture() { return icon; }
     @Override public ItemStack iconItem() { return ModItems.WORKSTATION.get().getDefaultInstance(); }
-    
-    protected abstract ItemStack getIconItem();
-    
     @Override public Class<WorkstationRecipe> recipeClass() { return WorkstationRecipe.class; }
     @Override public RecipeType<WorkstationRecipe> recipeType() { return type; }
     
@@ -42,67 +39,31 @@ public abstract class WorkstationCategory implements RecipeBackedCategory<Workst
 
     @Override
     public RecipeDisplay buildDisplay(WorkstationRecipe recipe) {
-        // Build grouped outputs for same input and inputCount using a scrollable grid
-        ItemStack in = WorkstationRecipeHelper.getFirstInputItem(recipe);
-        if (!in.isEmpty()) in.setCount(Math.max(1, recipe.getInputCount()));
-        java.util.List<ItemStack> outputs = enumerateOutputsFor(recipe);
-        // No dedupe here; holder-aware path handles canonical selection
-
         RecipeDisplayBuilder builder = new RecipeDisplayBuilder();
-        // Place input at Top-Center using builder positioning helper (offsets derived from x/y)
-        builder.addSlot(Widgets.AddSlot.input(0, 0, in, 0).positionTopCenter());
-
-        // Use grouped outputs computed above
-        int columns = 5;
-        int rows = Math.max(1, (outputs.size() + columns - 1) / columns);
-        int visibleRows = Math.min(rows, 4);
-        var grid = Widgets.AddGrid.items(0, 24, columns, rows, Widgets.AddSlot.output(0, 0, outputs, 0)).hideEmptySlots();
-        var scroll = Widgets.AddScroll.grid(0, 24, visibleRows, grid);
-        builder.addSlot(scroll);
-        int effColsA = (grid instanceof Widgets.AddGrid.GridBuilder gbA) ? gbA.getEffectiveColumns() : columns;
-        int effRowsA = (grid instanceof Widgets.AddGrid.GridBuilder gbA2) ? gbA2.getEffectiveRows() : rows;
-        int viewRowsA = Math.min(visibleRows, effRowsA);
-        builder.contentSize(effColsA * 26, 24 + viewRowsA * 26);
-        return builder.build();
-    }
-
-    @Override
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public RecipeDisplay buildDisplay(RecipeHolder<? extends Recipe<?>> holder) {
-        return buildDisplayWithHolder((RecipeHolder) holder);
-    }
-
-    public RecipeDisplay buildDisplayWithHolder(RecipeHolder<Recipe<?>> holder) {
-        Recipe<?> recipe = holder.value();
-        ItemStack in = ItemStack.EMPTY;
-
-        if (recipe instanceof WorkstationRecipe workstationRecipe1) {
-            // Use helper to get input items reliably
-            in = WorkstationRecipeHelper.getFirstInputItem(workstationRecipe1);
-            if (!in.isEmpty()) in.setCount(Math.max(1, workstationRecipe1.getInputCount()));
-
-        }
-
-        ItemStack out = (recipe instanceof WorkstationRecipe workstationRecipe) ? assembleCookingOutput(workstationRecipe) : DisplayUtil.firstOutput(holder);
-        RecipeDisplayBuilder builder = new RecipeDisplayBuilder();
-
 
         // Header
-        builder.addSlot(Widgets.AddSlot.input(0, 0, in, 0).positionTopCenter());
+        builder.addSlot(Widgets.AddSlot.input(0, 0, recipe.input(), 0).positionTopCenter());
         // Group outputs for same input/inputCount and deduplicate cards (per-frame)
+        java.util.List<ItemStack> outputs = null;
         if (recipe instanceof WorkstationRecipe wr) {
-            java.util.List<ItemStack> outputs = enumerateOutputsFor(wr);
+            outputs = enumerateOutputsFor(wr);
             // Per-tick dedupe by input family + count so usages collapse to one card, but results still show
             try {
                 var mc = net.minecraft.client.Minecraft.getInstance();
                 long tick = (mc != null && mc.level != null) ? mc.level.getGameTime() : 0L;
-                if (DEDUPE_TICK != tick) { DEDUPE_SEEN.clear(); DEDUPE_TICK = tick; }
+                if (DEDUPE_TICK != tick) {
+                    DEDUPE_SEEN.clear();
+                    DEDUPE_TICK = tick;
+                }
                 ItemStack seedFirst = wr.input().items().findFirst().map(h -> new ItemStack(h.value())).orElse(ItemStack.EMPTY);
                 String inKey = String.valueOf(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(seedFirst.getItem()));
                 String groupKey = inKey + "#" + wr.getInputCount();
-                if (DEDUPE_SEEN.contains(groupKey)) { return null; }
+                if (DEDUPE_SEEN.contains(groupKey)) {
+                    return null;
+                }
                 DEDUPE_SEEN.add(groupKey);
-            } catch (Throwable ignored) {}
+            } catch (Throwable ignored) {
+            }
 
             int columns = 6;
             int rows = Math.max(1, (outputs.size() + columns - 1) / columns);
@@ -121,7 +82,7 @@ public abstract class WorkstationCategory implements RecipeBackedCategory<Workst
                 builder.contentSize((contentWidth() + effCols * 25) - 2, contentHeight() + Math.min(maxVisibleRows, effRows) * 26);
             }
         } else {
-            builder.addSlot(Widgets.AddSlot.output(50, 4, out, 0));
+            builder.addSlot(Widgets.AddSlot.output(50, 4, outputs, 0));
             builder.contentSize(contentWidth(), contentHeight());
         }
 

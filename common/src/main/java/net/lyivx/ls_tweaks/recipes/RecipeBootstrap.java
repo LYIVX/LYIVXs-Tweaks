@@ -3,6 +3,7 @@ package net.lyivx.ls_tweaks.recipes;
 import net.lyivx.ls_furniture.common.recipes.WorkstationRecipe;
 import net.lyivx.ls_furniture.registry.ModItems;
 import net.lyivx.ls_furniture.registry.ModRecipes;
+import net.lyivx.ls_tweaks.api.recipes.RecipeDisplay;
 import net.lyivx.ls_tweaks.recipes.categories.CookingCategoryBase;
 import net.lyivx.ls_tweaks.recipes.categories.CraftingAnyCategory;
 import net.lyivx.ls_tweaks.recipes.categories.TagsCategory;
@@ -21,6 +22,11 @@ public final class RecipeBootstrap {
         RecipeBrowser.CATEGORIES.register(new CraftingAnyCategory());
         // Basic furnace-like categories bound to their recipe types
         RecipeBrowser.CATEGORIES.register(new CookingCategoryBase(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("minecraft", "smelting"), net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("minecraft", "textures/item/furnace.png")){
+            @Override
+            public RecipeDisplay buildDisplay(AbstractCookingRecipe recipe) {
+                return null;
+            }
+
             @Override protected net.minecraft.world.item.ItemStack getIconItem() { return new net.minecraft.world.item.ItemStack(Items.FURNACE); }
             @Override public Class<AbstractCookingRecipe> recipeClass() { return AbstractCookingRecipe.class; }
             @Override public RecipeType<AbstractCookingRecipe> recipeType() { return (RecipeType) RecipeType.SMELTING; }
@@ -40,15 +46,6 @@ public final class RecipeBootstrap {
 
 
         RecipeBrowser.CATEGORIES.register(new WorkstationCategory(ResourceLocation.fromNamespaceAndPath("ls_furniture", "workstation"), net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ls_furniture", "textures/item/furnace.png"), ModRecipes.WORKSTATION_RECIPE.get()) {
-            @Override
-            protected ItemStack getIconItem() {
-                return ModItems.WORKSTATION.get().getDefaultInstance();
-            }
-
-            @Override
-            public Class<WorkstationRecipe> recipeClass() {
-                return WorkstationRecipe.class;
-            }
 
             @Override
             public RecipeType<WorkstationRecipe> recipeType() {

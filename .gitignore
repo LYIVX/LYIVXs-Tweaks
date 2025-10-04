@@ -1,6 +1,7 @@
 .env
+.gitignore
 # Gradle
-.gradle/
+*.gradle/
 build/
 common/build/
 fabric/build/

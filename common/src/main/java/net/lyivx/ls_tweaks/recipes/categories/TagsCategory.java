@@ -4,12 +4,11 @@ import net.lyivx.ls_tweaks.api.recipes.RecipeCategory;
 import net.lyivx.ls_tweaks.api.recipes.RecipeDisplay;
 import net.lyivx.ls_tweaks.api.recipes.RecipeDisplayBuilder;
 import net.lyivx.ls_tweaks.api.recipes.Widgets;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
-
-import java.util.List;
 
 /** Category that shows all tags an item belongs to. */
 public final class TagsCategory implements RecipeCategory<Recipe<?>> {
@@ -40,19 +39,18 @@ public final class TagsCategory implements RecipeCategory<Recipe<?>> {
         int rows = Math.max(1, (items.size() + columns - 1) / columns);
         int maxVisibleRows = 5;
 
-        var grid = Widgets.AddGrid.items(0, 0, columns, rows, Widgets.AddSlot.input(0, 0, items, 0));
-        var scroll = Widgets.AddScroll.grid(0, 0, maxVisibleRows, grid);
+        // Use grid/scroll with cycling disabled so list sources don't replicate
+        var grid = Widgets.AddGrid.items(0, 0, columns, rows, Widgets.AddSlot.input(0, 0, items, 0)).disableListCycling();
+        var scroll = Widgets.AddScroll.grid(0, 0, maxVisibleRows, grid).disableListCycling();
 
         int effCols = (grid instanceof Widgets.AddGrid.GridBuilder gb) ? gb.getEffectiveColumns() : columns;
         int effRows = (grid instanceof Widgets.AddGrid.GridBuilder gb2) ? gb2.getEffectiveRows() : rows;
 
-        builder.addText(Widgets.AddText.literal(0, 0, tagId.toString()).positionTopLeft().bounds(contentWidth() + effCols * 18, 10));
+        builder.addText(Widgets.AddText.component(0, 0, Component.literal(tagId.toString())).positionTopLeft().bounds(contentWidth() + effCols * 18, 10));
         if (rows <= maxVisibleRows) {
-            // Static grid
             builder.addSlot(grid.positionBottomCenter());
             builder.contentSize(contentWidth() + effCols * 18, contentHeight() + effRows * 18 + 10);
         } else {
-            // Scrollable grid SlotWidget
             builder.addSlot(scroll.positionBottomCenter());
             builder.contentSize(contentWidth() + effCols * 18, contentHeight() + Math.max(18, maxVisibleRows * 18 + 10));
         }

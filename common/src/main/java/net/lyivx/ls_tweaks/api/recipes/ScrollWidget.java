@@ -24,7 +24,10 @@ public class ScrollWidget extends SlotWidget {
         int visibleCols = Math.max(1, grid.columns - 1);
         int step = grid.asOutput ? 26 : 18;
         int itemCount;
-        if (grid.items != null && !grid.items.isEmpty()) {
+        java.util.List<net.minecraft.world.item.crafting.Ingredient> localIngs = (grid.ingredients != null && !grid.ingredients.isEmpty()) ? grid.ingredients : (grid.slotWidget != null ? grid.slotWidget.getIngredientList() : null);
+        if (localIngs != null && !localIngs.isEmpty()) {
+            itemCount = localIngs.size();
+        } else if (grid.items != null && !grid.items.isEmpty()) {
             itemCount = grid.items.size();
         } else if (grid.slotWidget != null) {
             itemCount = grid.slotWidget.getStackListSize();
@@ -49,8 +52,28 @@ public class ScrollWidget extends SlotWidget {
                 int cx = baseLeft + grid.x + c * step + outOffX;
                 int cy = baseTop + grid.y + r * step + outOffY;
                 SlotWidget cell;
-                if (grid.slotWidget != null) {
-                    cell = grid.slotWidget.copyForGridCell(cx - baseLeft, cy - baseTop, itemIndex);
+                if (localIngs != null && itemIndex < localIngs.size() && localIngs.get(itemIndex) != null) {
+                    var ing = localIngs.get(itemIndex);
+                    boolean drawBg = grid.withBackground;
+                    boolean isOut = grid.asOutput;
+                    if (drawBg) {
+                        cell = new SlotWidget(isOut ? SlotRole.OUTPUT : SlotRole.INPUT,
+                                cx - baseLeft, cy - baseTop,
+                                true, isOut,
+                                net.minecraft.world.item.ItemStack.EMPTY, itemIndex,
+                                isOut ? SlotWidget.outputBg : SlotWidget.inputBg,
+                                true, false,
+                                null, null, ing, 0, grid.cycleSpeedTicks, true, null);
+                    } else {
+                        cell = new SlotWidget(isOut ? SlotRole.OUTPUT : SlotRole.INPUT,
+                                cx - baseLeft, cy - baseTop,
+                                false, isOut,
+                                net.minecraft.world.item.ItemStack.EMPTY, itemIndex,
+                                null, false, true,
+                                null, null, ing, 0, grid.cycleSpeedTicks, true, null);
+                    }
+                } else if (grid.slotWidget != null) {
+                    cell = grid.slotWidget.copyForGridCell(cx - baseLeft, cy - baseTop, itemIndex, grid.listCycleOverride);
                 } else {
                     var item = (grid.items != null && itemIndex < grid.items.size()) ? grid.items.get(itemIndex) : net.minecraft.world.item.ItemStack.EMPTY;
                     cell = grid.withBackground

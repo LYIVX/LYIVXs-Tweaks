@@ -6,8 +6,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.core.Holder;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -61,37 +63,281 @@ public class Widgets {
     }
     
     public static class AddSlot {
+        private static java.util.List<ItemStack> holdersToStacks(java.util.List<Holder<Item>> holders) {
+            java.util.ArrayList<ItemStack> list = new java.util.ArrayList<>();
+            if (holders != null) for (Holder<Item> h : holders) if (h != null && h.isBound()) list.add(new ItemStack(h.value()));
+            return list;
+        }
+        private static java.util.List<ItemStack> holdersToStacks(java.util.stream.Stream<Holder<Item>> holders) {
+            if (holders == null) return java.util.Collections.emptyList();
+            return holders.filter(java.util.Objects::nonNull).filter(Holder::isBound).map(h -> new ItemStack(h.value())).toList();
+        }
+        private static java.util.List<ItemStack> holdersToStacks(java.lang.Iterable<Holder<Item>> holders) {
+            java.util.ArrayList<ItemStack> list = new java.util.ArrayList<>();
+            if (holders != null) for (Holder<Item> h : holders) if (h != null && h.isBound()) list.add(new ItemStack(h.value()));
+            return list;
+        }
         public static SlotBuilder input(int x, int y, ItemStack stack, int index) {
             return new SlotBuilder(x, y, stack, index, SlotRole.INPUT, true);
+        }
+        public static SlotBuilder input(int x, int y, Item item, int index) {
+            return new SlotBuilder(x, y, new ItemStack(item), index, SlotRole.INPUT, true);
+        }
+        public static SlotBuilder input(int x, int y, Holder<Item> holder, int index) {
+            ItemStack s = holder == null ? ItemStack.EMPTY : new ItemStack(holder.value());
+            return new SlotBuilder(x, y, s, index, SlotRole.INPUT, true);
         }
 
         public static SlotBuilder input(int x, int y, Supplier<ItemStack> supplier, int index) {
             return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicSupplier(supplier);
         }
+        public static SlotBuilder input(int x, int y, Supplier<ItemStack> supplier, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicSupplier(supplier).cyclingSpeed(speed > 0 ? speed : 20);
+        }
         // New overload: accept a list of stacks and bind by cell index
-        public static SlotBuilder input(int x, int y, List<ItemStack> items, int index) {
+        public static SlotBuilder input(int x, int y, java.util.List<ItemStack> items, int index) {
             return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicList(items);
+        }
+        public static SlotBuilder input(int x, int y, java.util.List<ItemStack> items, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicList(items).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder input(int x, int y, java.lang.Iterable<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder input(int x, int y, java.lang.Iterable<Holder<Item>> holders, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicList(holdersToStacks(holders)).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder input(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder input(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicList(holdersToStacks(holders)).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder input(int x, int y, ItemStack stack, int speed, int index) {
+            return new SlotBuilder(x, y, stack, index, SlotRole.INPUT, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder input(int x, int y, Item item, int speed, int index) {
+            return new SlotBuilder(x, y, new ItemStack(item), index, SlotRole.INPUT, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder input(int x, int y, Holder<Item> holder, int speed, int index) {
+            ItemStack s = holder == null ? ItemStack.EMPTY : new ItemStack(holder.value());
+            return new SlotBuilder(x, y, s, index, SlotRole.INPUT, true).cyclingSpeed(speed > 0 ? speed : 20);
         }
         public static SlotBuilder input(int x, int y, Ingredient ingredient, int salt, int index) {
             return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).cyclingIngredient(ingredient, salt);
+        }
+        public static SlotBuilder input(int x, int y, Ingredient ingredient, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).cyclingIngredient(ingredient, 0);
+        }
+        // Unified object-based overload: supports List<Ingredient> and other dynamic sources
+        public static SlotBuilder input(int x, int y, java.lang.Object source, int index) {
+            if (source instanceof java.util.List<?> list) {
+                java.util.List<?> raw = list;
+                // Find first non-null element to determine list kind
+                Object first = null;
+                for (Object o : raw) { if (o != null) { first = o; break; } }
+                if (first instanceof Ingredient) {
+                    @SuppressWarnings("unchecked") java.util.List<Ingredient> ings = (java.util.List<Ingredient>) raw;
+                    return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).ingredientList(ings);
+                }
+                if (first instanceof ItemStack) {
+                    @SuppressWarnings("unchecked") java.util.List<ItemStack> stacks = (java.util.List<ItemStack>) raw;
+                    return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicList(stacks);
+                }
+                if (first instanceof net.minecraft.core.Holder) {
+                    @SuppressWarnings("unchecked") java.util.List<net.minecraft.core.Holder<Item>> holders = (java.util.List<net.minecraft.core.Holder<Item>>) raw;
+                    return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicList(holdersToStacks(holders));
+                }
+            }
+            if (source instanceof Ingredient ing) {
+                return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).cyclingIngredient(ing, 0);
+            }
+            if (source instanceof ItemStack st) {
+                return new SlotBuilder(x, y, st, index, SlotRole.INPUT, true);
+            }
+            if (source instanceof Item it) {
+                return new SlotBuilder(x, y, new ItemStack((Item) it), index, SlotRole.INPUT, true);
+            }
+            if (source instanceof net.minecraft.core.Holder) {
+                net.minecraft.core.Holder<Item> h = (net.minecraft.core.Holder<Item>) source;
+                ItemStack s = h == null ? ItemStack.EMPTY : new ItemStack(h.value());
+                return new SlotBuilder(x, y, s, index, SlotRole.INPUT, true);
+            }
+            if (source instanceof java.lang.Iterable<?>) {
+                java.util.List<net.minecraft.core.Holder<Item>> holders = new java.util.ArrayList<>();
+                for (Object o : (java.lang.Iterable<?>) source) if (o instanceof net.minecraft.core.Holder) holders.add((net.minecraft.core.Holder<Item>) o);
+                return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicList(holdersToStacks(holders));
+            }
+            if (source instanceof java.util.stream.Stream<?>) {
+                java.util.stream.Stream<?> s = (java.util.stream.Stream<?>) source;
+                java.util.List<net.minecraft.core.Holder<Item>> holders = s.filter(o -> o instanceof net.minecraft.core.Holder).map(o -> (net.minecraft.core.Holder<Item>) o).toList();
+                return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true).dynamicList(holdersToStacks(holders));
+            }
+            // Fallback
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.INPUT, true);
+        }
+        public static SlotBuilder input(int x, int y, java.lang.Object source, int speed, int index) {
+            SlotBuilder b = input(x, y, source, index);
+            return b.cyclingSpeed(speed > 0 ? speed : 20);
         }
         
         public static SlotBuilder output(int x, int y, ItemStack stack, int index) {
             return new SlotBuilder(x, y, stack, index, SlotRole.OUTPUT, true);
         }
+        public static SlotBuilder output(int x, int y, ItemStack stack, int speed, int index) {
+            return new SlotBuilder(x, y, stack, index, SlotRole.OUTPUT, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder output(int x, int y, Item item, int index) {
+            return new SlotBuilder(x, y, new ItemStack(item), index, SlotRole.OUTPUT, true);
+        }
+        public static SlotBuilder output(int x, int y, Item item, int speed, int index) {
+            return new SlotBuilder(x, y, new ItemStack(item), index, SlotRole.OUTPUT, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder output(int x, int y, Holder<Item> holder, int index) {
+            ItemStack s = holder == null ? ItemStack.EMPTY : new ItemStack(holder.value());
+            return new SlotBuilder(x, y, s, index, SlotRole.OUTPUT, true);
+        }
+        public static SlotBuilder output(int x, int y, Holder<Item> holder, int speed, int index) {
+            ItemStack s = holder == null ? ItemStack.EMPTY : new ItemStack(holder.value());
+            return new SlotBuilder(x, y, s, index, SlotRole.OUTPUT, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
         public static SlotBuilder output(int x, int y, java.util.function.Supplier<ItemStack> supplier, int index) {
             return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).dynamicSupplier(supplier);
         }
+        public static SlotBuilder output(int x, int y, java.util.function.Supplier<ItemStack> supplier, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).dynamicSupplier(supplier).cyclingSpeed(speed > 0 ? speed : 20);
+        }
         public static SlotBuilder output(int x, int y, java.util.List<ItemStack> items, int index) {
             return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).dynamicList(items);
+        }
+        public static SlotBuilder output(int x, int y, java.util.List<ItemStack> items, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).dynamicList(items).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder outputHolders(int x, int y, java.util.List<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder output(int x, int y, java.lang.Iterable<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder output(int x, int y, java.lang.Iterable<Holder<Item>> holders, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).dynamicList(holdersToStacks(holders)).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder outputHolderStream(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder output(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder output(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).dynamicList(holdersToStacks(holders)).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder output(int x, int y, Ingredient ingredient, int salt, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).cyclingIngredient(ingredient, salt);
+        }
+        public static SlotBuilder output(int x, int y, Ingredient ingredient, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.OUTPUT, true).cyclingIngredient(ingredient, 0);
         }
         
         public static SlotBuilder ghost(int x, int y, ItemStack stack, int index) {
             return new SlotBuilder(x, y, stack, index, SlotRole.GHOST, true);
         }
+        public static SlotBuilder ghost(int x, int y, ItemStack stack, int speed, int index) {
+            return new SlotBuilder(x, y, stack, index, SlotRole.GHOST, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder ghost(int x, int y, Item item, int index) {
+            return new SlotBuilder(x, y, new ItemStack(item), index, SlotRole.GHOST, true);
+        }
+        public static SlotBuilder ghost(int x, int y, Item item, int speed, int index) {
+            return new SlotBuilder(x, y, new ItemStack(item), index, SlotRole.GHOST, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder ghost(int x, int y, Holder<Item> holder, int index) {
+            ItemStack s = holder == null ? ItemStack.EMPTY : new ItemStack(holder.value());
+            return new SlotBuilder(x, y, s, index, SlotRole.GHOST, true);
+        }
+        public static SlotBuilder ghost(int x, int y, Holder<Item> holder, int speed, int index) {
+            ItemStack s = holder == null ? ItemStack.EMPTY : new ItemStack(holder.value());
+            return new SlotBuilder(x, y, s, index, SlotRole.GHOST, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder ghost(int x, int y, java.util.List<ItemStack> items, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.GHOST, true).dynamicList(items);
+        }
+        public static SlotBuilder ghost(int x, int y, java.util.List<ItemStack> items, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.GHOST, true).dynamicList(items).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder ghostHolders(int x, int y, java.util.List<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.GHOST, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder ghost(int x, int y, java.lang.Iterable<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.GHOST, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder ghost(int x, int y, java.lang.Iterable<Holder<Item>> holders, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.GHOST, true).dynamicList(holdersToStacks(holders)).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder ghostHolderStream(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.GHOST, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder ghost(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.GHOST, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder ghost(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.GHOST, true).dynamicList(holdersToStacks(holders)).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder ghost(int x, int y, Ingredient ingredient, int salt, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.GHOST, true).cyclingIngredient(ingredient, salt);
+        }
+        public static SlotBuilder ghost(int x, int y, Ingredient ingredient, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.GHOST, true).cyclingIngredient(ingredient, 0);
+        }
         
         public static SlotBuilder catalyst(int x, int y, ItemStack stack, int index) {
             return new SlotBuilder(x, y, stack, index, SlotRole.CATALYST, true);
+        }
+        public static SlotBuilder catalyst(int x, int y, ItemStack stack, int speed, int index) {
+            return new SlotBuilder(x, y, stack, index, SlotRole.CATALYST, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder catalyst(int x, int y, Item item, int index) {
+            return new SlotBuilder(x, y, new ItemStack(item), index, SlotRole.CATALYST, true);
+        }
+        public static SlotBuilder catalyst(int x, int y, Item item, int speed, int index) {
+            return new SlotBuilder(x, y, new ItemStack(item), index, SlotRole.CATALYST, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder catalyst(int x, int y, Holder<Item> holder, int index) {
+            ItemStack s = holder == null ? ItemStack.EMPTY : new ItemStack(holder.value());
+            return new SlotBuilder(x, y, s, index, SlotRole.CATALYST, true);
+        }
+        public static SlotBuilder catalyst(int x, int y, Holder<Item> holder, int speed, int index) {
+            ItemStack s = holder == null ? ItemStack.EMPTY : new ItemStack(holder.value());
+            return new SlotBuilder(x, y, s, index, SlotRole.CATALYST, true).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder catalyst(int x, int y, java.util.List<ItemStack> items, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.CATALYST, true).dynamicList(items);
+        }
+        public static SlotBuilder catalyst(int x, int y, java.util.List<ItemStack> items, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.CATALYST, true).dynamicList(items).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder catalystHolders(int x, int y, java.util.List<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.CATALYST, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder catalyst(int x, int y, java.lang.Iterable<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.CATALYST, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder catalyst(int x, int y, java.lang.Iterable<Holder<Item>> holders, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.CATALYST, true).dynamicList(holdersToStacks(holders)).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder catalystHolderStream(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.CATALYST, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder catalyst(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.CATALYST, true).dynamicList(holdersToStacks(holders));
+        }
+        public static SlotBuilder catalyst(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int speed, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.CATALYST, true).dynamicList(holdersToStacks(holders)).cyclingSpeed(speed > 0 ? speed : 20);
+        }
+        public static SlotBuilder catalyst(int x, int y, Ingredient ingredient, int salt, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.CATALYST, true).cyclingIngredient(ingredient, salt);
+        }
+        public static SlotBuilder catalyst(int x, int y, Ingredient ingredient, int index) {
+            return new SlotBuilder(x, y, ItemStack.EMPTY, index, SlotRole.CATALYST, true).cyclingIngredient(ingredient, 0);
         }
         
         public static SlotBuilder fuel(int x, int y, int index) {
@@ -109,6 +355,8 @@ public class Widgets {
             private List<ItemStack> stackList;
             private Ingredient cyclingIngredient;
             private int cyclingSalt;
+            private int cyclingSpeedTicks = 20;
+            private java.util.List<Ingredient> ingredientList;
             private Widgets.PositionMode positionMode = Widgets.PositionMode.NONE; // relative-to-container positioning using initial x/y as offset
             
             public SlotBuilder(int x, int y, ItemStack stack, int index, SlotRole role, boolean drawBackground) {
@@ -123,21 +371,9 @@ public class Widgets {
                 this.isFuel = isFuel;
             }
 
-            public SlotBuilder dynamicSupplier(Supplier<ItemStack> supplier) {
-                this.stackSupplier = supplier;
-                return this;
-            }
-
-            public SlotBuilder dynamicList(List<ItemStack> stackList) {
-                this.stackList = stackList;
-                return this;
-            }
-
-            public SlotBuilder cyclingIngredient(Ingredient ingredient, int salt) {
-                this.cyclingIngredient = ingredient;
-                this.cyclingSalt = salt;
-                return this;
-            }
+            private SlotBuilder dynamicSupplier(Supplier<ItemStack> supplier) { this.stackSupplier = supplier; return this; }
+            private SlotBuilder dynamicList(List<ItemStack> stackList) { this.stackList = stackList; return this; }
+            private SlotBuilder cyclingIngredient(Ingredient ingredient, int salt) { this.cyclingIngredient = ingredient; this.cyclingSalt = salt; return this; }
 
             // Position helpers: interpret current x/y as offsets relative to the chosen anchor
             public SlotBuilder positionTopLeft() { this.positionMode = Widgets.PositionMode.TOP_LEFT; return this; }
@@ -152,7 +388,7 @@ public class Widgets {
 
             public boolean hasPositioning() { return this.positionMode != Widgets.PositionMode.NONE; }
 
-            public SlotWidget finalizePosition(int contentWidth, int contentHeight) {
+            SlotWidget finalizePosition(int contentWidth, int contentHeight) {
                 int resolvedX = this.x;
                 int resolvedY = this.y;
                 // Anchor using the actual visual size: 26x26 for output-styled slots, 18x18 otherwise
@@ -174,6 +410,8 @@ public class Widgets {
                 if (this.stackSupplier != null) copy.dynamicSupplier(this.stackSupplier);
                 if (this.stackList != null) copy.dynamicList(this.stackList);
                 if (this.cyclingIngredient != null) copy.cyclingIngredient(this.cyclingIngredient, this.cyclingSalt);
+                copy.cyclingSpeed(this.cyclingSpeedTicks);
+                if (this.ingredientList != null) copy.ingredientList(this.ingredientList);
                 // Clear positioning so we don't re-finalize
                 copy.positionMode = Widgets.PositionMode.NONE;
                 return copy;
@@ -188,47 +426,53 @@ public class Widgets {
                 this.customBackground = background;
                 return this;
             }
+
+            private SlotBuilder cyclingSpeed(int ticksPerStep) {
+                this.cyclingSpeedTicks = Math.max(1, ticksPerStep);
+                return this;
+            }
+            private SlotBuilder ingredientList(java.util.List<Ingredient> ings) { this.ingredientList = ings; return this; }
             
             // Override render to use the builder's settings
             @Override
             public void render(GuiGraphics g, Font font, int baseX, int baseY, int mouseX, int mouseY) {
                 SlotWidget widget;
                 if (noBackground) {
-                    widget = new SlotWidget(role, x, y, false, role == SlotRole.OUTPUT, stack, recipeJsonIndex, null, false, true, stackSupplier, stackList, cyclingIngredient, cyclingSalt);
+                    widget = new SlotWidget(role, x, y, false, role == SlotRole.OUTPUT, stack, recipeJsonIndex, null, false, true, stackSupplier, stackList, cyclingIngredient, cyclingSalt, cyclingSpeedTicks, true, ingredientList);
                 } else if (customBackground != null) {
-                    widget = new SlotWidget(role, x, y, true, role == SlotRole.OUTPUT, stack, recipeJsonIndex, customBackground, true, false, stackSupplier, stackList, cyclingIngredient, cyclingSalt);
+                    widget = new SlotWidget(role, x, y, true, role == SlotRole.OUTPUT, stack, recipeJsonIndex, customBackground, true, false, stackSupplier, stackList, cyclingIngredient, cyclingSalt, cyclingSpeedTicks, true, ingredientList);
                 } else {
                     // Use default slot creation based on role with proper textures
                     switch (role) {
                         case INPUT:
                             widget = new SlotWidget(SlotRole.INPUT, x, y, true, false, stack, recipeJsonIndex, 
                                 ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png"), true, false,
-                                stackSupplier, stackList, cyclingIngredient, cyclingSalt);
+                                stackSupplier, stackList, cyclingIngredient, cyclingSalt, cyclingSpeedTicks, true, ingredientList);
                             break;
                         case OUTPUT:
                             widget = new SlotWidget(SlotRole.OUTPUT, x, y, true, true, stack, recipeJsonIndex, 
                                 ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot_output.png"), true, false,
-                                stackSupplier, stackList, cyclingIngredient, cyclingSalt);
+                                stackSupplier, stackList, cyclingIngredient, cyclingSalt, cyclingSpeedTicks, true, ingredientList);
                             break;
                         case GHOST:
                             widget = new SlotWidget(SlotRole.GHOST, x, y, true, false, stack, recipeJsonIndex, 
                                 ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png"), true, false,
-                                stackSupplier, stackList, cyclingIngredient, cyclingSalt);
+                                stackSupplier, stackList, cyclingIngredient, cyclingSalt, cyclingSpeedTicks, true, ingredientList);
                             break;
                         case CATALYST:
                             // For catalyst slots, use the appropriate texture
                             if (isFuel) {
                                 widget = new SlotWidget(SlotRole.CATALYST, x, y, true, false, SlotWidget.getDefaultFuelItem(null), recipeJsonIndex,
                                     ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png"), true, false,
-                                    stackSupplier, stackList, cyclingIngredient, cyclingSalt);
+                                    stackSupplier, stackList, cyclingIngredient, cyclingSalt, cyclingSpeedTicks, true, ingredientList);
                             } else {
                                 widget = new SlotWidget(SlotRole.CATALYST, x, y, true, false, stack, recipeJsonIndex,
                                     ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png"), true, false,
-                                    stackSupplier, stackList, cyclingIngredient, cyclingSalt);
+                                    stackSupplier, stackList, cyclingIngredient, cyclingSalt, cyclingSpeedTicks, true, ingredientList);
                             }
                             break;
                         default:
-                            widget = new SlotWidget(role, x, y, true, role == SlotRole.OUTPUT, stack, recipeJsonIndex, null, false, false, stackSupplier, stackList, cyclingIngredient, cyclingSalt);
+                            widget = new SlotWidget(role, x, y, true, role == SlotRole.OUTPUT, stack, recipeJsonIndex, null, false, false, stackSupplier, stackList, cyclingIngredient, cyclingSalt, cyclingSpeedTicks, true, ingredientList);
                     }
                 }
                 widget.render(g, font, baseX, baseY, mouseX, mouseY);
@@ -239,14 +483,19 @@ public class Widgets {
                 return this.stackList == null ? 0 : this.stackList.size();
             }
 
+            // Expose template cycling parameters to grids/scrolls
             @Override
-            public SlotWidget copyForGridCell(int cellX, int cellY, int index) {
+            public int getCycleSpeedTicks() { return this.cyclingSpeedTicks; }
+            @Override
+            public java.util.List<Ingredient> getIngredientList() { return this.ingredientList; }
+
+            // copyForGridCell() intentionally not exposed on builder; base SlotWidget handles cloning for grids
+            SlotWidget copyForGridCell(int cellX, int cellY, int index) {
                 boolean isOutput = this.role == SlotRole.OUTPUT;
                 boolean drawBg = !this.noBackground;
                 ResourceLocation bg = this.customBackground;
                 boolean useCustom = bg != null;
                 if (!useCustom && drawBg) {
-                    // Match default textures used in render() for consistency
                     bg = isOutput
                             ? ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot_output.png")
                             : ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png");
@@ -266,7 +515,42 @@ public class Widgets {
                         this.stackSupplier,
                         this.stackList,
                         this.cyclingIngredient,
-                        this.cyclingSalt
+                        this.cyclingSalt + Math.max(0, index),
+                        this.cyclingSpeedTicks,
+                        false,
+                        this.ingredientList
+                );
+            }
+
+            SlotWidget copyForGridCell(int cellX, int cellY, int index, boolean listCycleOverride) {
+                boolean isOutput = this.role == SlotRole.OUTPUT;
+                boolean drawBg = !this.noBackground;
+                ResourceLocation bg = this.customBackground;
+                boolean useCustom = bg != null;
+                if (!useCustom && drawBg) {
+                    bg = isOutput
+                            ? ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot_output.png")
+                            : ResourceLocation.fromNamespaceAndPath("ls_tweaks", "textures/gui/recipe_viewer/widgets/slots/slot.png");
+                    useCustom = true;
+                }
+                return new SlotWidget(
+                        this.role,
+                        cellX,
+                        cellY,
+                        drawBg,
+                        isOutput,
+                        this.stack,
+                        index,
+                        bg,
+                        useCustom,
+                        this.noBackground,
+                        this.stackSupplier,
+                        this.stackList,
+                        this.cyclingIngredient,
+                        this.cyclingSalt + Math.max(0, index),
+                        this.cyclingSpeedTicks,
+                        listCycleOverride,
+                        this.ingredientList
                 );
             }
         }
@@ -483,6 +767,7 @@ public class Widgets {
             private final SlotWidget template;
             private Widgets.PositionMode positionMode = Widgets.PositionMode.NONE;
             private boolean hideEmpty = false;
+            private boolean disableListCycling = true; // disabled by default
             public GridBuilder(int x, int y, int columns, int rows, SlotWidget slotWidget) {
                 super(x, y, columns, rows, slotWidget);
                 this.columns = columns;
@@ -501,6 +786,8 @@ public class Widgets {
             public GridBuilder positionBottomRight() { this.positionMode = Widgets.PositionMode.BOTTOM_RIGHT; return this; }
             // Default hides empty cells; call to explicitly show empties
             public GridBuilder hideEmptySlots() { this.hideEmpty = true; return this; }
+            // New: disable list-based cycling replication for non-ingredient lists (default already disabled)
+            public GridBuilder disableListCycling() { this.disableListCycling = true; return this; }
             public GridSlotWidget finalizePosition(int contentWidth, int contentHeight) {
                 int effectiveRows = rows;
                 int effectiveCols = columns;
@@ -518,7 +805,13 @@ public class Widgets {
                 int gridH = Math.max(0, effectiveRows * step);
                 int[] pos = Positioning.resolve(this.positionMode, contentWidth, contentHeight, 0, 0, gridW, gridH, this.x, this.y);
                 java.util.List<net.minecraft.world.item.ItemStack> items = (template instanceof GridSlotWidget gsw) ? gsw.items : java.util.Collections.emptyList();
-                return new GridSlotWidget(pos[0], pos[1], effectiveCols, effectiveRows, template, items, this.hideEmpty);
+                GridSlotWidget g = new GridSlotWidget(pos[0], pos[1], effectiveCols, effectiveRows, template, items, this.hideEmpty);
+                // Propagate cycling behavior preference
+                if (template != null && this.disableListCycling) {
+                    // Force cloned cells not to cycle the same list across all slots
+                    try { g.listCycleOverride = false; } catch (Throwable ignored) {}
+                }
+                return g;
             }
 
             // Expose for scroll builder sizing
@@ -550,6 +843,7 @@ public class Widgets {
             private final int visibleRows;
             private final GridSlotWidget grid;
             private Widgets.PositionMode positionMode = Widgets.PositionMode.NONE;
+            private boolean disableListCycling = true; // disabled by default
             public ScrollBuilder(int x, int y, int visibleRows, GridSlotWidget grid) {
                 super(x, y, visibleRows, grid);
                 this.visibleRows = visibleRows;
@@ -565,6 +859,7 @@ public class Widgets {
             public ScrollBuilder positionBottomLeft() { this.positionMode = Widgets.PositionMode.BOTTOM_LEFT; return this; }
             public ScrollBuilder positionBottomCenter() { this.positionMode = Widgets.PositionMode.BOTTOM_CENTER; return this; }
             public ScrollBuilder positionBottomRight() { this.positionMode = Widgets.PositionMode.BOTTOM_RIGHT; return this; }
+            public ScrollBuilder disableListCycling() { this.disableListCycling = true; return this; }
             public ScrollWidget finalizePosition(int contentWidth, int contentHeight) {
                 int cols = 3;
                 int effRows = visibleRows;
@@ -580,34 +875,20 @@ public class Widgets {
                 int widthPx = Math.max(0, visibleCols * step + 18);
                 int heightPx = Math.max(0, effRows * step);
                 int[] pos = Positioning.resolve(this.positionMode, contentWidth, contentHeight, 0, 0, widthPx, heightPx, this.x, this.y);
-                return new ScrollWidget(pos[0], pos[1], visibleRows, grid);
+                ScrollWidget s = new ScrollWidget(pos[0], pos[1], visibleRows, grid);
+                try { if (disableListCycling && grid != null) grid.listCycleOverride = false; } catch (Throwable ignored) {}
+                return s;
             }
         }
     }
     
     public static class AddText {
-        public static TextBuilder translatable(int x, int y, String key) {
-            return new TextBuilder(x, y, Component.translatable(key), null);
+        public static TextBuilder component(int x, int y, Component text) {
+            return new TextBuilder(x, y, text, null);
         }
         
-        public static TextBuilder translatable(int x, int y, String key, TextColor color) {
-            return new TextBuilder(x, y, Component.translatable(key), color);
-        }
-        
-        public static TextBuilder translatable(int x, int y, String key, ChatFormatting formatting) {
-            return new TextBuilder(x, y, Component.translatable(key).withStyle(formatting), null);
-        }
-        
-        public static TextBuilder literal(int x, int y, String text) {
-            return new TextBuilder(x, y, Component.literal(text), null);
-        }
-        
-        public static TextBuilder literal(int x, int y, String text, TextColor color) {
-            return new TextBuilder(x, y, Component.literal(text), color);
-        }
-        
-        public static TextBuilder literal(int x, int y, String text, ChatFormatting formatting) {
-            return new TextBuilder(x, y, Component.literal(text).withStyle(formatting), null);
+        public static TextBuilder component(int x, int y, Component text, TextColor color) {
+            return new TextBuilder(x, y, text, color);
         }
         
         // Builder class for fluent API that extends TextWidget
@@ -710,6 +991,121 @@ public class Widgets {
                 widget.render(g, font, baseX, baseY);
             }
         }
+    }
+
+    public static class AddIcon {
+        public static class IconBuilder extends IconWidget {
+            private Widgets.PositionMode positionMode = Widgets.PositionMode.NONE;
+            private boolean centered = false;
+            private boolean autoBounds = false;
+            private int boundW = 16;
+            private int boundH = 16;
+            private final ItemStack storeStack;
+            private final int storeIndex;
+            private final java.util.function.Supplier<ItemStack> storeSupplier;
+            private final java.util.List<ItemStack> storeList;
+            private final Ingredient storeIngredient;
+            private final int storeSalt;
+
+            public IconBuilder(int x, int y, ItemStack stack, int index) {
+                super(x, y, stack, index);
+                this.storeStack = stack;
+                this.storeIndex = index;
+                this.storeSupplier = null;
+                this.storeList = null;
+                this.storeIngredient = null;
+                this.storeSalt = 0;
+            }
+            public IconBuilder(int x, int y, java.util.function.Supplier<ItemStack> supplier, int index) {
+                super(x, y, ItemStack.EMPTY, index);
+                this.storeStack = ItemStack.EMPTY;
+                this.storeIndex = index;
+                this.storeSupplier = supplier;
+                this.storeList = null;
+                this.storeIngredient = null;
+                this.storeSalt = 0;
+            }
+            public IconBuilder(int x, int y, java.util.List<ItemStack> items, int index) {
+                super(x, y, ItemStack.EMPTY, index);
+                this.storeStack = ItemStack.EMPTY;
+                this.storeIndex = index;
+                this.storeSupplier = null;
+                this.storeList = items;
+                this.storeIngredient = null;
+                this.storeSalt = 0;
+            }
+            public IconBuilder(int x, int y, Ingredient ingredient, int salt, int index) {
+                super(x, y, ItemStack.EMPTY, index);
+                this.storeStack = ItemStack.EMPTY;
+                this.storeIndex = index;
+                this.storeSupplier = null;
+                this.storeList = null;
+                this.storeIngredient = ingredient;
+                this.storeSalt = salt;
+            }
+
+            public boolean hasPositioning() { return this.positionMode != Widgets.PositionMode.NONE; }
+            public IconBuilder positionTopLeft() { this.positionMode = Widgets.PositionMode.TOP_LEFT; return this; }
+            public IconBuilder positionTopCenter() { this.positionMode = Widgets.PositionMode.TOP_CENTER; return this; }
+            public IconBuilder positionTopRight() { this.positionMode = Widgets.PositionMode.TOP_RIGHT; return this; }
+            public IconBuilder positionMiddleLeft() { this.positionMode = Widgets.PositionMode.MIDDLE_LEFT; return this; }
+            public IconBuilder positionCenter() { this.positionMode = Widgets.PositionMode.CENTER; return this; }
+            public IconBuilder positionMiddleRight() { this.positionMode = Widgets.PositionMode.MIDDLE_RIGHT; return this; }
+            public IconBuilder positionBottomLeft() { this.positionMode = Widgets.PositionMode.BOTTOM_LEFT; return this; }
+            public IconBuilder positionBottomCenter() { this.positionMode = Widgets.PositionMode.BOTTOM_CENTER; return this; }
+            public IconBuilder positionBottomRight() { this.positionMode = Widgets.PositionMode.BOTTOM_RIGHT; return this; }
+
+            public IconBuilder bounds(int width, int height) { this.autoBounds = true; this.boundW = Math.max(1, width); this.boundH = Math.max(1, height); return this; }
+            public IconBuilder centered() { this.centered = true; return this; }
+
+            public IconWidget finalizePosition(int contentWidth, int contentHeight) {
+                int w = this.autoBounds ? this.boundW : 16;
+                int h = this.autoBounds ? this.boundH : 16;
+                int[] pos = Positioning.resolve(this.positionMode, contentWidth, contentHeight, 0, 0, w, h, this.x, this.y);
+                int nx = pos[0];
+                int ny = pos[1];
+                if (this.autoBounds) {
+                    return new IconWidget(nx, ny, this.boundW, this.boundH, this.centered, this.storeStack, this.storeIndex, this.storeSupplier, this.storeList, this.storeIngredient, this.storeSalt);
+                } else {
+                    // ignore centered without bounds
+                    if (this.storeSupplier != null) return new IconWidget(nx, ny, this.storeStack, this.storeIndex);
+                    if (this.storeList != null) return new IconWidget(nx, ny, this.storeStack, this.storeIndex);
+                    if (this.storeIngredient != null) return new IconWidget(nx, ny, this.storeStack, this.storeIndex);
+                    return new IconWidget(nx, ny, this.storeStack, this.storeIndex);
+                }
+            }
+
+            @Override
+            public void render(GuiGraphics g, Font font, int baseX, int baseY) {
+                IconWidget widget;
+                if (this.autoBounds) {
+                    widget = new IconWidget(x, y, this.boundW, this.boundH, this.centered, this.storeStack, this.storeIndex, this.storeSupplier, this.storeList, this.storeIngredient, this.storeSalt);
+                } else {
+                    widget = new IconWidget(x, y, this.storeStack, this.storeIndex);
+                }
+                widget.render(g, font, baseX, baseY);
+            }
+        }
+
+        private static java.util.List<ItemStack> holdersToStacks(java.util.List<Holder<Item>> holders) {
+            java.util.ArrayList<ItemStack> list = new java.util.ArrayList<>();
+            if (holders != null) for (Holder<Item> h : holders) if (h != null && h.isBound()) list.add(new ItemStack(h.value()));
+            return list;
+        }
+        private static java.util.List<ItemStack> holdersToStacks(java.util.stream.Stream<Holder<Item>> holders) {
+            if (holders == null) return java.util.Collections.emptyList();
+            return holders.filter(java.util.Objects::nonNull).filter(Holder::isBound).map(h -> new ItemStack(h.value())).toList();
+        }
+
+        public static IconBuilder of(int x, int y, ItemStack stack, int index) { return new IconBuilder(x, y, stack, index); }
+        public static IconBuilder of(int x, int y, Item item, int index) { return new IconBuilder(x, y, new ItemStack(item), index); }
+        public static IconBuilder of(int x, int y, Holder<Item> holder, int index) { return new IconBuilder(x, y, (holder == null ? ItemStack.EMPTY : new ItemStack(holder.value())), index); }
+        public static IconBuilder of(int x, int y, java.util.function.Supplier<ItemStack> supplier, int index) { return new IconBuilder(x, y, supplier, index); }
+        public static IconBuilder of(int x, int y, java.util.List<ItemStack> items, int index) { return new IconBuilder(x, y, items, index); }
+        public static IconBuilder ofHolders(int x, int y, java.util.List<Holder<Item>> holders, int index) { return new IconBuilder(x, y, holdersToStacks(holders), index); }
+        public static IconBuilder ofHolders(int x, int y, java.util.stream.Stream<Holder<Item>> holders, int index) { return new IconBuilder(x, y, holdersToStacks(holders), index); }
+        public static IconBuilder of(int x, int y, Ingredient ingredient, int index) { return new IconBuilder(x, y, ingredient, 0, index); }
+        public static IconBuilder of(int x, int y, Ingredient ingredient, int salt, int index) { return new IconBuilder(x, y, ingredient, salt, index); }
     }
 
     /** Hoverable tooltip widgets */

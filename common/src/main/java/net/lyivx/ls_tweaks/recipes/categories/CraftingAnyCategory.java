@@ -39,9 +39,9 @@ public final class CraftingAnyCategory implements RecipeBackedCategory<CraftingR
         if (isShapeless) title += " (Shapeless)";
         builder.title(title);
 
-        // Build flattened 3x3 list and render via GridSlotWidget
-        java.util.List<ItemStack> cells = new java.util.ArrayList<>(9);
-        for (int i = 0; i < 9; i++) cells.add(ItemStack.EMPTY);
+        // Build flattened 3x3 ingredients for per-cell cycling
+        java.util.List<Ingredient> ings = new java.util.ArrayList<>(9);
+        for (int i = 0; i < 9; i++) ings.add(null);
         if (recipe instanceof ShapedRecipe shaped) {
             int w = shaped.getWidth();
             int h = shaped.getHeight();
@@ -57,9 +57,8 @@ public final class CraftingAnyCategory implements RecipeBackedCategory<CraftingR
                         if (opt != null && opt.isPresent()) ing = opt.get();
                     }
                     if (ing != null) {
-                        ItemStack cell = ing.items().findFirst().map(hd -> new ItemStack(hd.value())).orElse(ItemStack.EMPTY);
                         int ci = gy * 3 + gx;
-                        if (ci >= 0 && ci < 9) cells.set(ci, cell);
+                        if (ci >= 0 && ci < 9) ings.set(ci, ing);
                     }
                     p++;
                 }
@@ -70,13 +69,11 @@ public final class CraftingAnyCategory implements RecipeBackedCategory<CraftingR
                 var info = recipe.placementInfo();
                 if (info != null && info.ingredients() != null) ingredients = info.ingredients();
             } catch (Throwable ignored) {}
-            for (int i = 0; i < Math.min(9, ingredients.size()); i++) {
-                Ingredient ing = ingredients.get(i);
-                if (ing != null) cells.set(i, ing.items().findFirst().map(hd -> new ItemStack(hd.value())).orElse(ItemStack.EMPTY));
-            }
+            for (int i = 0; i < Math.min(9, ingredients.size()); i++) ings.set(i, ingredients.get(i));
         }
-        var grid = Widgets.AddGrid.items(0, 0, 3, 3, Widgets.AddSlot.input(0, 0, cells, 0)).positionMiddleLeft();
-        builder.addSlot(grid);
+        // Use GridSlotWidget per-cell ingredient cycling; inherits speed from template slot
+        // Provide ingredients via the template slot; grid/scroll will consume from it
+        builder.addSlot(Widgets.AddGrid.items(0, 0, 3, 3, Widgets.AddSlot.input(0, 0, ings, 0)).positionMiddleLeft());
 
         // Output + arrow
         builder.addSlot(Widgets.AddSlot.output(0, 0, out, 0).positionMiddleRight());

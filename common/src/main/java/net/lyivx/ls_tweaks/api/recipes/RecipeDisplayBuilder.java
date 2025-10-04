@@ -10,6 +10,7 @@ public class RecipeDisplayBuilder {
     private String title = "";
     private final List<SlotWidget> slots = new ArrayList<>();
     private final List<TextureWidget> textures = new ArrayList<>();
+    private final List<IconWidget> icons = new ArrayList<>();
     private final List<TextWidget> texts = new ArrayList<>();
     private final List<HoverTooltipWidget> hovers = new ArrayList<>();
     private int contentWidth = 150;
@@ -39,6 +40,10 @@ public class RecipeDisplayBuilder {
     
     public RecipeDisplayBuilder addTexture(TextureWidget texture) {
         this.textures.add(texture);
+        return this;
+    }
+    public RecipeDisplayBuilder addIcon(IconWidget icon) {
+        this.icons.add(icon);
         return this;
     }
     
@@ -87,6 +92,15 @@ public class RecipeDisplayBuilder {
                 resolvedTexts.add(t);
             }
         }
+        // Finalize icon positioning
+        java.util.List<IconWidget> resolvedIcons = new java.util.ArrayList<>(this.icons.size());
+        for (IconWidget i : this.icons) {
+            if (i instanceof Widgets.AddIcon.IconBuilder ib && ib.hasPositioning()) {
+                resolvedIcons.add(ib.finalizePosition(this.contentWidth, this.contentHeight));
+            } else {
+                resolvedIcons.add(i);
+            }
+        }
         // Finalize hover positioning
         java.util.List<HoverTooltipWidget> resolvedHovers = new java.util.ArrayList<>(this.hovers.size());
         for (HoverTooltipWidget h : this.hovers) {
@@ -99,6 +113,7 @@ public class RecipeDisplayBuilder {
         // Finalize grid/scroll positioning
         java.util.List<TextureWidget> finalTextures = resolvedTextures;
         java.util.List<TextWidget> finalTexts = resolvedTexts;
+        java.util.List<IconWidget> finalIcons = resolvedIcons;
         java.util.List<HoverTooltipWidget> finalHovers = resolvedHovers;
         java.util.List<SlotWidget> finalSlots = new java.util.ArrayList<>(resolved.size());
         for (SlotWidget s : resolved) {
@@ -110,7 +125,7 @@ public class RecipeDisplayBuilder {
                 finalSlots.add(s);
             }
         }
-        return new SimpleRecipeDisplay(title, finalSlots, finalTextures, finalTexts, finalHovers, contentWidth, contentHeight);
+        return new SimpleRecipeDisplay(title, finalSlots, finalTextures, finalTexts, finalIcons, finalHovers, contentWidth, contentHeight);
     }
     
     private static class SimpleRecipeDisplay implements RecipeDisplay {
@@ -119,15 +134,17 @@ public class RecipeDisplayBuilder {
         private final List<TextureWidget> textures;
         private final List<TextWidget> texts;
         private final List<HoverTooltipWidget> hovers;
+        private final List<IconWidget> icons;
         
         private final int contentWidth;
         private final int contentHeight;
         
-        public SimpleRecipeDisplay(String title, List<SlotWidget> slots, List<TextureWidget> textures, List<TextWidget> texts, List<HoverTooltipWidget> hovers, int contentWidth, int contentHeight) {
+        public SimpleRecipeDisplay(String title, List<SlotWidget> slots, List<TextureWidget> textures, List<TextWidget> texts, List<IconWidget> icons, List<HoverTooltipWidget> hovers, int contentWidth, int contentHeight) {
             this.title = title;
             this.slots = new ArrayList<>(slots);
             this.textures = new ArrayList<>(textures);
             this.texts = new ArrayList<>(texts);
+            this.icons = new ArrayList<>(icons);
             this.hovers = new ArrayList<>(hovers);
             this.contentWidth = contentWidth;
             this.contentHeight = contentHeight;
@@ -147,6 +164,8 @@ public class RecipeDisplayBuilder {
         public List<TextureWidget> textures() {
             return new ArrayList<>(textures);
         }
+        @Override
+        public List<IconWidget> icons() { return new ArrayList<>(icons); }
         
         @Override
         public List<TextWidget> textWidgets() {

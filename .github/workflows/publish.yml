@@ -7,6 +7,10 @@ on:
         description: 'Version to set (overrides mod_version)'
         required: false
         default: ''
+      mc_version:
+        description: 'Minecraft version (e.g., 1.21.4)'
+        required: false
+        default: ''
   push:
     tags:
       - 'v*'
@@ -42,10 +46,31 @@ jobs:
             # strip leading v if present
             VER="${TAG#v}"
             echo "version=$VER" >> $GITHUB_OUTPUT
+            # try to extract mc version from tag patterns like v1.0.0-mc1.21.4 or v1.0.0+mc1.21.4
+            if [[ "$TAG" =~ mc([0-9]+\.[0-9]+(\.[0-9]+)?) ]]; then
+              echo "mc_version=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+            else
+              echo "mc_version=" >> $GITHUB_OUTPUT
+            fi
           elif [[ -n "${{ github.event.inputs.version }}" ]]; then
             echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+            if [[ -n "${{ github.event.inputs.mc_version }}" ]]; then
+              echo "mc_version=${{ github.event.inputs.mc_version }}" >> $GITHUB_OUTPUT
+            else
+              echo "mc_version=" >> $GITHUB_OUTPUT
+            fi
           else
             echo "version=" >> $GITHUB_OUTPUT
+            echo "mc_version=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Validate Minecraft version is provided
+        shell: bash
+        run: |
+          MC="${{ steps.derive.outputs.mc_version }}"
+          if [[ -z "$MC" ]]; then
+            echo "::error::Minecraft version is required. Provide it via tag (e.g., v1.0.0-mc1.21.4) or workflow input mc_version."
+            exit 1
           fi
 
       - name: Build (tagged version)
@@ -53,14 +78,14 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.9
-          arguments: -Pmod_version=${{ steps.derive.outputs.version }} build --stacktrace
+          arguments: -Pmod_version=${{ steps.derive.outputs.version }} -Pmc_version=${{ steps.derive.outputs.mc_version }} build --stacktrace
 
       - name: Build (default version)
         if: ${{ steps.derive.outputs.version == '' }}
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.9
-          arguments: build --stacktrace
+          arguments: -Pmc_version=${{ steps.derive.outputs.mc_version }} build --stacktrace
 
       - name: Publish to GitHub Packages (tagged version)
         if: ${{ steps.derive.outputs.version != '' }}
@@ -70,7 +95,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           gradle-version: 8.9
-          arguments: -Pgpr.user=${{ github.actor }} -Pgpr.key=${{ secrets.GITHUB_TOKEN }} -PgprOwner=${{ github.repository_owner }} -PgprRepo=${{ github.event.repository.name }} -Pmod_version=${{ steps.derive.outputs.version }} publish --stacktrace
+          arguments: -Pgpr.user=${{ github.actor }} -Pgpr.key=${{ secrets.GITHUB_TOKEN }} -PgprOwner=${{ github.repository_owner }} -PgprRepo=${{ github.event.repository.name }} -Pmod_version=${{ steps.derive.outputs.version }} -Pmc_version=${{ steps.derive.outputs.mc_version }} publish --stacktrace
 
       - name: Publish to GitHub Packages (default version)
         if: ${{ steps.derive.outputs.version == '' }}
@@ -80,6 +105,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           gradle-version: 8.9
-          arguments: -Pgpr.user=${{ github.actor }} -Pgpr.key=${{ secrets.GITHUB_TOKEN }} -PgprOwner=${{ github.repository_owner }} -PgprRepo=${{ github.event.repository.name }} publish --stacktrace
+          arguments: -Pgpr.user=${{ github.actor }} -Pgpr.key=${{ secrets.GITHUB_TOKEN }} -PgprOwner=${{ github.repository_owner }} -PgprRepo=${{ github.event.repository.name }} -Pmc_version=${{ steps.derive.outputs.mc_version }} publish --stacktrace
+
+      - name: Upload to GitHub Pages Maven (tagged or manual)
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.9
+          arguments: -Pmc_version=${{ steps.derive.outputs.mc_version }} publishAllPublicationsToPagesRepository --stacktrace
+
+      - name: Deploy Maven repo to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/pages-maven
+          keep_files: true
+          destination_dir: maven
 
 

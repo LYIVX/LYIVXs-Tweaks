@@ -17,6 +17,8 @@ public interface RecipeDisplay {
 
     /** Arbitrary decorative textures (e.g., arrows, fire), positioned. */
     List<TextureWidget> textures();
+    /** Icon widgets for scalable items. */
+    default List<IconWidget> icons() { return List.of(); }
     
     /** Text widgets. */
     default List<TextWidget> textWidgets() { return List.of(); }

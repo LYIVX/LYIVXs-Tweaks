@@ -1,15 +1,19 @@
 package net.lyivx.ls_tweaks.recipes.categories;
 
+import net.lyivx.ls_furniture.common.recipes.WorkstationRecipe;
 import net.lyivx.ls_tweaks.api.recipes.RecipeBackedCategory;
 import net.lyivx.ls_tweaks.api.recipes.RecipeDisplay;
 import net.lyivx.ls_tweaks.api.recipes.RecipeDisplayBuilder;
 import net.lyivx.ls_tweaks.api.recipes.Widgets;
 import net.lyivx.ls_tweaks.recipes.wrappers.CookingRecipeHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.lyivx.ls_tweaks.recipes.util.DisplayUtil;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 /** Simple cooking category base */
 public abstract class CookingCategoryBase implements RecipeBackedCategory<AbstractCookingRecipe> {
@@ -38,76 +42,31 @@ public abstract class CookingCategoryBase implements RecipeBackedCategory<Abstra
 
     @Override
     public RecipeDisplay buildDisplay(AbstractCookingRecipe recipe) {
-        try {
-            java.lang.reflect.Constructor<?> c = net.minecraft.world.item.crafting.RecipeHolder.class.getConstructors()[0];
-            Object rh = c.newInstance(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("unknown", "recipe"), (Recipe<?>) recipe);
-            if (rh instanceof net.minecraft.world.item.crafting.RecipeHolder holder) {
-                return buildDisplayWithHolder((net.minecraft.world.item.crafting.RecipeHolder<Recipe<?>>) holder);
-            }
-        } catch (Throwable ignored) {}
-        // Fallback: create a simple display without recipe name
-        return buildDisplaySimple(recipe);
+        return null;
+    }
+
+    @Override
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RecipeDisplay buildDisplay(RecipeHolder<? extends Recipe<?>> holder) {
+        return buildDisplayWithHolder((RecipeHolder) holder);
     }
     
-    private RecipeDisplay buildDisplaySimple(AbstractCookingRecipe recipe) {
-        ItemStack in = ItemStack.EMPTY;
-        int cookingTime = 0;
-        float experience = 0.0f;
-        
-        // Use helper to get input items reliably
-        in = CookingRecipeHelper.getFirstInputItem(recipe);
-        cookingTime = CookingRecipeHelper.getCookingTime(recipe);
-        experience = CookingRecipeHelper.getExperience(recipe);
-
-        ItemStack out = (recipe instanceof AbstractCookingRecipe cooking) ? assembleCookingOutput(cooking) : ItemStack.EMPTY;
+    public RecipeDisplay buildDisplayWithHolder(RecipeHolder<Recipe<?>> holder) {
         RecipeDisplayBuilder builder = new RecipeDisplayBuilder();
-        
-        // Set title
-        String title = out.isEmpty() ? id.toString() : out.getHoverName().getString();
-        builder.title(title);
-        
-        // Add Input
-        builder.addSlot(Widgets.AddSlot.input(0, 4, in, 0).positionTopLeft());
-        // Add Flame
-        builder.addTexture(Widgets.AddFlame.progress(21, 6).positionTopLeft());
-        // Add Fuel
-        builder.addSlot(Widgets.AddSlot.fuel(-10, 4, 0).positionTopCenter());
-        // Add Arrow
-        builder.addTexture(Widgets.AddArrow.Right.progress(-30, 5).positionTopRight());
-        if (cookingTime > 0) {
-            builder.addText(Widgets.AddText.literal(-30, 0, cookingTime + "tk/s").centered().bounds(22, 6).positionBottomRight());
-        }
-        builder.addHover(Widgets.AddHover.literal(-30, 0, 22, 6, "Cooking Time").positionBottomRight());
 
-        // Add Output
-        builder.addSlot(Widgets.AddSlot.output(0, 0, out, 0).positionTopRight());
-        if (experience > 0.0f) {
-            builder.addText(Widgets.AddText.literal(0, 0, String.format("%.1f XP", experience)).centered().bounds(26, 6).positionBottomRight().color("lime"));
-        }
-        builder.addHover(Widgets.AddHover.literal(0, 0, 26, 6, "Given Experience").positionBottomRight());
-
-        // Set content size
-        builder.contentSize(111, 34);
-
-        return builder.build();
-    }
-    
-    public RecipeDisplay buildDisplayWithHolder(net.minecraft.world.item.crafting.RecipeHolder<Recipe<?>> holder) {
         Recipe<?> recipe = holder.value();
-        ItemStack in = ItemStack.EMPTY;
+        Ingredient in = null;
         int cookingTime = 0;
         float experience = 0.0f;
-        
         if (recipe instanceof AbstractCookingRecipe cookingRecipe) {
             // Use helper to get input items reliably
-            in = CookingRecipeHelper.getFirstInputItem(cookingRecipe);
-            cookingTime = CookingRecipeHelper.getCookingTime(cookingRecipe);
-            experience = CookingRecipeHelper.getExperience(cookingRecipe);
+            in = cookingRecipe.input();
+            cookingTime = cookingRecipe.cookingTime();
+            experience = cookingRecipe.experience();
         }
 
         ItemStack out = (recipe instanceof AbstractCookingRecipe cooking) ? assembleCookingOutput(cooking) : DisplayUtil.firstOutput(holder);
-        RecipeDisplayBuilder builder = new RecipeDisplayBuilder();
-        
+
         // Set title
         String title = out.isEmpty() ? id.toString() : out.getHoverName().getString();
         builder.title(title);
@@ -124,10 +83,10 @@ public abstract class CookingCategoryBase implements RecipeBackedCategory<Abstra
 
         // Add labels for cooking time and experience using bounded text widgets
         if (cookingTime > 0) {
-            builder.addText(Widgets.AddText.literal(40, 35, cookingTime + "s").bounds(20, 10));
+            builder.addText(Widgets.AddText.component(40, 35, Component.literal(cookingTime + "s")).bounds(20, 10));
         }
         if (experience > 0.0f) {
-            builder.addText(Widgets.AddText.literal(110, 35, String.format("%.1f XP", experience)).bounds(25, 10).color("lime"));
+            builder.addText(Widgets.AddText.component(110, 35, Component.literal(String.format("%.1f XP", experience))).bounds(25, 10).color("lime"));
         }
 
         // Set content size

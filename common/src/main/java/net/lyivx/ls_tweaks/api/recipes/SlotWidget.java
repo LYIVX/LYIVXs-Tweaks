@@ -35,6 +35,9 @@ public class SlotWidget {
     private final List<ItemStack> stackList;
     private final Ingredient cyclingIngredient;
     private final int cyclingSalt;
+    private final int cycleSpeedTicks; // ticks per item when cycling lists/ingredients (default 20)
+    private final boolean listCycle;   // whether list sources should cycle (disabled for grid cells)
+    private final List<Ingredient> ingredientList; // optional per-cell ingredient list for grids
 
     public SlotWidget(SlotRole role, int x, int y, boolean drawBackground, boolean isOutputStyle,
                       ItemStack stack, int recipeJsonIndex,
@@ -53,6 +56,9 @@ public class SlotWidget {
         this.stackList = null;
         this.cyclingIngredient = null;
         this.cyclingSalt = 0;
+        this.cycleSpeedTicks = 20;
+        this.listCycle = false;
+        this.ingredientList = null;
     }
 
     public SlotWidget(SlotRole role, int x, int y, boolean drawBackground, boolean isOutputStyle,
@@ -61,7 +67,10 @@ public class SlotWidget {
                       @Nullable Supplier<ItemStack> stackSupplier,
                       @Nullable List<ItemStack> stackList,
                       @Nullable Ingredient cyclingIngredient,
-                      int cyclingSalt) {
+                      int cyclingSalt,
+                      int cycleSpeedTicks,
+                      boolean listCycle,
+                      @Nullable List<Ingredient> ingredientList) {
         this.role = role;
         this.x = x;
         this.y = y;
@@ -76,6 +85,9 @@ public class SlotWidget {
         this.stackList = stackList;
         this.cyclingIngredient = cyclingIngredient;
         this.cyclingSalt = cyclingSalt;
+        this.cycleSpeedTicks = Math.max(1, cycleSpeedTicks);
+        this.listCycle = listCycle;
+        this.ingredientList = ingredientList;
     }
 
     // Factory methods for common use cases
@@ -163,10 +175,28 @@ public class SlotWidget {
                 toRender = ItemStack.EMPTY;
             }
         } else if (this.stackList != null) {
-            int idx = Math.max(0, this.recipeJsonIndex);
-            toRender = (idx < this.stackList.size() && this.stackList.get(idx) != null) ? this.stackList.get(idx) : ItemStack.EMPTY;
+            if (this.listCycle) {
+                try {
+                    var mc = net.minecraft.client.Minecraft.getInstance();
+                    long ticks = (mc != null && mc.level != null) ? mc.level.getGameTime() : System.currentTimeMillis() / 50L;
+                    int size = this.stackList.size();
+                    if (size <= 0) {
+                        toRender = ItemStack.EMPTY;
+                    } else {
+                        long step = Math.max(1L, this.cycleSpeedTicks);
+                        int idx = (int)(((ticks / step) + Math.max(0, this.cyclingSalt)) % size);
+                        ItemStack s = this.stackList.get(idx);
+                        toRender = (s == null) ? ItemStack.EMPTY : s;
+                    }
+                } catch (Throwable t) {
+                    toRender = ItemStack.EMPTY;
+                }
+            } else {
+                int idx = Math.max(0, this.recipeJsonIndex);
+                toRender = (idx < this.stackList.size() && this.stackList.get(idx) != null) ? this.stackList.get(idx) : ItemStack.EMPTY;
+            }
         } else if (this.cyclingIngredient != null) {
-            toRender = getCyclingItem(this.cyclingIngredient, this.cyclingSalt);
+            toRender = getCyclingItem(this.cyclingIngredient, this.cyclingSalt, this.cycleSpeedTicks);
         } else {
             toRender = this.stack;
         }
@@ -208,34 +238,82 @@ public class SlotWidget {
 
     // Creates a copy of this slot configured for a specific grid cell position and index,
     // preserving role, backgrounds, suppliers, and cycling settings.
-    public SlotWidget copyForGridCell(int cellX, int cellY, int index) {
+    SlotWidget copyForGridCell(int cellX, int cellY, int index) {
+        ResourceLocation bg = this.customBackground;
+        boolean useCustom = this.useCustomBackground;
+        boolean drawBg = this.drawBackground;
+        if (!useCustom && drawBg && !this.noBackground) {
+            bg = (this.isOutputStyle || this.role == SlotRole.OUTPUT)
+                    ? outputBg
+                    : inputBg;
+            useCustom = true;
+        }
         return new SlotWidget(
                 this.role,
                 cellX,
                 cellY,
-                this.drawBackground,
+                drawBg,
                 this.isOutputStyle,
                 this.stack,
                 index,
-                this.customBackground,
-                this.useCustomBackground,
+                bg,
+                useCustom,
                 this.noBackground,
                 this.stackSupplier,
                 this.stackList,
                 this.cyclingIngredient,
-                this.cyclingSalt
+                this.cyclingSalt,
+                this.cycleSpeedTicks,
+                this.listCycle,
+                this.ingredientList
         );
     }
 
-    private static ItemStack getCyclingItem(Ingredient ingredient, int salt) {
+    SlotWidget copyForGridCell(int cellX, int cellY, int index, boolean listCycleOverride) {
+        ResourceLocation bg = this.customBackground;
+        boolean useCustom = this.useCustomBackground;
+        boolean drawBg = this.drawBackground;
+        if (!useCustom && drawBg && !this.noBackground) {
+            bg = (this.isOutputStyle || this.role == SlotRole.OUTPUT)
+                    ? outputBg
+                    : inputBg;
+            useCustom = true;
+        }
+        return new SlotWidget(
+                this.role,
+                cellX,
+                cellY,
+                drawBg,
+                this.isOutputStyle,
+                this.stack,
+                index,
+                bg,
+                useCustom,
+                this.noBackground,
+                this.stackSupplier,
+                this.stackList,
+                this.cyclingIngredient,
+                this.cyclingSalt,
+                this.cycleSpeedTicks,
+                listCycleOverride,
+                this.ingredientList
+        );
+    }
+
+    private static ItemStack getCyclingItem(Ingredient ingredient, int salt, int speedTicks) {
         try {
             var mc = net.minecraft.client.Minecraft.getInstance();
-            long t = (mc != null && mc.level != null) ? mc.level.getGameTime() : 0L; // 20 ticks/sec
+            long t = (mc != null && mc.level != null) ? mc.level.getGameTime() : System.currentTimeMillis() / 50L; // ~20 TPS fallback
             var holders = ingredient.items().toList();
             if (holders.isEmpty()) return ItemStack.EMPTY;
-            int idx = (int)(((t / 20L) + Math.max(0, salt)) % holders.size());
+            long step = Math.max(1L, speedTicks);
+            int idx = (int)(((t / step) + Math.max(0, salt)) % holders.size());
             return new ItemStack(holders.get(idx).value());
         } catch (Throwable ignored) {}
         return ItemStack.EMPTY;
     }
+
+    public int getCycleSpeedTicks() { return this.cycleSpeedTicks; }
+    public boolean isListCycleEnabled() { return this.listCycle; }
+    public @Nullable List<Ingredient> getIngredientList() { return this.ingredientList; }
 }
