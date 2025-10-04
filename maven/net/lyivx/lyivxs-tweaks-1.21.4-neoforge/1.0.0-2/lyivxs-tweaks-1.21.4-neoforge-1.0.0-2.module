@@ -1,0 +1,139 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "net.lyivx",
+    "module": "lyivxs-tweaks-1.21.4-neoforge",
+    "version": "1.0.0-2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.9"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "com.teamresourceful.resourcefullib",
+          "module": "resourcefullib-neoforge-1.21.4",
+          "version": {
+            "requires": "3.4.5"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-2.jar",
+          "url": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-2.jar",
+          "size": 779795,
+          "sha512": "02b6a8712269b3aeb9a6de2601c323fca54b96e8d5e0759e326049f4c1cd841af2ae69b9218722eb70558759fc79b0f8cf853b33279c3acb3ad20054d764b2ba",
+          "sha256": "1b80f26718790aa2e6dde04d99336f52d20643e09a97c8bb93352e3c930956db",
+          "sha1": "a38219420013d437ead6ea939de9724a617539fb",
+          "md5": "01c20fefe088c88f573ef4e4af6db6a2"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.teamresourceful.resourcefullib",
+          "module": "resourcefullib-neoforge-1.21.4",
+          "version": {
+            "requires": "3.4.5"
+          }
+        },
+        {
+          "group": "dev.architectury",
+          "module": "architectury-neoforge",
+          "version": {
+            "requires": "15.0.3"
+          }
+        },
+        {
+          "group": "com.teamresourceful.resourcefullib",
+          "module": "resourcefullib-common-1.21.4",
+          "version": {
+            "requires": "3.4.5"
+          }
+        },
+        {
+          "group": "curse.maven",
+          "module": "lyivxs-core-1200581",
+          "version": {
+            "requires": "7018765"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-2.jar",
+          "url": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-2.jar",
+          "size": 779795,
+          "sha512": "02b6a8712269b3aeb9a6de2601c323fca54b96e8d5e0759e326049f4c1cd841af2ae69b9218722eb70558759fc79b0f8cf853b33279c3acb3ad20054d764b2ba",
+          "sha256": "1b80f26718790aa2e6dde04d99336f52d20643e09a97c8bb93352e3c930956db",
+          "sha1": "a38219420013d437ead6ea939de9724a617539fb",
+          "md5": "01c20fefe088c88f573ef4e4af6db6a2"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-2-sources.jar",
+          "url": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-2-sources.jar",
+          "size": 4509,
+          "sha512": "aff567b03b4cfcc982987b51135dd71ad0e7453af5a090d72c86c4ca617f99a8ae74b33756c039f44c89349d486e599f56ebd3894e19c2d815526672b660bdaa",
+          "sha256": "56f2a541b2d3a958797fe2b10625cea88e88aad67c95bebdc958b3478b6bae4e",
+          "sha1": "2bd6db8bc56f205bf7bebe5a03b4d287e1c91baa",
+          "md5": "88be3ac91c2feb764afc78a4cc2a8c17"
+        }
+      ]
+    },
+    {
+      "name": "shadowRuntimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "shadowed",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-2-dev-shadow.jar",
+          "url": "lyivxs-tweaks-1.21.4-neoforge-1.0.0-2-dev-shadow.jar",
+          "size": 333912,
+          "sha512": "aaae3131a4c43e5e1d254a9b460b46b5e6670d408bbe6e8c2cdc6f7c339c53d39948e20788122a3dfa85a1d3638d4b2ea303593a5d84f8054195acc98e045cb3",
+          "sha256": "db25f4b07c4548ef9e15d1c0c6839c5c0ca789ddc2ae80d51eb6bbfe59cb2a3d",
+          "sha1": "6b9297d2605dfff3ba6cea3ba4818f87a4f79f30",
+          "md5": "d991fd484faa74b8813efc669ac1b5be"
+        }
+      ]
+    }
+  ]
+}

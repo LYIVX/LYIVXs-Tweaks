@@ -1,0 +1,117 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "net.lyivx",
+    "module": "lyivxs-tweaks-1.21.4-common",
+    "version": "1.0.0-2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.9"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "lyivxs-tweaks-1.21.4-common-1.0.0-2.jar",
+          "url": "lyivxs-tweaks-1.21.4-common-1.0.0-2.jar",
+          "size": 331663,
+          "sha512": "79912cee60a397ae67a286e77fcdedc446f398f1d63a94d06c34bfd415e6026604e899b588f1e7b08f522b596ccdeb46ab20977f94e706d8d10298e3c18a7f44",
+          "sha256": "a7edf11934c50cd6ce7c7d29ea09358e1e406ae63122238c075d052efc00186b",
+          "sha1": "6546b578e8410274dfbe59787c0a0100808411b3",
+          "md5": "c6d404dacb0b88795af64325ba944a49"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "net.fabricmc",
+          "module": "fabric-loader",
+          "version": {
+            "requires": "0.17.2"
+          }
+        },
+        {
+          "group": "dev.architectury",
+          "module": "architectury",
+          "version": {
+            "requires": "15.0.3"
+          }
+        },
+        {
+          "group": "com.teamresourceful.resourcefullib",
+          "module": "resourcefullib-common-1.21.4",
+          "version": {
+            "requires": "3.4.5"
+          }
+        },
+        {
+          "group": "curse.maven",
+          "module": "lyivxs-core-1200581",
+          "version": {
+            "requires": "7018764"
+          }
+        },
+        {
+          "group": "curse.maven",
+          "module": "furnection-914878",
+          "version": {
+            "requires": "6928764"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "lyivxs-tweaks-1.21.4-common-1.0.0-2.jar",
+          "url": "lyivxs-tweaks-1.21.4-common-1.0.0-2.jar",
+          "size": 331663,
+          "sha512": "79912cee60a397ae67a286e77fcdedc446f398f1d63a94d06c34bfd415e6026604e899b588f1e7b08f522b596ccdeb46ab20977f94e706d8d10298e3c18a7f44",
+          "sha256": "a7edf11934c50cd6ce7c7d29ea09358e1e406ae63122238c075d052efc00186b",
+          "sha1": "6546b578e8410274dfbe59787c0a0100808411b3",
+          "md5": "c6d404dacb0b88795af64325ba944a49"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "lyivxs-tweaks-1.21.4-common-1.0.0-2-sources.jar",
+          "url": "lyivxs-tweaks-1.21.4-common-1.0.0-2-sources.jar",
+          "size": 160195,
+          "sha512": "0996a41bbaf287bb3000636b4ba97a98676a1460f00816db96c010319ce0320cdb3b9d312dc89f4b4a5bdad88f64b2e9caca2e3a90659af50a855725ac0e5946",
+          "sha256": "e855d9fdd8382dd6a9c43bff270076a0afe8fc3b3faa2edac3ec266b9088bf39",
+          "sha1": "42716b58e123b05f666793b2bcc5103959f768b1",
+          "md5": "f3e8855ec898e405fcbca04b6dfd060f"
+        }
+      ]
+    }
+  ]
+}
