@@ -49,8 +49,8 @@ jobs:
             TAG="${GITHUB_REF_NAME}"
             # strip leading v if present
             VER="${TAG#v}"
-            # Parse base version and optional mc version (accepts separators -mc or +mc)
-            if [[ "$VER" =~ ^([0-9]+\.[0-9]+\.[0-9]+)(?:[\-+]?mc([0-9]+\.[0-9]+(?:\.[0-9]+)?))?$ ]]; then
+            # Parse base version (optionally with pre-release like -rc1 or -1) and optional mc version (accepts -mc or +mc)
+            if [[ "$VER" =~ ^([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z\._-]+)?)(?:[\-+]?mc([0-9]+\.[0-9]+(?:\.[0-9]+)?))?$ ]]; then
               echo "version=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
               if [[ -n "${BASH_REMATCH[2]}" ]]; then
                 echo "mc_version=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
@@ -69,7 +69,7 @@ jobs:
           elif [[ -n "${{ github.event.inputs.version }}" ]]; then
             # If a full version like 1.0.1-mc1.21.4 is provided, split it; otherwise use as-is
             MANUAL_VER='${{ github.event.inputs.version }}'
-            if [[ "$MANUAL_VER" =~ ^([0-9]+\.[0-9]+\.[0-9]+)(?:[\-+]?mc([0-9]+\.[0-9]+(?:\.[0-9]+)?))?$ ]]; then
+            if [[ "$MANUAL_VER" =~ ^([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z\._-]+)?)(?:[\-+]?mc([0-9]+\.[0-9]+(?:\.[0-9]+)?))?$ ]]; then
               echo "version=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
               if [[ -n "${BASH_REMATCH[2]}" ]]; then
                 echo "mc_version=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
@@ -153,6 +153,18 @@ jobs:
             VER=$(grep '^mod_version=' gradle.properties | cut -d'=' -f2)
           fi
           POM="build/pages-maven/net/lyivx/$ART/$VER/$ART-$VER.pom"
+          if [[ ! -f "$POM" ]]; then
+            # If VER accidentally included -mc..., trim it and try again
+            if [[ "$VER" == *-mc* ]]; then
+              VER_TRIMMED=${VER%%-mc*}
+              POM="build/pages-maven/net/lyivx/$ART/$VER_TRIMMED/$ART-$VER_TRIMMED.pom"
+            fi
+          fi
+          if [[ ! -f "$POM" ]]; then
+            # Final fallback to gradle.properties mod_version
+            VER_FALLBACK=$(grep '^mod_version=' gradle.properties | cut -d'=' -f2)
+            POM="build/pages-maven/net/lyivx/$ART/$VER_FALLBACK/$ART-$VER_FALLBACK.pom"
+          fi
           if [[ ! -f "$POM" ]]; then
             echo "::error::Expected POM not found: $POM"
             exit 1
